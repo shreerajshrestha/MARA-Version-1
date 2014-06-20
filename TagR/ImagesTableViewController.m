@@ -171,4 +171,10 @@ finishedSavingWithError:(NSError *)error
         [alert show];
     }
 }
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
