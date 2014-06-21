@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */; };
+		0441D22B1954EE0900C05FA8 /* ACEImageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0441D22A1954EE0900C05FA8 /* ACEImageTableViewController.m */; };
+		0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441D22D195516CC00C05FA8 /* AVFoundation.framework */; };
 		04AA34681953FC5900600B80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA34671953FC5900600B80 /* main.m */; };
 		04AA346B1953FC5900600B80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA346A1953FC5900600B80 /* AppDelegate.m */; };
 		04AA346E1953FC5900600B80 /* TagR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04AA346C1953FC5900600B80 /* TagR.xcdatamodeld */; };
 		04AA34741953FC5900600B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04AA34721953FC5900600B80 /* Main.storyboard */; };
 		04AA34761953FC5900600B80 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AA34751953FC5900600B80 /* Images.xcassets */; };
 		04AA34821953FC5900600B80 /* TagRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA34811953FC5900600B80 /* TagRTests.m */; };
-		04AA3490195400CC00600B80 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA348F195400CC00600B80 /* ImagesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041EBE5019551CFC00828F00 /* ACERecorderWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderWindowViewController.h; sourceTree = "<group>"; };
+		041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderWindowViewController.m; sourceTree = "<group>"; };
+		0441D2291954EE0900C05FA8 /* ACEImageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEImageTableViewController.h; sourceTree = "<group>"; };
+		0441D22A1954EE0900C05FA8 /* ACEImageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEImageTableViewController.m; sourceTree = "<group>"; };
+		0441D22D195516CC00C05FA8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		04AA34621953FC5900600B80 /* TagR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TagR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34661953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04AA34671953FC5900600B80 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -38,8 +45,6 @@
 		04AA347B1953FC5900600B80 /* TagRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TagRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34801953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04AA34811953FC5900600B80 /* TagRTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagRTests.m; sourceTree = "<group>"; };
-		04AA348E195400CC00600B80 /* ImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesTableViewController.h; sourceTree = "<group>"; };
-		04AA348F195400CC00600B80 /* ImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +66,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		041EBE4F19551CD500828F00 /* Media View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				041EBE5019551CFC00828F00 /* ACERecorderWindowViewController.h */,
+				041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */,
+			);
+			name = "Media View Controllers";
+			sourceTree = "<group>";
+		};
+		0441D22C1954F82A00C05FA8 /* Table View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0441D2291954EE0900C05FA8 /* ACEImageTableViewController.h */,
+				0441D22A1954EE0900C05FA8 /* ACEImageTableViewController.m */,
+			);
+			name = "Table View Controllers";
+			sourceTree = "<group>";
+		};
 		04AA34591953FC5900600B80 = {
 			isa = PBXGroup;
 			children = (
+				0441D22D195516CC00C05FA8 /* AVFoundation.framework */,
 				04AA34641953FC5900600B80 /* TagR */,
 				04AA347E1953FC5900600B80 /* TagRTests */,
 				04AA34631953FC5900600B80 /* Products */,
@@ -81,13 +106,13 @@
 		04AA34641953FC5900600B80 /* TagR */ = {
 			isa = PBXGroup;
 			children = (
-				04AA348E195400CC00600B80 /* ImagesTableViewController.h */,
-				04AA348F195400CC00600B80 /* ImagesTableViewController.m */,
 				04AA34691953FC5900600B80 /* AppDelegate.h */,
 				04AA346A1953FC5900600B80 /* AppDelegate.m */,
 				04AA34721953FC5900600B80 /* Main.storyboard */,
 				04AA34751953FC5900600B80 /* Images.xcassets */,
+				041EBE4F19551CD500828F00 /* Media View Controllers */,
 				04AA346C1953FC5900600B80 /* TagR.xcdatamodeld */,
+				0441D22C1954F82A00C05FA8 /* Table View Controllers */,
 				04AA34651953FC5900600B80 /* Supporting Files */,
 			);
 			path = TagR;
@@ -163,6 +188,7 @@
 		04AA345A1953FC5900600B80 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ACE;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Shree Raj Shrestha";
 				TargetAttributes = {
@@ -220,8 +246,9 @@
 			files = (
 				04AA346E1953FC5900600B80 /* TagR.xcdatamodeld in Sources */,
 				04AA346B1953FC5900600B80 /* AppDelegate.m in Sources */,
+				041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */,
 				04AA34681953FC5900600B80 /* main.m in Sources */,
-				04AA3490195400CC00600B80 /* ImagesTableViewController.m in Sources */,
+				0441D22B1954EE0900C05FA8 /* ACEImageTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +364,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = TagR/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -350,7 +377,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = TagR/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

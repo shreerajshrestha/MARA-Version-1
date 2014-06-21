@@ -8,7 +8,7 @@
         <scene sceneID="WFn-I3-N2Q">
             <objects>
                 <tabBarController id="Ulm-aS-zRE" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Sg3-ow-emE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -84,12 +84,95 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Recordings" id="2a5-dF-NiB">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FAU-3i-a6X"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FAU-3i-a6X">
+                            <connections>
+                                <segue destination="Gi1-z1-tJU" kind="show" id="Nqe-ef-BNC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ape-qX-m9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1120" y="1247"/>
+        </scene>
+        <!--Recorder Window View Controller-->
+        <scene sceneID="Ehu-uV-x7D">
+            <objects>
+                <viewController id="Gi1-z1-tJU" customClass="ACERecorderWindowViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yp0-3Q-CxB"/>
+                        <viewControllerLayoutGuide type="bottom" id="Zqw-6E-Noa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5s5-ZE-UDa">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cbw-kY-HGq">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="20" y="305" width="50" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="recordPauseButtonTapped:" destination="Gi1-z1-tJU" eventType="touchUpInside" id="58g-Ms-AHK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9W-nw-r84">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Stop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="267" y="305" width="33" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="stopButtonTapped:" destination="Gi1-z1-tJU" eventType="touchUpInside" id="VQN-65-r0P"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZu-o5-XrP">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="145" y="305" width="30" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="playButtonTapped:" destination="Gi1-z1-tJU" eventType="touchUpInside" id="KzN-yD-jfC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Cbw-kY-HGq"/>
+                                <exclude reference="c9W-nw-r84"/>
+                                <exclude reference="TZu-o5-XrP"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Cbw-kY-HGq"/>
+                                <include reference="c9W-nw-r84"/>
+                                <include reference="TZu-o5-XrP"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="gZL-zx-hGW"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="playButton" destination="TZu-o5-XrP" id="0yf-S4-EDD"/>
+                        <outlet property="recordPauseButton" destination="Cbw-kY-HGq" id="jjG-hs-81e"/>
+                        <outlet property="stopButton" destination="c9W-nw-r84" id="se2-MA-nvU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZKC-9f-67B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1849.5" y="1246.5"/>
         </scene>
         <!--Table View Controller - My Tags-->
         <scene sceneID="uMP-qG-dAI">
@@ -124,10 +207,10 @@
             </objects>
             <point key="canvasLocation" x="1115" y="1967"/>
         </scene>
-        <!--Images Table View Controller - My Images-->
+        <!--Image Table View Controller - My Images-->
         <scene sceneID="aDn-zu-8EJ">
             <objects>
-                <tableViewController id="EG8-ix-HMR" customClass="ImagesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="EG8-ix-HMR" customClass="ACEImageTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="f2j-pj-9fT">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,13 +234,12 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="My Images" id="nLO-bO-oYh">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="knB-hS-rc0">
-                            <connections>
-                                <action selector="useCamera:" destination="EG8-ix-HMR" id="b2q-87-CEd"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="knB-hS-rc0"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="useCamera" destination="knB-hS-rc0" id="2zN-U1-XiO"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="af2-DH-Iej" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
