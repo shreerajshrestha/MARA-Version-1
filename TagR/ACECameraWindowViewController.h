@@ -1,20 +1,21 @@
 //
-//  ACEImageTableViewController.h
+//  ACECameraWindowViewController.h
 //  TagR
 //
-//  Created by Shree Raj Shrestha on 6/20/14.
+//  Created by Shree Raj Shrestha on 6/21/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
 //
-
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface ACEImageTableViewController : UITableViewController
+@interface ACECameraWindowViewController : UIViewController
 <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-@property BOOL newMedia;
+//@property BOOL newMedia;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *useCamera;
+
+- (IBAction)useCamera:(UIBarButtonItem *)sender;
+
 
 @end

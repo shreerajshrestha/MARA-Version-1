@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */; };
-		0441D22B1954EE0900C05FA8 /* ACEImageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0441D22A1954EE0900C05FA8 /* ACEImageTableViewController.m */; };
+		041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */; };
 		0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441D22D195516CC00C05FA8 /* AVFoundation.framework */; };
+		04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */; };
 		04AA34681953FC5900600B80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA34671953FC5900600B80 /* main.m */; };
 		04AA346B1953FC5900600B80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA346A1953FC5900600B80 /* AppDelegate.m */; };
 		04AA346E1953FC5900600B80 /* TagR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04AA346C1953FC5900600B80 /* TagR.xcdatamodeld */; };
@@ -31,9 +32,11 @@
 /* Begin PBXFileReference section */
 		041EBE5019551CFC00828F00 /* ACERecorderWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderWindowViewController.h; sourceTree = "<group>"; };
 		041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderWindowViewController.m; sourceTree = "<group>"; };
-		0441D2291954EE0900C05FA8 /* ACEImageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEImageTableViewController.h; sourceTree = "<group>"; };
-		0441D22A1954EE0900C05FA8 /* ACEImageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEImageTableViewController.m; sourceTree = "<group>"; };
+		041EBE5319553E5700828F00 /* ACECameraWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACECameraWindowViewController.h; sourceTree = "<group>"; };
+		041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACECameraWindowViewController.m; sourceTree = "<group>"; };
 		0441D22D195516CC00C05FA8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		04532BBC195BD7E90039E975 /* ACEVideoRecorderWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEVideoRecorderWindowViewController.h; sourceTree = "<group>"; };
+		04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEVideoRecorderWindowViewController.m; sourceTree = "<group>"; };
 		04AA34621953FC5900600B80 /* TagR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TagR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34661953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04AA34671953FC5900600B80 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -71,17 +74,12 @@
 			children = (
 				041EBE5019551CFC00828F00 /* ACERecorderWindowViewController.h */,
 				041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */,
+				041EBE5319553E5700828F00 /* ACECameraWindowViewController.h */,
+				041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */,
+				04532BBC195BD7E90039E975 /* ACEVideoRecorderWindowViewController.h */,
+				04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */,
 			);
 			name = "Media View Controllers";
-			sourceTree = "<group>";
-		};
-		0441D22C1954F82A00C05FA8 /* Table View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				0441D2291954EE0900C05FA8 /* ACEImageTableViewController.h */,
-				0441D22A1954EE0900C05FA8 /* ACEImageTableViewController.m */,
-			);
-			name = "Table View Controllers";
 			sourceTree = "<group>";
 		};
 		04AA34591953FC5900600B80 = {
@@ -112,7 +110,6 @@
 				04AA34751953FC5900600B80 /* Images.xcassets */,
 				041EBE4F19551CD500828F00 /* Media View Controllers */,
 				04AA346C1953FC5900600B80 /* TagR.xcdatamodeld */,
-				0441D22C1954F82A00C05FA8 /* Table View Controllers */,
 				04AA34651953FC5900600B80 /* Supporting Files */,
 			);
 			path = TagR;
@@ -247,8 +244,9 @@
 				04AA346E1953FC5900600B80 /* TagR.xcdatamodeld in Sources */,
 				04AA346B1953FC5900600B80 /* AppDelegate.m in Sources */,
 				041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */,
+				041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */,
+				04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */,
 				04AA34681953FC5900600B80 /* main.m in Sources */,
-				0441D22B1954EE0900C05FA8 /* ACEImageTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
