@@ -17,6 +17,7 @@
 		04AA34741953FC5900600B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04AA34721953FC5900600B80 /* Main.storyboard */; };
 		04AA34761953FC5900600B80 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AA34751953FC5900600B80 /* Images.xcassets */; };
 		04AA34821953FC5900600B80 /* TagRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA34811953FC5900600B80 /* TagRTests.m */; };
+		04AB60C2195D9ACE000050E2 /* ACERecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AB60C1195D9ACE000050E2 /* ACERecorderViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		04AA347B1953FC5900600B80 /* TagRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TagRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34801953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04AA34811953FC5900600B80 /* TagRTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagRTests.m; sourceTree = "<group>"; };
+		04AB60C0195D9ACE000050E2 /* ACERecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderViewController.h; sourceTree = "<group>"; };
+		04AB60C1195D9ACE000050E2 /* ACERecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				041EBE5019551CFC00828F00 /* ACERecorderWindowViewController.h */,
+				04AB60C0195D9ACE000050E2 /* ACERecorderViewController.h */,
+				04AB60C1195D9ACE000050E2 /* ACERecorderViewController.m */,
 				041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */,
 				041EBE5319553E5700828F00 /* ACECameraWindowViewController.h */,
 				041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */,
@@ -244,6 +249,7 @@
 				04AA346E1953FC5900600B80 /* TagR.xcdatamodeld in Sources */,
 				04AA346B1953FC5900600B80 /* AppDelegate.m in Sources */,
 				041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */,
+				04AB60C2195D9ACE000050E2 /* ACERecorderViewController.m in Sources */,
 				041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */,
 				04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */,
 				04AA34681953FC5900600B80 /* main.m in Sources */,
@@ -317,7 +323,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos7.1;
 			};
 			name = Debug;
 		};
@@ -351,7 +357,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				METAL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos7.1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

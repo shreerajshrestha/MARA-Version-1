@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 - (IBAction)useCamera:(UIBarButtonItem *)sender;
+- (IBAction)saveImageButton:(UIBarButtonItem *)sender;
 
 
 @end

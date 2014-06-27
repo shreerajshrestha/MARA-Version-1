@@ -59,19 +59,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         
-        _imageView.image = image;
-        
-        //******Being saved to gallery here so need to change
-        
-//        if (_newMedia)
-//            UIImageWriteToSavedPhotosAlbum(image,
-//                                           self,
-//                                           @selector(image:finishedSavingWithError:contextInfo:),
-//                                           nil);
-    }
-    else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie])
-    {
-        // Code here to support video if enabled
+       //decided to take image view out, assign image url to this image here
+        //_imageView.image = image;
+
     }
 }
 
@@ -108,5 +98,8 @@ finishedSavingWithError:(NSError *)error
         [self presentViewController:imagePicker animated:YES completion:nil];
 //        _newMedia = YES;
     }
+}
+
+- (IBAction)saveImageButton:(UIBarButtonItem *)sender {
 }
 @end
