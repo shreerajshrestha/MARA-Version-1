@@ -43,6 +43,9 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <variation key="heightClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
+                        </variation>
                         <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
                         </variation>
@@ -128,6 +131,9 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <variation key="heightClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
+                        </variation>
                         <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
                         </variation>
@@ -276,37 +282,120 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="save" id="0Iv-Pj-OV2"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="L6G-Q5-L8P">
                             <connections>
-                                <action selector="playButtonTapped:" destination="Gi1-z1-tJU" id="Wdc-ST-9ti"/>
+                                <segue destination="utC-5C-bs0" kind="presentation" id="YJ7-go-xhC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="playButton" destination="L6G-Q5-L8P" id="6eS-lN-psj"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZKC-9f-67B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2647.5" y="1246.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Recorder View Controller-->
         <scene sceneID="jO7-pA-rlA">
             <objects>
-                <viewController id="ISc-SO-RGF" sceneMemberID="viewController">
+                <viewController id="ISc-SO-RGF" customClass="ACERecorderViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yhg-NX-qft"/>
                         <viewControllerLayoutGuide type="bottom" id="Eqv-uB-MI4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9rY-jh-4h4">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CcF-ab-g4z">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Stop">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="383" y="254" width="46" height="30"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="235" y="180" width="33" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="stopButtonTapped:" destination="ISc-SO-RGF" eventType="touchUpInside" id="X3F-3o-IkW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bj9-q9-Cfy">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Record">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="79" y="258" width="82" height="30"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="51" y="180" width="50" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="recordPauseButtonTapped:" destination="ISc-SO-RGF" eventType="touchUpInside" id="96f-Vv-LCs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyj-PU-yQY">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="236" y="335" width="46" height="30"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="145" y="245" width="30" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="playButtonTapped:" destination="ISc-SO-RGF" eventType="touchUpInside" id="x6k-vP-0sI"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="Wyj-PU-yQY" secondAttribute="bottom" constant="365" id="TX5-RM-74f"/>
+                            <constraint firstItem="bj9-q9-Cfy" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="51" id="jgA-ec-fDT"/>
+                            <constraint firstAttribute="trailing" secondItem="CcF-ab-g4z" secondAttribute="trailing" constant="52" id="le8-LM-Cvd"/>
+                        </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="CcF-ab-g4z"/>
+                                <exclude reference="bj9-q9-Cfy"/>
+                                <exclude reference="Wyj-PU-yQY"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="TX5-RM-74f"/>
+                                <exclude reference="le8-LM-Cvd"/>
+                                <exclude reference="jgA-ec-fDT"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="TX5-RM-74f"/>
+                                <include reference="le8-LM-Cvd"/>
+                                <include reference="jgA-ec-fDT"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="CcF-ab-g4z"/>
+                                <include reference="bj9-q9-Cfy"/>
+                                <include reference="Wyj-PU-yQY"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Jem-n1-AQ4"/>
+                    <navigationItem key="navigationItem" id="Jem-n1-AQ4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="cAR-0y-Amu"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="playButton" destination="Wyj-PU-yQY" id="ex8-Lk-ko5"/>
+                        <outlet property="recordPauseButton" destination="bj9-q9-Cfy" id="IXr-NV-WAm"/>
+                        <outlet property="stopButton" destination="CcF-ab-g4z" id="Ofu-zy-zAk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jOQ-UB-9Jb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4054.5" y="1246.5"/>
+            <point key="canvasLocation" x="4054" y="1246.5"/>
         </scene>
         <!--Table View Controller - My Tags-->
         <scene sceneID="uMP-qG-dAI">
@@ -325,6 +414,9 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <variation key="heightClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
+                        </variation>
                         <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
                         </variation>
@@ -358,6 +450,9 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <variation key="heightClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
+                        </variation>
                         <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
                         </variation>

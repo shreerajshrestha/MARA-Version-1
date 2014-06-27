@@ -13,11 +13,11 @@
 <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *recordPauseButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *playButton;
+@property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) IBOutlet UIButton *stopButton;
 
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender;
-- (IBAction)playButtonTapped:(UIBarButtonItem *)sender;
+- (IBAction)playButtonTapped:(UIButton *)sender;
 - (IBAction)stopButtonTapped:(UIButton *)sender;
 
 @end
