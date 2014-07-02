@@ -8,7 +8,8 @@
 
 #import "ACERecorderViewController.h"
 
-@interface ACERecorderViewController () {
+@interface ACERecorderViewController ()
+{
     AVAudioRecorder *audioRecorder;
     AVAudioPlayer *audioPlayer;
 }
@@ -62,7 +63,6 @@
     audioRecorder.delegate = self;
     audioRecorder.meteringEnabled = YES;
     [audioRecorder prepareToRecord];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,8 +82,8 @@
 }
 */
 
-- (IBAction)recordPauseButtonTapped:(UIButton *)sender {
-    
+- (IBAction)recordPauseButtonTapped:(UIButton *)sender
+{
     //Stopping the audio player before recording
     if (audioPlayer.playing) {
         [audioPlayer stop];
@@ -112,7 +112,8 @@
 
 }
 
-- (IBAction)playButtonTapped:(UIButton *)sender {
+- (IBAction)playButtonTapped:(UIButton *)sender
+{
     
     if (!audioRecorder.recording) {
         audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioRecorder.url error:nil];
@@ -122,7 +123,8 @@
     
 }
 
-- (IBAction)stopButtonTapped:(UIButton *)sender {
+- (IBAction)stopButtonTapped:(UIButton *)sender
+{
     
     [audioRecorder stop];
     
@@ -131,7 +133,15 @@
     
 }
 
-- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag {
+- (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender
+{
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag
+{
     [_recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
     
     [_stopButton setEnabled:NO];

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ulm-aS-zRE">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
     </dependencies>
     <scenes>
@@ -73,7 +72,7 @@
                     <navigationItem key="navigationItem" title="My Videos" id="rkM-jZ-GlJ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="po0-B5-PYA">
                             <connections>
-                                <segue destination="sG4-NP-5hR" kind="presentation" id="lLC-UL-Jpc"/>
+                                <segue destination="sG4-NP-5hR" kind="presentation" id="Fcy-37-pPA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -82,7 +81,7 @@
             </objects>
             <point key="canvasLocation" x="1120" y="494"/>
         </scene>
-        <!--Video Recorder Window View Controller-->
+        <!--Video Recorder Window View Controller - Add Video-->
         <scene sceneID="JPo-WK-y0e">
             <objects>
                 <viewController id="Vyk-bR-Aug" customClass="ACEVideoRecorderWindowViewController" sceneMemberID="viewController">
@@ -106,7 +105,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Wg-5K-c6J" userLabel="Text Field - Save as:">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="94" y="88" width="206" height="30"/>
                                 </variation>
@@ -123,7 +122,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUt-jf-5JS">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="94" y="129" width="206" height="30"/>
                                 </variation>
@@ -159,11 +158,14 @@
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="98" y="265" width="125" height="30"/>
                                 </variation>
+                                <connections>
+                                    <action selector="getLocationDataButtonAddVideoTapped:" destination="Vyk-bR-Aug" eventType="touchUpInside" id="v2i-Yf-gJy"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSH-lx-rtx">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="20" y="196" width="280" height="30"/>
                                 </variation>
@@ -231,14 +233,25 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Pge-ld-kcI">
-                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="tLq-Kn-mZh"/>
+                    <navigationItem key="navigationItem" title="Add Video" id="Pge-ld-kcI">
+                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="tLq-Kn-mZh">
+                            <connections>
+                                <action selector="saveVideoButtonTapped:" destination="Vyk-bR-Aug" id="tF3-ve-RpO"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="uhJ-Io-pPQ">
                             <connections>
-                                <action selector="captureButton:" destination="Vyk-bR-Aug" id="evJ-Kh-daa"/>
+                                <action selector="useCameraForVideoButtonTapped:" destination="Vyk-bR-Aug" id="b3W-69-KgD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="descriptionTextFieldAddVideo" destination="fSH-lx-rtx" id="qbb-nr-2EY"/>
+                        <outlet property="latitudeLabel" destination="GTS-LD-ke5" id="aia-Rd-xsH"/>
+                        <outlet property="longitudeLabel" destination="ROb-WI-gIF" id="ieo-Xc-Pqn"/>
+                        <outlet property="saveAsTextFieldAddVideo" destination="3Wg-5K-c6J" id="0mA-hc-xim"/>
+                        <outlet property="tagsTextFieldAddVideo" destination="cUt-jf-5JS" id="u8M-Ne-Sxh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6IP-dZ-ECz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -318,14 +331,6 @@
                                     <rect key="frame" x="20" y="92" width="66" height="21"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5P-WS-orK" userLabel="Text Field - Save as:">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="94" y="88" width="206" height="30"/>
-                                </variation>
-                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBn-1b-0Ko">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -338,7 +343,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pu6-Fv-U18">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="94" y="129" width="206" height="30"/>
                                 </variation>
@@ -361,14 +366,6 @@
                                     <rect key="frame" x="20" y="175" width="93" height="21"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EOg-iq-r0N">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="20" y="326" width="134" height="30"/>
-                                </variation>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8KC-4F-DsE">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -377,12 +374,15 @@
                                     <rect key="frame" x="162" y="326" width="138" height="30"/>
                                 </variation>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eoa-ld-e8q">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eoa-ld-e8q">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Get Location Data"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="98" y="265" width="125" height="30"/>
                                 </variation>
+                                <connections>
+                                    <action selector="getLocationDataButtonAddImageTapped:" destination="fXy-On-r26" eventType="touchUpInside" id="w5h-ih-qXZ"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2wc-4h-n7W">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
@@ -410,38 +410,54 @@
                                     <rect key="frame" x="223" y="303" width="77" height="21"/>
                                 </variation>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EOg-iq-r0N">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="20" y="326" width="134" height="30"/>
+                                </variation>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5P-WS-orK" userLabel="Text Field - Save as:">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="94" y="88" width="206" height="30"/>
+                                </variation>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="6hj-7y-3va"/>
-                                <exclude reference="l5P-WS-orK"/>
                                 <exclude reference="UBn-1b-0Ko"/>
                                 <exclude reference="pu6-Fv-U18"/>
                                 <exclude reference="GRn-87-zfi"/>
                                 <exclude reference="1eV-4H-KcZ"/>
-                                <exclude reference="EOg-iq-r0N"/>
                                 <exclude reference="8KC-4F-DsE"/>
                                 <exclude reference="2wc-4h-n7W"/>
                                 <exclude reference="vZ4-yd-ihD"/>
                                 <exclude reference="1HG-q6-7Vv"/>
+                                <exclude reference="EOg-iq-r0N"/>
+                                <exclude reference="l5P-WS-orK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="6hj-7y-3va"/>
-                                <include reference="l5P-WS-orK"/>
                                 <include reference="UBn-1b-0Ko"/>
                                 <include reference="pu6-Fv-U18"/>
                                 <include reference="GRn-87-zfi"/>
                                 <include reference="1eV-4H-KcZ"/>
-                                <include reference="EOg-iq-r0N"/>
                                 <include reference="8KC-4F-DsE"/>
                                 <include reference="Eoa-ld-e8q"/>
                                 <include reference="2wc-4h-n7W"/>
                                 <include reference="vZ4-yd-ihD"/>
                                 <include reference="1HG-q6-7Vv"/>
+                                <include reference="EOg-iq-r0N"/>
+                                <include reference="l5P-WS-orK"/>
                             </mask>
                         </variation>
                     </view>
@@ -452,21 +468,28 @@
                     <navigationItem key="navigationItem" title="Add Image" id="q21-9u-iDT">
                         <barButtonItem key="leftBarButtonItem" systemItem="save" id="PhM-hl-i0a">
                             <connections>
-                                <action selector="saveImageButton:" destination="fXy-On-r26" id="7mh-9a-uOz"/>
+                                <action selector="saveImageButtonTapped:" destination="fXy-On-r26" id="BWc-l0-35C"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Lr7-sA-9H8">
                             <connections>
-                                <action selector="useCamera:" destination="fXy-On-r26" id="EGb-Tl-Fym"/>
+                                <action selector="useCameraForImageButtonTapped:" destination="fXy-On-r26" id="ZOB-6j-NAw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="descriptionTextFieldAddImage" destination="2wc-4h-n7W" id="geb-G7-XiW"/>
+                        <outlet property="latitudeLabel" destination="EOg-iq-r0N" id="wik-83-YaT"/>
+                        <outlet property="longitudeLabel" destination="8KC-4F-DsE" id="8OI-AO-2Bd"/>
+                        <outlet property="saveAsTextFieldAddImage" destination="l5P-WS-orK" id="fdr-IW-TDS"/>
+                        <outlet property="tagsTextFieldAddImage" destination="pu6-Fv-U18" id="rix-yH-Rlb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bg7-Ls-WT2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2647.5" y="-258"/>
         </scene>
-        <!--Recorder Window View Controller-->
+        <!--Recorder Window View Controller - Add Recording-->
         <scene sceneID="Ehu-uV-x7D">
             <objects>
                 <viewController id="Gi1-z1-tJU" customClass="ACERecorderWindowViewController" sceneMemberID="viewController">
@@ -490,7 +513,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8IH-ff-L82" userLabel="Text Field - Save as:">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="94" y="86" width="206" height="30"/>
                                 </variation>
@@ -507,7 +530,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGT-P6-nLp">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="94" y="127" width="206" height="30"/>
                                 </variation>
@@ -552,11 +575,14 @@
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="98" y="263" width="125" height="30"/>
                                 </variation>
+                                <connections>
+                                    <action selector="getLocationDataButtonAddRecordingTapped:" destination="Gi1-z1-tJU" eventType="touchUpInside" id="Idz-Ex-ZIt"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IfN-mc-11L">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="20" y="194" width="280" height="30"/>
                                 </variation>
@@ -616,8 +642,12 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="gZL-zx-hGW">
-                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="0Iv-Pj-OV2"/>
+                    <navigationItem key="navigationItem" title="Add Recording" id="gZL-zx-hGW">
+                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="0Iv-Pj-OV2">
+                            <connections>
+                                <action selector="saveRecordingButtonTapped:" destination="Gi1-z1-tJU" id="Qkk-j6-JgD"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="L6G-Q5-L8P">
                             <connections>
                                 <segue destination="utC-5C-bs0" kind="presentation" id="YJ7-go-xhC"/>
@@ -625,6 +655,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="descriptionTextFieldAddRecording" destination="IfN-mc-11L" id="cCD-h4-gSi"/>
+                        <outlet property="latitudeLabel" destination="gDc-Iz-aDi" id="Mt2-vT-Ks0"/>
+                        <outlet property="longitudeLabel" destination="Qnm-JT-on2" id="Haj-Cu-w9V"/>
+                        <outlet property="saveAsTextFieldAddRecording" destination="8IH-ff-L82" id="0kP-dz-J57"/>
+                        <outlet property="tagsTextFieldAddRecording" destination="TGT-P6-nLp" id="ZAH-M7-f3R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZKC-9f-67B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -686,11 +723,15 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Wyj-PU-yQY" secondAttribute="trailing" constant="145" id="8sl-RP-pAd"/>
                             <constraint firstItem="bj9-q9-Cfy" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="116" id="9xn-RE-8Vn"/>
+                            <constraint firstItem="Wyj-PU-yQY" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="181" id="Gmp-Nb-OsR"/>
                             <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="Wyj-PU-yQY" secondAttribute="bottom" constant="365" id="TX5-RM-74f"/>
+                            <constraint firstItem="CcF-ab-g4z" firstAttribute="leading" secondItem="bj9-q9-Cfy" secondAttribute="trailing" constant="134" id="c0W-0J-2A5"/>
                             <constraint firstItem="CcF-ab-g4z" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="116" id="fT8-e1-Weq"/>
                             <constraint firstItem="bj9-q9-Cfy" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="51" id="jgA-ec-fDT"/>
                             <constraint firstAttribute="trailing" secondItem="CcF-ab-g4z" secondAttribute="trailing" constant="52" id="le8-LM-Cvd"/>
+                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="bj9-q9-Cfy" secondAttribute="bottom" constant="430" id="pDU-od-v00"/>
                             <constraint firstItem="Wyj-PU-yQY" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="145" id="ypZ-ZT-D8f"/>
+                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="CcF-ab-g4z" secondAttribute="bottom" constant="430" id="yvf-R7-zNj"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
@@ -703,10 +744,14 @@
                                 <exclude reference="9xn-RE-8Vn"/>
                                 <exclude reference="jgA-ec-fDT"/>
                                 <exclude reference="8sl-RP-pAd"/>
+                                <exclude reference="Gmp-Nb-OsR"/>
                                 <exclude reference="ypZ-ZT-D8f"/>
+                                <exclude reference="c0W-0J-2A5"/>
                                 <exclude reference="fT8-e1-Weq"/>
                                 <exclude reference="le8-LM-Cvd"/>
                                 <exclude reference="TX5-RM-74f"/>
+                                <exclude reference="pDU-od-v00"/>
+                                <exclude reference="yvf-R7-zNj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -714,10 +759,14 @@
                                 <include reference="9xn-RE-8Vn"/>
                                 <include reference="jgA-ec-fDT"/>
                                 <include reference="8sl-RP-pAd"/>
+                                <include reference="Gmp-Nb-OsR"/>
                                 <include reference="ypZ-ZT-D8f"/>
+                                <include reference="c0W-0J-2A5"/>
                                 <include reference="fT8-e1-Weq"/>
                                 <include reference="le8-LM-Cvd"/>
                                 <include reference="TX5-RM-74f"/>
+                                <include reference="pDU-od-v00"/>
+                                <include reference="yvf-R7-zNj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -729,7 +778,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Jem-n1-AQ4">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="cAR-0y-Amu"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="cAR-0y-Amu">
+                            <connections>
+                                <action selector="doneButtonForRecordingTapped:" destination="ISc-SO-RGF" id="JxM-AJ-Zd9"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="playButton" destination="Wyj-PU-yQY" id="ex8-Lk-ko5"/>

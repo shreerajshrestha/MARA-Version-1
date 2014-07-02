@@ -7,16 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @interface ACECameraWindowViewController : UIViewController
-<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 //@property BOOL newMedia;
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+//@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
-- (IBAction)useCamera:(UIBarButtonItem *)sender;
-- (IBAction)saveImageButton:(UIBarButtonItem *)sender;
+@property (strong, nonatomic) IBOutlet UITextField *saveAsTextFieldAddImage;
+@property (strong, nonatomic) IBOutlet UITextField *tagsTextFieldAddImage;
+@property (strong, nonatomic) IBOutlet UITextField *descriptionTextFieldAddImage;
+@property (weak, nonatomic) IBOutlet UITextField *latitudeLabel;
+@property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
 
+- (IBAction)getLocationDataButtonAddImageTapped:(UIButton *)sender;
+- (IBAction)useCameraForImageButtonTapped:(UIBarButtonItem *)sender;
+- (IBAction)saveImageButtonTapped:(UIBarButtonItem *)sender;
 
 @end

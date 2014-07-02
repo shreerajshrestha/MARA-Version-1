@@ -19,5 +19,6 @@
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender;
 - (IBAction)playButtonTapped:(UIButton *)sender;
 - (IBAction)stopButtonTapped:(UIButton *)sender;
+- (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender;
 
 @end

@@ -13,7 +13,9 @@
 
 @end
 
-@implementation ACEVideoRecorderWindowViewController
+@implementation ACEVideoRecorderWindowViewController {
+    CLLocationManager *locationManager;
+}
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,12 +30,63 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    locationManager = [[CLLocationManager alloc] init];
+    
+    self.saveAsTextFieldAddVideo.delegate = self;
+    self.tagsTextFieldAddVideo.delegate = self;
+    self.descriptionTextFieldAddVideo.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)useCameraForVideoButtonTapped:(UIBarButtonItem *)sender
+{
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        UIImagePickerController *videoPicker = [[UIImagePickerController alloc] init];
+        videoPicker.delegate = self;
+        videoPicker.allowsEditing = YES;
+        videoPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        videoPicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+        
+        [self presentViewController:videoPicker animated:YES completion:NULL];
+    }
+}
+
+- (IBAction)saveVideoButtonTapped:(UIBarButtonItem *)sender
+{
+    //*************
+    //Code to save the video here
+    //**************
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)getLocationDataButtonAddVideoTapped:(UIButton *)sender
+{
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.saveAsTextFieldAddVideo || textField == self.tagsTextFieldAddVideo || textField == self.descriptionTextFieldAddVideo) {
+        [textField resignFirstResponder];
+    }
+    
+    return YES;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+    [super touchesBegan:touches withEvent:event];
 }
 
 /*
@@ -47,25 +100,10 @@
 }
 */
 
-- (IBAction)captureButton:(UIButton *)sender
-{
-    
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        
-        UIImagePickerController *videoPicker = [[UIImagePickerController alloc] init];
-        videoPicker.delegate = self;
-        videoPicker.allowsEditing = YES;
-        videoPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        videoPicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
-        
-        [self presentViewController:videoPicker animated:YES completion:NULL];
-        
-    }
-    
-}
+#pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)videoPicker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
+- (void)imagePickerController:(UIImagePickerController *)videoPicker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     self.videoURL = info[UIImagePickerControllerMediaURL];
     [videoPicker dismissViewControllerAnimated:YES completion:NULL];
     
@@ -89,13 +127,34 @@
 //    UIImage *thumbImg= [[UIImage alloc] initWithCGImage:thumbRef];
 //    
 //    self.thumbImage.image = thumbImg;
-    
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)videoPicker {
-    
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)videoPicker
+{
     [videoPicker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@",error);
+    UIAlertView *errorAlert= [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to get your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *currentLocation = [locations lastObject];
+    NSLog(@"didUpdateLocations: %@", currentLocation);
+    
+    if (currentLocation != nil) {
+        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+    }
+    
+    [locationManager stopUpdatingLocation];
 }
 
 @end
