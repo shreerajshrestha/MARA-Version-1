@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="14A261i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ulm-aS-zRE">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
     </dependencies>
     <scenes>
@@ -718,20 +719,23 @@
                                     <action selector="playButtonTapped:" destination="ISc-SO-RGF" eventType="touchUpInside" id="x6k-vP-0sI"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6g-sT-0Rj" customClass="FDWaveformView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Wyj-PU-yQY" secondAttribute="trailing" constant="145" id="8sl-RP-pAd"/>
                             <constraint firstItem="bj9-q9-Cfy" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="116" id="9xn-RE-8Vn"/>
                             <constraint firstItem="Wyj-PU-yQY" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="181" id="Gmp-Nb-OsR"/>
-                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="Wyj-PU-yQY" secondAttribute="bottom" constant="365" id="TX5-RM-74f"/>
-                            <constraint firstItem="CcF-ab-g4z" firstAttribute="leading" secondItem="bj9-q9-Cfy" secondAttribute="trailing" constant="134" id="c0W-0J-2A5"/>
+                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="z6g-sT-0Rj" secondAttribute="bottom" constant="104" id="JAy-Dy-ElW"/>
+                            <constraint firstAttribute="centerY" secondItem="z6g-sT-0Rj" secondAttribute="centerY" constant="-110.5" id="QMU-R4-FwU"/>
+                            <constraint firstAttribute="centerX" secondItem="z6g-sT-0Rj" secondAttribute="centerX" id="eKG-Fp-zhO"/>
                             <constraint firstItem="CcF-ab-g4z" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="116" id="fT8-e1-Weq"/>
+                            <constraint firstItem="z6g-sT-0Rj" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="20" id="fgN-yU-3aB"/>
                             <constraint firstItem="bj9-q9-Cfy" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="51" id="jgA-ec-fDT"/>
                             <constraint firstAttribute="trailing" secondItem="CcF-ab-g4z" secondAttribute="trailing" constant="52" id="le8-LM-Cvd"/>
-                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="bj9-q9-Cfy" secondAttribute="bottom" constant="430" id="pDU-od-v00"/>
-                            <constraint firstItem="Wyj-PU-yQY" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="145" id="ypZ-ZT-D8f"/>
-                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="CcF-ab-g4z" secondAttribute="bottom" constant="430" id="yvf-R7-zNj"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
@@ -739,19 +743,19 @@
                                 <exclude reference="CcF-ab-g4z"/>
                                 <exclude reference="bj9-q9-Cfy"/>
                                 <exclude reference="Wyj-PU-yQY"/>
+                                <exclude reference="z6g-sT-0Rj"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="9xn-RE-8Vn"/>
                                 <exclude reference="jgA-ec-fDT"/>
                                 <exclude reference="8sl-RP-pAd"/>
                                 <exclude reference="Gmp-Nb-OsR"/>
-                                <exclude reference="ypZ-ZT-D8f"/>
-                                <exclude reference="c0W-0J-2A5"/>
                                 <exclude reference="fT8-e1-Weq"/>
                                 <exclude reference="le8-LM-Cvd"/>
-                                <exclude reference="TX5-RM-74f"/>
-                                <exclude reference="pDU-od-v00"/>
-                                <exclude reference="yvf-R7-zNj"/>
+                                <exclude reference="QMU-R4-FwU"/>
+                                <exclude reference="eKG-Fp-zhO"/>
+                                <exclude reference="fgN-yU-3aB"/>
+                                <exclude reference="JAy-Dy-ElW"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -760,13 +764,12 @@
                                 <include reference="jgA-ec-fDT"/>
                                 <include reference="8sl-RP-pAd"/>
                                 <include reference="Gmp-Nb-OsR"/>
-                                <include reference="ypZ-ZT-D8f"/>
-                                <include reference="c0W-0J-2A5"/>
                                 <include reference="fT8-e1-Weq"/>
                                 <include reference="le8-LM-Cvd"/>
-                                <include reference="TX5-RM-74f"/>
-                                <include reference="pDU-od-v00"/>
-                                <include reference="yvf-R7-zNj"/>
+                                <include reference="QMU-R4-FwU"/>
+                                <include reference="eKG-Fp-zhO"/>
+                                <include reference="fgN-yU-3aB"/>
+                                <include reference="JAy-Dy-ElW"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -774,13 +777,14 @@
                                 <include reference="CcF-ab-g4z"/>
                                 <include reference="bj9-q9-Cfy"/>
                                 <include reference="Wyj-PU-yQY"/>
+                                <include reference="z6g-sT-0Rj"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Jem-n1-AQ4">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="cAR-0y-Amu">
                             <connections>
-                                <action selector="doneButtonForRecordingTapped:" destination="ISc-SO-RGF" id="JxM-AJ-Zd9"/>
+                                <action selector="doneButtonForRecordingTapped:" destination="ISc-SO-RGF" id="S6J-gD-f5E"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -788,11 +792,12 @@
                         <outlet property="playButton" destination="Wyj-PU-yQY" id="ex8-Lk-ko5"/>
                         <outlet property="recordPauseButton" destination="bj9-q9-Cfy" id="IXr-NV-WAm"/>
                         <outlet property="stopButton" destination="CcF-ab-g4z" id="Ofu-zy-zAk"/>
+                        <outlet property="waveform" destination="z6g-sT-0Rj" id="MOu-AR-UEq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jOQ-UB-9Jb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4054" y="1246.5"/>
+            <point key="canvasLocation" x="4053" y="1246.5"/>
         </scene>
         <!--Table View Controller - My Tags-->
         <scene sceneID="uMP-qG-dAI">

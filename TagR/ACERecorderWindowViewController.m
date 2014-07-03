@@ -56,6 +56,7 @@
 - (IBAction)getLocationDataButtonAddRecordingTapped:(UIButton *)sender
 {
     locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
 }
@@ -90,7 +91,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@",error);
+    //NSLog(@"didFailWithError: %@",error);
     UIAlertView *errorAlert= [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to get your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     
     [errorAlert show];
@@ -99,7 +100,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    NSLog(@"didUpdateLocations: %@", currentLocation);
+    //NSLog(@"didUpdateLocations: %@", currentLocation);
     
     if (currentLocation != nil) {
         _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];

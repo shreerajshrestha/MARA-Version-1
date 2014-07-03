@@ -12,6 +12,8 @@
 {
     AVAudioRecorder *audioRecorder;
     AVAudioPlayer *audioPlayer;
+    NSURL *outputFileURL;
+    NSTimer *timer;
 }
 
 @end
@@ -45,7 +47,7 @@
                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
                                @"MyAudioMemo.m4a",
                                nil];
-    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
     
     //Setting up the audio session
     AVAudioSession *recorderSession = [AVAudioSession sharedInstance];
@@ -63,6 +65,10 @@
     audioRecorder.delegate = self;
     audioRecorder.meteringEnabled = YES;
     [audioRecorder prepareToRecord];
+    
+    //Setting graphical properties for waveform view
+    self.waveform.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor lightGrayColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,17 +76,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender
 {
@@ -108,36 +103,56 @@
     
     [_stopButton setEnabled: YES];
     [_playButton setEnabled: NO];
-    
-
-}
-
-- (IBAction)playButtonTapped:(UIButton *)sender
-{
-    
-    if (!audioRecorder.recording) {
-        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioRecorder.url error:nil];
-        [audioPlayer setDelegate:self];
-        [audioPlayer play];
-    }
-    
 }
 
 - (IBAction)stopButtonTapped:(UIButton *)sender
 {
-    
     [audioRecorder stop];
     
     AVAudioSession *recorderAudioSession = [AVAudioSession sharedInstance];
     [recorderAudioSession setActive:NO error:nil];
     
+    //code to generate the FDWaveform
+    NSURL *url = outputFileURL;
+    self.waveform.delegate = self;
+    self.waveform.alpha = 0.0f;
+    self.waveform.audioURL = url;
+    self.waveform.progressSamples = 0;
+    self.waveform.doesAllowScrubbing = NO;
+    self.waveform.doesAllowStretchAndScroll = NO;
 }
+
+- (IBAction)playButtonTapped:(UIButton *)sender
+{
+    if (!audioRecorder.recording) {
+        
+        //Setting the audioPlayer
+        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioRecorder.url error:nil];
+        [audioPlayer setDelegate:self];
+        
+        //Setting the timer to update waveform
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
+        
+        //Playing the audio
+        [audioPlayer play];
+    }
+}
+
 
 - (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender
 {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)updateWaveform
+{
     
+    //Animating the waveform
+    [UIView animateWithDuration:0.10 animations:^{
+        float currentPlayTime = audioPlayer.currentTime;
+        float progressSample = ( currentPlayTime + 0.15 ) * 44100.00;
+        self.waveform.progressSamples = progressSample;
+    }];
 }
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag
@@ -146,6 +161,43 @@
     
     [_stopButton setEnabled:NO];
     [_playButton setEnabled:YES];
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+
+#pragma mark - AVAudioPlayerDelegate
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)audioPlayer successfully:(BOOL)flag
+{
+    // Music completed so stop timer
+    if (flag) {
+        [timer invalidate];
+    }
+}
+
+#pragma mark - FDWaveformViewDelegate
+
+- (void)waveformViewWillRender:(FDWaveformView *)waveformView
+{
+    //self.startRendering = [NSDate date];
+}
+
+- (void)waveformViewDidRender:(FDWaveformView *)waveformView
+{
+    //NSLog(@"FDWaveformView rendering done, took %f seconds", -[self.startRendering timeIntervalSinceNow]);
+    [UIView animateWithDuration:0.25f animations:^{
+        waveformView.alpha = 1.0f;
+    }];
 }
 
 @end

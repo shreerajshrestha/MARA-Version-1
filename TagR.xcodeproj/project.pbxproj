@@ -11,6 +11,8 @@
 		041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */; };
 		0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441D22D195516CC00C05FA8 /* AVFoundation.framework */; };
 		04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */; };
+		0453E34D1963CF3B00EB00E1 /* FDWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */; };
+		0453E34F1963D36000EB00E1 /* Submarine.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 0453E34E1963D36000EB00E1 /* Submarine.aiff */; };
 		047BFA891961E74300E00B2E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047BFA881961E74300E00B2E /* CoreLocation.framework */; };
 		04AA34681953FC5900600B80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA34671953FC5900600B80 /* main.m */; };
 		04AA346B1953FC5900600B80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA346A1953FC5900600B80 /* AppDelegate.m */; };
@@ -39,6 +41,9 @@
 		0441D22D195516CC00C05FA8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		04532BBC195BD7E90039E975 /* ACEVideoRecorderWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEVideoRecorderWindowViewController.h; sourceTree = "<group>"; };
 		04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEVideoRecorderWindowViewController.m; sourceTree = "<group>"; };
+		0453E34B1963CF3B00EB00E1 /* FDWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDWaveformView.h; sourceTree = "<group>"; };
+		0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDWaveformView.m; sourceTree = "<group>"; };
+		0453E34E1963D36000EB00E1 /* Submarine.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Submarine.aiff; sourceTree = "<group>"; };
 		047BFA881961E74300E00B2E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		04AA34621953FC5900600B80 /* TagR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TagR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34661953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,7 +121,10 @@
 			children = (
 				04AA34691953FC5900600B80 /* AppDelegate.h */,
 				04AA346A1953FC5900600B80 /* AppDelegate.m */,
+				0453E34B1963CF3B00EB00E1 /* FDWaveformView.h */,
+				0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */,
 				04AA34721953FC5900600B80 /* Main.storyboard */,
+				0453E34E1963D36000EB00E1 /* Submarine.aiff */,
 				04AA34751953FC5900600B80 /* Images.xcassets */,
 				041EBE4F19551CD500828F00 /* Media View Controllers */,
 				04AA346C1953FC5900600B80 /* TagR.xcdatamodeld */,
@@ -247,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0453E34F1963D36000EB00E1 /* Submarine.aiff in Resources */,
 				04AA34741953FC5900600B80 /* Main.storyboard in Resources */,
 				04AA34761953FC5900600B80 /* Images.xcassets in Resources */,
 			);
@@ -273,6 +282,7 @@
 				041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */,
 				04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */,
 				04AA34681953FC5900600B80 /* main.m in Sources */,
+				0453E34D1963CF3B00EB00E1 /* FDWaveformView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,17 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "FDWaveformView.h"
 
 @interface ACERecorderViewController : UIViewController
-<AVAudioPlayerDelegate, AVAudioRecorderDelegate>
+<AVAudioPlayerDelegate, AVAudioRecorderDelegate, FDWaveformViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) IBOutlet UIButton *stopButton;
+@property (strong, nonatomic) IBOutlet FDWaveformView *waveform;
 
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender;
 - (IBAction)playButtonTapped:(UIButton *)sender;
 - (IBAction)stopButtonTapped:(UIButton *)sender;
 - (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender;
+
+
+- (void)updateWaveform;
 
 @end
