@@ -11,15 +11,19 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @interface ACERecorderWindowViewController : UIViewController
-<UINavigationControllerDelegate, UITextFieldDelegate>
+<UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate>
 
-@property (strong, nonatomic) IBOutlet UITextField *saveAsTextFieldAddRecording;
-@property (strong, nonatomic) IBOutlet UITextField *tagsTextFieldAddRecording;
-@property (strong, nonatomic) IBOutlet UITextField *descriptionTextFieldAddRecording;
+@property (strong, nonatomic) IBOutlet UITextField *saveAsTextField;
+@property (strong, nonatomic) IBOutlet UITextField *tagsTextField;
+@property (strong, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (strong, nonatomic) IBOutlet UIButton *getLocationDataButton;
 @property (weak, nonatomic) IBOutlet UITextField *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-- (IBAction)getLocationDataButtonAddRecordingTapped:(UIButton *)sender;
+@property BOOL gotLocation;
+
+- (IBAction)getLocationDataButtonTapped:(UIButton *)sender;
 - (IBAction)saveRecordingButtonTapped:(UIBarButtonItem *)sender;
 
 @end

@@ -33,11 +33,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _saveAsTextField.enabled = YES; //FOR NOW
+    
     //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
     _gotLocation = NO;
-    
-    _saveAsTextField.enabled = YES; ////////////////////////// Yes for now ???????????
     
     // Delegating the text fields
     self.saveAsTextField.delegate = self;
@@ -59,7 +59,7 @@
         imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-        imagePicker.allowsEditing = NO;
+        imagePicker.allowsEditing = YES;
         
         [self presentViewController:imagePicker animated:YES completion:nil];
         //        _newMedia = YES;
@@ -92,7 +92,7 @@
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
         NSManagedObject *newTagObject;
         newTagObject = [NSEntityDescription
-                        insertNewObjectForEntityForName:@"TagObjects"
+                        insertNewObjectForEntityForName:@"ImageDB"
                         inManagedObjectContext:context];
         
         [newTagObject setValue: _saveAsTextField.text forKey:@"name"];
@@ -125,14 +125,6 @@
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if (textField == _saveAsTextField || textField == _tagsTextField || textField == _descriptionTextField) {
-        [textField resignFirstResponder];
-    }
-    return YES;
-}
-
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     // Enable tags and description fields if Save As field is not empty
@@ -147,6 +139,14 @@
             _getLocationDataButton.enabled = YES;
         }
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == _saveAsTextField || textField == _tagsTextField || textField == _descriptionTextField) {
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -168,12 +168,10 @@
 
 #pragma mark - UIImagePickerControllerDelegate
 
--(void)imagePickerController:(UIImagePickerController *)picker
+-(void)imagePickerController:(UIImagePickerController *)imagePicker
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         //UIImage *image = info[UIImagePickerControllerOriginalImage];
@@ -183,28 +181,30 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         
         //some code to get the TEMP file URL here
     }
-    
+    _imageURL = info[UIImagePickerControllerMediaURL];
     _saveAsTextField.enabled = YES;
+    
+    [imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)image:(UIImage *)image
-finishedSavingWithError:(NSError *)error
- contextInfo:(void *)contextInfo
-{
-    if (error) {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Error!"
-                              message: @"Failed to save image!"
-                              delegate: nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-    }
-}
+//-(void)image:(UIImage *)image
+//finishedSavingWithError:(NSError *)error
+// contextInfo:(void *)contextInfo
+//{
+//    if (error) {
+//        UIAlertView *alert = [[UIAlertView alloc]
+//                              initWithTitle: @"Error!"
+//                              message: @"Failed to save image!"
+//                              delegate: nil
+//                              cancelButtonTitle:@"OK"
+//                              otherButtonTitles:nil];
+//        [alert show];
+//    }
+//}
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)imagePicker
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - CLLocationManagerDelegate

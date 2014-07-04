@@ -119,7 +119,7 @@
                                     <rect key="frame" x="20" y="92" width="66" height="21"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Wg-5K-c6J" userLabel="Text Field - Save as:">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Wg-5K-c6J" userLabel="Text Field - Save as:">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -136,7 +136,7 @@
                                     <rect key="frame" x="45" y="133" width="41" height="21"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUt-jf-5JS">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUt-jf-5JS">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -169,17 +169,17 @@
                                     <rect key="frame" x="162" y="326" width="138" height="30"/>
                                 </variation>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6R8-U6-JoG">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6R8-U6-JoG">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Get Location Data"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="98" y="265" width="125" height="30"/>
                                 </variation>
                                 <connections>
-                                    <action selector="getLocationDataButtonAddVideoTapped:" destination="Vyk-bR-Aug" eventType="touchUpInside" id="v2i-Yf-gJy"/>
+                                    <action selector="getLocationDataButtonTapped:" destination="Vyk-bR-Aug" eventType="touchUpInside" id="O5z-44-SPJ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSH-lx-rtx">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSH-lx-rtx">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -258,16 +258,18 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="uhJ-Io-pPQ">
                             <connections>
-                                <action selector="useCameraForVideoButtonTapped:" destination="Vyk-bR-Aug" id="b3W-69-KgD"/>
+                                <action selector="useCameraButtonTapped:" destination="Vyk-bR-Aug" id="bQT-IU-6k1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="descriptionTextFieldAddVideo" destination="fSH-lx-rtx" id="qbb-nr-2EY"/>
+                        <outlet property="datePicker" destination="BZs-xa-ot1" id="jfo-SK-C9Y"/>
+                        <outlet property="descriptionTextField" destination="fSH-lx-rtx" id="soP-Il-Ttu"/>
+                        <outlet property="getLocationDataButton" destination="6R8-U6-JoG" id="s18-A2-HNm"/>
                         <outlet property="latitudeLabel" destination="GTS-LD-ke5" id="aia-Rd-xsH"/>
                         <outlet property="longitudeLabel" destination="ROb-WI-gIF" id="ieo-Xc-Pqn"/>
-                        <outlet property="saveAsTextFieldAddVideo" destination="3Wg-5K-c6J" id="0mA-hc-xim"/>
-                        <outlet property="tagsTextFieldAddVideo" destination="cUt-jf-5JS" id="u8M-Ne-Sxh"/>
+                        <outlet property="saveAsTextField" destination="3Wg-5K-c6J" id="s6m-yo-pUu"/>
+                        <outlet property="tagsTextField" destination="cUt-jf-5JS" id="kSa-EF-qND"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6IP-dZ-ECz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,7 +340,7 @@
                     <navigationItem key="navigationItem" title="My Recordings" id="2a5-dF-NiB">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FAU-3i-a6X">
                             <connections>
-                                <segue destination="ydC-ge-x7F" kind="presentation" id="y3R-AB-jAp"/>
+                                <segue destination="ydC-ge-x7F" kind="presentation" id="kOX-rp-o5o"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -549,7 +551,7 @@
                                     <rect key="frame" x="20" y="90" width="66" height="21"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8IH-ff-L82" userLabel="Text Field - Save as:">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8IH-ff-L82" userLabel="Text Field - Save as:">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -566,7 +568,7 @@
                                     <rect key="frame" x="45" y="131" width="41" height="21"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGT-P6-nLp">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TGT-P6-nLp">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -608,17 +610,17 @@
                                     <rect key="frame" x="162" y="324" width="138" height="30"/>
                                 </variation>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70d-Nz-Q1u">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70d-Nz-Q1u">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Get Location Data"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="98" y="263" width="125" height="30"/>
                                 </variation>
                                 <connections>
-                                    <action selector="getLocationDataButtonAddRecordingTapped:" destination="Gi1-z1-tJU" eventType="touchUpInside" id="Idz-Ex-ZIt"/>
+                                    <action selector="getLocationDataButtonTapped:" destination="Gi1-z1-tJU" eventType="touchUpInside" id="hYh-ex-lVz"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IfN-mc-11L">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IfN-mc-11L">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -689,17 +691,19 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="L6G-Q5-L8P">
                             <connections>
-                                <segue destination="utC-5C-bs0" kind="presentation" id="YJ7-go-xhC"/>
+                                <segue destination="utC-5C-bs0" kind="presentation" id="OSO-Hx-24h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="descriptionTextFieldAddRecording" destination="IfN-mc-11L" id="cCD-h4-gSi"/>
+                        <outlet property="datePicker" destination="CYf-fA-A50" id="xlS-F2-HsF"/>
+                        <outlet property="descriptionTextField" destination="IfN-mc-11L" id="gCB-qX-nKA"/>
+                        <outlet property="getLocationDataButton" destination="70d-Nz-Q1u" id="AOa-cW-aNE"/>
                         <outlet property="latitudeLabel" destination="gDc-Iz-aDi" id="Mt2-vT-Ks0"/>
                         <outlet property="longitudeLabel" destination="Qnm-JT-on2" id="Haj-Cu-w9V"/>
-                        <outlet property="saveAsTextFieldAddRecording" destination="8IH-ff-L82" id="0kP-dz-J57"/>
-                        <outlet property="tagsTextFieldAddRecording" destination="TGT-P6-nLp" id="ZAH-M7-f3R"/>
+                        <outlet property="saveAsTextField" destination="8IH-ff-L82" id="Zob-C5-DXV"/>
+                        <outlet property="tagsTextField" destination="TGT-P6-nLp" id="XI6-W6-fjj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZKC-9f-67B" userLabel="First Responder" sceneMemberID="firstResponder"/>

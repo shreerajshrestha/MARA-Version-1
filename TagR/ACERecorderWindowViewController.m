@@ -8,7 +8,10 @@
 
 #import "ACERecorderWindowViewController.h"
 
-@interface ACERecorderWindowViewController ()
+@interface ACERecorderWindowViewController () {
+    float latitude;
+    float longitude;
+}
 
 @end
 
@@ -30,11 +33,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
+    _gotLocation = NO;
     
-    self.saveAsTextFieldAddRecording.delegate = self;
-    self.tagsTextFieldAddRecording.delegate = self;
-    self.descriptionTextFieldAddRecording.delegate = self;
+    // Delegating the text fields
+    self.saveAsTextField.delegate = self;
+    self.tagsTextField.delegate = self;
+    self.descriptionTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,6 +49,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)getLocationDataButtonTapped:(UIButton *)sender
+{
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    [locationManager startUpdatingLocation];
+}
 
 - (IBAction)saveRecordingButtonTapped:(UIBarButtonItem *)sender
 {
@@ -53,17 +67,25 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)getLocationDataButtonAddRecordingTapped:(UIButton *)sender
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    locationManager.delegate = self;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
+    // Enable tags and description fields if Save As field is not empty
+    if (textField == _saveAsTextField) {
+        if ( [textField.text length] == 0 ) {
+            _tagsTextField.enabled = NO;
+            _descriptionTextField.enabled = NO;
+            _getLocationDataButton.enabled = NO;
+        } else {
+            _tagsTextField.enabled = YES;
+            _descriptionTextField.enabled = YES;
+            _getLocationDataButton.enabled = YES;
+        }
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == self.saveAsTextFieldAddRecording || textField == self.tagsTextFieldAddRecording || textField == self.descriptionTextFieldAddRecording) {
+    if (textField == self.saveAsTextField || textField == self.tagsTextField || textField == self.descriptionTextField) {
         [textField resignFirstResponder];
     }
     
@@ -104,11 +126,18 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    //NSLog(@"didUpdateLocations: %@", currentLocation);
+    // NSLog(@"didUpdateLocations: %@", currentLocation);
     
     if (currentLocation != nil) {
-        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        // Updating local latitude and longtitude
+        latitude = currentLocation.coordinate.latitude;
+        longitude = currentLocation.coordinate.longitude;
+        
+        // Updating latitude and longitude text fields
+        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", latitude];
+        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", longitude];
+        
+        _gotLocation = YES;
     }
     
     [locationManager stopUpdatingLocation];

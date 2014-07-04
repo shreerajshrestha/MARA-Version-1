@@ -7,9 +7,12 @@
 //
 
 #import "ACEVideoRecorderWindowViewController.h"
-#import <AVFoundation/AVFoundation.h>
+//#import <AVFoundation/AVFoundation.h>
 
-@interface ACEVideoRecorderWindowViewController ()
+@interface ACEVideoRecorderWindowViewController () {
+    float latitude;
+    float longitude;
+}
 
 @end
 
@@ -31,12 +34,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _saveAsTextField.enabled = YES; //FOR NOW
+    
     //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
     
-    self.saveAsTextFieldAddVideo.delegate = self;
-    self.tagsTextFieldAddVideo.delegate = self;
-    self.descriptionTextFieldAddVideo.delegate = self;
+    self.saveAsTextField.delegate = self;
+    self.tagsTextField.delegate = self;
+    self.descriptionTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,43 +50,97 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)useCameraForVideoButtonTapped:(UIBarButtonItem *)sender
+- (IBAction)useCameraButtonTapped:(UIBarButtonItem *)sender
 {
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
         UIImagePickerController *videoPicker = [[UIImagePickerController alloc] init];
         videoPicker.delegate = self;
-        videoPicker.allowsEditing = YES;
         videoPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         videoPicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+        videoPicker.allowsEditing = YES;
         
         [self presentViewController:videoPicker animated:YES completion:nil];
     }
 }
 
-- (IBAction)getLocationDataButtonAddVideoTapped:(UIButton *)sender
+- (IBAction)getLocationDataButtonTapped:(UIButton *)sender
 {
     locationManager.delegate = self;
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
     [locationManager startUpdatingLocation];
 }
 
 - (IBAction)saveVideoButtonTapped:(UIBarButtonItem *)sender
 {
-    //*************
-    //Code to save the video here
-    //**************
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else {
+        
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        // Creating a new TagObject entity
+        NSManagedObjectContext *context = [appDelegate managedObjectContext];
+        NSManagedObject *newTagObject;
+        newTagObject = [NSEntityDescription
+                        insertNewObjectForEntityForName:@"ImageDB"
+                        inManagedObjectContext:context];
+        
+        [newTagObject setValue: _saveAsTextField.text forKey:@"name"];
+        [newTagObject setValue: _tagsTextField.text forKey:@"tags"];
+        [newTagObject setValue: _descriptionTextField.text forKey:@"descriptor"];
+        [newTagObject setValue:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+        [newTagObject setValue:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+        [newTagObject setValue: _datePicker.date forKey:@"date"];
+        
+        //***** code to set file URL and webURL still needed
+        //    [newTagObject setValue: [THE FILE URL] forKey:@"fileURL"];
+        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //May be in uploader
+        
+        // Save the new TagObject to persistent store
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Save failed with error: %@ %@", error, [error localizedDescription]);
+        } else {
+            UIAlertView *savedMessage = [[UIAlertView alloc]
+                                         initWithTitle:@""
+                                         message:@"Successfully saved!"
+                                         delegate:nil
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil, nil];
+            
+            [savedMessage show];
+        }
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    // Enable tags and description fields if Save As field is not empty
+    if (textField == _saveAsTextField) {
+        if ( [textField.text length] == 0 ) {
+            _tagsTextField.enabled = NO;
+            _descriptionTextField.enabled = NO;
+            _getLocationDataButton.enabled = NO;
+        } else {
+            _tagsTextField.enabled = YES;
+            _descriptionTextField.enabled = YES;
+            _getLocationDataButton.enabled = YES;
+        }
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == self.saveAsTextFieldAddVideo || textField == self.tagsTextFieldAddVideo || textField == self.descriptionTextFieldAddVideo) {
+    if (textField == _saveAsTextField || textField == _tagsTextField || textField == _descriptionTextField) {
         [textField resignFirstResponder];
     }
-    
     return YES;
 }
 
@@ -106,17 +165,29 @@
 
 - (void)imagePickerController:(UIImagePickerController *)videoPicker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    self.videoURL = info[UIImagePickerControllerMediaURL];
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
+    
+    if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        //UIImage *image = info[UIImagePickerControllerOriginalImage];
+        
+        //decided to take image view out, assign image url to this image here
+        //_imageView.image = image;
+        
+        //some code to get the TEMP file URL here
+    }
+    _videoURL = info[UIImagePickerControllerMediaURL];
+    _saveAsTextField.enabled = YES;
+    
     [videoPicker dismissViewControllerAnimated:YES completion:NULL];
     
     //initializing the video controller in the header file
-    self.videoController = [[MPMoviePlayerController alloc] init];
-    
-    [self.videoController setContentURL:self.videoURL];
-    [self.videoController.view setFrame:CGRectMake(0, 50, 200, 300)];
-    [self.view addSubview:self.videoController.view]; //setting and displaying a subview
-    
-    [self.videoController play];
+//    self.videoController = [[MPMoviePlayerController alloc] init];
+//    
+//    [self.videoController setContentURL:self.videoURL];
+//    [self.videoController.view setFrame:CGRectMake(0, 50, 200, 300)];
+//    [self.view addSubview:self.videoController.view]; //setting and displaying a subview
+//    
+//    [self.videoController play];
     
     //MEthod to generate thumbnail, some error logging method here
     
@@ -129,11 +200,12 @@
 //    UIImage *thumbImg= [[UIImage alloc] initWithCGImage:thumbRef];
 //    
 //    self.thumbImage.image = thumbImg;
+    
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)videoPicker
 {
-    [videoPicker dismissViewControllerAnimated:YES completion:NULL];
+    [videoPicker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -154,11 +226,18 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    //NSLog(@"didUpdateLocations: %@", currentLocation);
+    // NSLog(@"didUpdateLocations: %@", currentLocation);
     
     if (currentLocation != nil) {
-        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        // Updating local latitude and longtitude
+        latitude = currentLocation.coordinate.latitude;
+        longitude = currentLocation.coordinate.longitude;
+        
+        // Updating latitude and longitude text fields
+        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", latitude];
+        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", longitude];
+        
+        _gotLocation = YES;
     }
     
     [locationManager stopUpdatingLocation];

@@ -12,10 +12,7 @@
 #import "AppDelegate.h"
 
 @interface ACECameraWindowViewController : UIViewController
-<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
-
-//@property BOOL newMedia;
-//@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *saveAsTextField;
 @property (strong, nonatomic) IBOutlet UITextField *tagsTextField;
@@ -24,6 +21,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+//@property BOOL newMedia;
+//@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong,nonatomic) NSURL *imageURL;
 @property BOOL gotLocation;
 
 - (IBAction)getLocationDataButtonTapped:(UIButton *)sender;

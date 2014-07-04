@@ -10,22 +10,26 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "AppDelegate.h"
 
 @interface ACEVideoRecorderWindowViewController : UIViewController
-<UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate>
+<UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate>
 
-//@property (strong, nonatomic) IBOutlet UIImageView *thumbImage;
-
-@property (strong,nonatomic) NSURL *videoURL;
-@property (strong,nonatomic) MPMoviePlayerController *videoController;
-@property (strong, nonatomic) IBOutlet UITextField *saveAsTextFieldAddVideo;
-@property (strong, nonatomic) IBOutlet UITextField *tagsTextFieldAddVideo;
-@property (strong, nonatomic) IBOutlet UITextField *descriptionTextFieldAddVideo;
+@property (strong, nonatomic) IBOutlet UITextField *saveAsTextField;
+@property (strong, nonatomic) IBOutlet UITextField *tagsTextField;
+@property (strong, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (strong, nonatomic) IBOutlet UIButton *getLocationDataButton;
 @property (weak, nonatomic) IBOutlet UITextField *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-- (IBAction)getLocationDataButtonAddVideoTapped:(UIButton *)sender;
-- (IBAction)useCameraForVideoButtonTapped:(UIBarButtonItem *)sender;
+//@property (strong, nonatomic) IBOutlet UIImageView *thumbImage;
+//@property (strong,nonatomic) MPMoviePlayerController *videoController;
+@property (strong,nonatomic) NSURL *videoURL;
+@property BOOL gotLocation;
+
+- (IBAction)getLocationDataButtonTapped:(UIButton *)sender;
+- (IBAction)useCameraButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)saveVideoButtonTapped:(UIBarButtonItem *)sender;
 
 @end
