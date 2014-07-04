@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "AppDelegate.h"
 
 @interface ACERecorderWindowViewController : UIViewController
 <UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate>
@@ -21,7 +22,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
+@property (strong,nonatomic) NSURL *audioURL;
 @property BOOL gotLocation;
+@property float latitude;
+@property float longitude;
 
 - (IBAction)getLocationDataButtonTapped:(UIButton *)sender;
 - (IBAction)saveRecordingButtonTapped:(UIBarButtonItem *)sender;

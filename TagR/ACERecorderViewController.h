@@ -17,12 +17,13 @@
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) IBOutlet UIButton *stopButton;
 @property (strong, nonatomic) IBOutlet FDWaveformView *waveform;
+@property (strong, nonatomic) NSURL *tempFileURL;
+@property (strong, nonatomic) NSTimer *timer;
 
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender;
 - (IBAction)playButtonTapped:(UIButton *)sender;
 - (IBAction)stopButtonTapped:(UIButton *)sender;
 - (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender;
-
 
 - (void)updateWaveform;
 

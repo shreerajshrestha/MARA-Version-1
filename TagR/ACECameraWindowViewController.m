@@ -8,10 +8,7 @@
 
 #import "ACECameraWindowViewController.h"
 
-@interface ACECameraWindowViewController () {
-    float latitude;
-    float longitude;
-}
+@interface ACECameraWindowViewController ()
 
 @end
 
@@ -98,8 +95,8 @@
         [newTagObject setValue: _saveAsTextField.text forKey:@"name"];
         [newTagObject setValue: _tagsTextField.text forKey:@"tags"];
         [newTagObject setValue: _descriptionTextField.text forKey:@"descriptor"];
-        [newTagObject setValue:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
-        [newTagObject setValue:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+        [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
+        [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: _datePicker.date forKey:@"date"];
         
         //***** code to set file URL and webURL still needed
@@ -228,12 +225,12 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     if (currentLocation != nil) {
         // Updating local latitude and longtitude
-        latitude = currentLocation.coordinate.latitude;
-        longitude = currentLocation.coordinate.longitude;
+        _latitude = currentLocation.coordinate.latitude;
+        _longitude = currentLocation.coordinate.longitude;
         
         // Updating latitude and longitude text fields
-        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", latitude];
-        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", longitude];
+        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", _latitude];
+        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", _longitude];
         
         _gotLocation = YES;
     }

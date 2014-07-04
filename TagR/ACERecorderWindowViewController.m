@@ -8,10 +8,7 @@
 
 #import "ACERecorderWindowViewController.h"
 
-@interface ACERecorderWindowViewController () {
-    float latitude;
-    float longitude;
-}
+@interface ACERecorderWindowViewController ()
 
 @end
 
@@ -32,6 +29,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    _saveAsTextField.enabled = YES; //FOR NOW
     
     //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
@@ -60,11 +59,52 @@
 
 - (IBAction)saveRecordingButtonTapped:(UIBarButtonItem *)sender
 {
-    //*************
-    //Code to save the recording here
-    //**************
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // Validation routine to allow saving
+    // ****** Update this to check file URL and location is there
+    // deciding whether to put cancel button or not
+    if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else {
+        
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        // Creating a new TagObject entity
+        NSManagedObjectContext *context = [appDelegate managedObjectContext];
+        NSManagedObject *newTagObject;
+        newTagObject = [NSEntityDescription
+                        insertNewObjectForEntityForName:@"AudioDB"
+                        inManagedObjectContext:context];
+        
+        [newTagObject setValue: _saveAsTextField.text forKey:@"name"];
+        [newTagObject setValue: _tagsTextField.text forKey:@"tags"];
+        [newTagObject setValue: _descriptionTextField.text forKey:@"descriptor"];
+        [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
+        [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
+        [newTagObject setValue: _datePicker.date forKey:@"date"];
+        
+        //***** code to set file URL and webURL still needed
+        //    [newTagObject setValue: [THE FILE URL] forKey:@"fileURL"];
+        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //May be in uploader
+        
+        // Save the new TagObject to persistent store
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Save failed with error: %@ %@", error, [error localizedDescription]);
+        } else {
+            UIAlertView *savedMessage = [[UIAlertView alloc]
+                                         initWithTitle:@""
+                                         message:@"Successfully saved!"
+                                         delegate:nil
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil, nil];
+            
+            [savedMessage show];
+        }
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -130,12 +170,12 @@
     
     if (currentLocation != nil) {
         // Updating local latitude and longtitude
-        latitude = currentLocation.coordinate.latitude;
-        longitude = currentLocation.coordinate.longitude;
+        _latitude = currentLocation.coordinate.latitude;
+        _longitude = currentLocation.coordinate.longitude;
         
         // Updating latitude and longitude text fields
-        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", latitude];
-        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", longitude];
+        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", _latitude];
+        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", _longitude];
         
         _gotLocation = YES;
     }

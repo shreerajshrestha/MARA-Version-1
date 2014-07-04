@@ -24,8 +24,10 @@
 
 //@property BOOL newMedia;
 //@property (strong, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong,nonatomic) NSURL *imageURL;
+@property (strong, nonatomic) NSURL *imageURL;
 @property BOOL gotLocation;
+@property float latitude;
+@property float longitude;
 
 - (IBAction)getLocationDataButtonTapped:(UIButton *)sender;
 - (IBAction)useCameraButtonTapped:(UIBarButtonItem *)sender;

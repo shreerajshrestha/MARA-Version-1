@@ -27,6 +27,8 @@
 //@property (strong,nonatomic) MPMoviePlayerController *videoController;
 @property (strong,nonatomic) NSURL *videoURL;
 @property BOOL gotLocation;
+@property float latitude;
+@property float longitude;
 
 - (IBAction)getLocationDataButtonTapped:(UIButton *)sender;
 - (IBAction)useCameraButtonTapped:(UIBarButtonItem *)sender;

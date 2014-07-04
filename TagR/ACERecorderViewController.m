@@ -12,8 +12,6 @@
 {
     AVAudioRecorder *audioRecorder;
     AVAudioPlayer *audioPlayer;
-    NSURL *outputFileURL;
-    NSTimer *timer;
 }
 
 @end
@@ -45,9 +43,9 @@
     // Seting up the audio file
     NSArray *pathComponents = [NSArray arrayWithObjects:
                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
-                               @"MyAudioMemo.m4a",
+                               @"tempAudio.m4a",
                                nil];
-    outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    _tempFileURL = [NSURL fileURLWithPathComponents:pathComponents];
     
     //Setting up the audio session
     AVAudioSession *recorderSession = [AVAudioSession sharedInstance];
@@ -61,7 +59,7 @@
     [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
     
     //Initiating and preparing the audio recorder
-    audioRecorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+    audioRecorder = [[AVAudioRecorder alloc] initWithURL:_tempFileURL settings:recordSetting error:NULL];
     audioRecorder.delegate = self;
     audioRecorder.meteringEnabled = YES;
     [audioRecorder prepareToRecord];
@@ -113,7 +111,7 @@
     [recorderAudioSession setActive:NO error:nil];
     
     //code to generate the FDWaveform
-    NSURL *url = outputFileURL;
+    NSURL *url = _tempFileURL;
     self.waveform.delegate = self;
     self.waveform.alpha = 0.0f;
     self.waveform.audioURL = url;
@@ -131,22 +129,22 @@
         [audioPlayer setDelegate:self];
         
         //Setting the timer to update waveform
-        timer = [NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
         
         //Playing the audio
         [audioPlayer play];
     }
 }
 
-
 - (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender
 {
+//    self.audioURL = tempFileURL;
+//    ACERecorderViewController.saveAsTextField.enabled = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)updateWaveform
 {
-    
     //Animating the waveform
     [UIView animateWithDuration:0.10 animations:^{
         float currentPlayTime = audioPlayer.currentTime;
@@ -181,7 +179,7 @@
 {
     // Music completed so stop timer
     if (flag) {
-        [timer invalidate];
+        [_timer invalidate];
     }
 }
 
