@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "AppDelegate.h"
 
 @interface ACECameraWindowViewController : UIViewController
 <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
@@ -16,14 +17,17 @@
 //@property BOOL newMedia;
 //@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
-@property (strong, nonatomic) IBOutlet UITextField *saveAsTextFieldAddImage;
-@property (strong, nonatomic) IBOutlet UITextField *tagsTextFieldAddImage;
-@property (strong, nonatomic) IBOutlet UITextField *descriptionTextFieldAddImage;
+@property (strong, nonatomic) IBOutlet UITextField *saveAsTextField;
+@property (strong, nonatomic) IBOutlet UITextField *tagsTextField;
+@property (strong, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (strong, nonatomic) IBOutlet UIButton *getLocationDataButton;
 @property (weak, nonatomic) IBOutlet UITextField *latitudeLabel;
 @property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property BOOL gotLocation;
 
-- (IBAction)getLocationDataButtonAddImageTapped:(UIButton *)sender;
-- (IBAction)useCameraForImageButtonTapped:(UIBarButtonItem *)sender;
+- (IBAction)getLocationDataButtonTapped:(UIButton *)sender;
+- (IBAction)useCameraButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)saveImageButtonTapped:(UIBarButtonItem *)sender;
 
 @end

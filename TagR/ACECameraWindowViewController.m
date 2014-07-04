@@ -8,7 +8,10 @@
 
 #import "ACECameraWindowViewController.h"
 
-@interface ACECameraWindowViewController ()
+@interface ACECameraWindowViewController () {
+    float latitude;
+    float longitude;
+}
 
 @end
 
@@ -30,11 +33,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
+    _gotLocation = NO;
     
-    self.saveAsTextFieldAddImage.delegate = self;
-    self.tagsTextFieldAddImage.delegate = self;
-    self.descriptionTextFieldAddImage.delegate = self;
+    _saveAsTextField.enabled = YES; ////////////////////////// Yes for now ???????????
+    
+    // Delegating the text fields
+    self.saveAsTextField.delegate = self;
+    self.tagsTextField.delegate = self;
+    self.descriptionTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,7 +51,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)useCameraForImageButtonTapped:(UIBarButtonItem *)sender
+- (IBAction)useCameraButtonTapped:(UIBarButtonItem *)sender
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
@@ -52,34 +60,93 @@
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
         imagePicker.allowsEditing = NO;
+        
         [self presentViewController:imagePicker animated:YES completion:nil];
         //        _newMedia = YES;
     }
 }
 
-- (IBAction)getLocationDataButtonAddImageTapped:(UIButton *)sender
+- (IBAction)getLocationDataButtonTapped:(UIButton *)sender
 {
     locationManager.delegate = self;
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+
     [locationManager startUpdatingLocation];
 }
 
 - (IBAction)saveImageButtonTapped:(UIBarButtonItem *)sender
 {
-    //*************
-    //Code to save the image here
-    //**************
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // Validation routine to allow saving
+    // ****** Update this to check file URL and location is there
+    // deciding whether to put cancel button or not
+    if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
+
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else {
+        
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        // Creating a new TagObject entity
+        NSManagedObjectContext *context = [appDelegate managedObjectContext];
+        NSManagedObject *newTagObject;
+        newTagObject = [NSEntityDescription
+                        insertNewObjectForEntityForName:@"TagObjects"
+                        inManagedObjectContext:context];
+        
+        [newTagObject setValue: _saveAsTextField.text forKey:@"name"];
+        [newTagObject setValue: _tagsTextField.text forKey:@"tags"];
+        [newTagObject setValue: _descriptionTextField.text forKey:@"descriptor"];
+        [newTagObject setValue:[NSNumber numberWithFloat:latitude] forKey:@"latitude"];
+        [newTagObject setValue:[NSNumber numberWithFloat:longitude] forKey:@"longitude"];
+        [newTagObject setValue: _datePicker.date forKey:@"date"];
+        
+        //***** code to set file URL and webURL still needed
+        //    [newTagObject setValue: [THE FILE URL] forKey:@"fileURL"];
+        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //May be in uploader
+        
+        // Save the new TagObject to persistent store
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Save failed with error: %@ %@", error, [error localizedDescription]);
+        } else {
+            UIAlertView *savedMessage = [[UIAlertView alloc]
+                                         initWithTitle:@""
+                                         message:@"Successfully saved!"
+                                         delegate:nil
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil, nil];
+            
+            [savedMessage show];
+        }
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == self.saveAsTextFieldAddImage || textField == self.tagsTextFieldAddImage || textField == self.descriptionTextFieldAddImage) {
+    if (textField == _saveAsTextField || textField == _tagsTextField || textField == _descriptionTextField) {
         [textField resignFirstResponder];
     }
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    // Enable tags and description fields if Save As field is not empty
+    if (textField == _saveAsTextField) {
+        if ( [textField.text length] == 0 ) {
+            _tagsTextField.enabled = NO;
+            _descriptionTextField.enabled = NO;
+            _getLocationDataButton.enabled = NO;
+        } else {
+            _tagsTextField.enabled = YES;
+            _descriptionTextField.enabled = YES;
+            _getLocationDataButton.enabled = YES;
+        }
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -113,7 +180,11 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         
        //decided to take image view out, assign image url to this image here
         //_imageView.image = image;
+        
+        //some code to get the TEMP file URL here
     }
+    
+    _saveAsTextField.enabled = YES;
 }
 
 -(void)image:(UIImage *)image
@@ -122,8 +193,8 @@ finishedSavingWithError:(NSError *)error
 {
     if (error) {
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Save failed"
-                              message: @"Failed to save image"
+                              initWithTitle: @"Error!"
+                              message: @"Failed to save image!"
                               delegate: nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
@@ -140,20 +211,31 @@ finishedSavingWithError:(NSError *)error
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    //NSLog(@"didFailWithError: %@",error);
-    UIAlertView *errorAlert= [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to get your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    
+    // NSLog(@"didFailWithError: %@",error);
+    UIAlertView *errorAlert= [[UIAlertView alloc]
+                              initWithTitle:@"Error!"
+                              message:@"Failed to get your location!"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil, nil];
     [errorAlert show];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    //NSLog(@"didUpdateLocations: %@", currentLocation);
+    // NSLog(@"didUpdateLocations: %@", currentLocation);
     
     if (currentLocation != nil) {
-        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        // Updating local latitude and longtitude
+        latitude = currentLocation.coordinate.latitude;
+        longitude = currentLocation.coordinate.longitude;
+        
+        // Updating latitude and longitude text fields
+        _latitudeLabel.text = [NSString stringWithFormat:@"%.8f", latitude];
+        _longitudeLabel.text = [NSString stringWithFormat:@"%.8f", longitude];
+        
+        _gotLocation = YES;
     }
     
     [locationManager stopUpdatingLocation];

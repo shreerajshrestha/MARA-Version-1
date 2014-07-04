@@ -12,9 +12,10 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @interface ACEVideoRecorderWindowViewController : UIViewController
-<UINavigationControllerDelegate, UITextFieldDelegate>
+<UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate>
 
 //@property (strong, nonatomic) IBOutlet UIImageView *thumbImage;
+
 @property (strong,nonatomic) NSURL *videoURL;
 @property (strong,nonatomic) MPMoviePlayerController *videoController;
 @property (strong, nonatomic) IBOutlet UITextField *saveAsTextFieldAddVideo;

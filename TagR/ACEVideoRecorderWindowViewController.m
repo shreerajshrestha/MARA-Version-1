@@ -31,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
     
     self.saveAsTextFieldAddVideo.delegate = self;
@@ -54,8 +55,16 @@
         videoPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         videoPicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
         
-        [self presentViewController:videoPicker animated:YES completion:NULL];
+        [self presentViewController:videoPicker animated:YES completion:nil];
     }
+}
+
+- (IBAction)getLocationDataButtonAddVideoTapped:(UIButton *)sender
+{
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
 }
 
 - (IBAction)saveVideoButtonTapped:(UIBarButtonItem *)sender
@@ -65,14 +74,6 @@
     //**************
     
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)getLocationDataButtonAddVideoTapped:(UIButton *)sender
-{
-    locationManager.delegate = self;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    [locationManager startUpdatingLocation];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -139,8 +140,13 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    //NSLog(@"didFailWithError: %@",error);
-    UIAlertView *errorAlert= [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to get your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    // NSLog(@"didFailWithError: %@",error);
+    UIAlertView *errorAlert= [[UIAlertView alloc]
+                              initWithTitle:@"Error!"
+                              message:@"Failed to get your location!"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil, nil];
     
     [errorAlert show];
 }

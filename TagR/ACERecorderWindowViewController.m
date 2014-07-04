@@ -91,9 +91,13 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    //NSLog(@"didFailWithError: %@",error);
-    UIAlertView *errorAlert= [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to get your location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    
+    // NSLog(@"didFailWithError: %@",error);
+    UIAlertView *errorAlert= [[UIAlertView alloc]
+                              initWithTitle:@"Error!"
+                              message:@"Failed to get your location!"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil, nil];
     [errorAlert show];
 }
 
