@@ -22,9 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-//@property BOOL newMedia;
-//@property (strong, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) NSURL *imageURL;
+@property (strong, nonatomic) NSURL *tempFileURL;
 @property BOOL gotLocation;
 @property float latitude;
 @property float longitude;

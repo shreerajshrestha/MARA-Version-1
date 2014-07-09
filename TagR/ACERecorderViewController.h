@@ -10,8 +10,15 @@
 #import <AVFoundation/AVFoundation.h>
 #import "FDWaveformView.h"
 
+@protocol RecordingStateDelegate <NSObject>
+- (void)isFileSaved:(BOOL) saved;
+@end
+
 @interface ACERecorderViewController : UIViewController
 <AVAudioPlayerDelegate, AVAudioRecorderDelegate, FDWaveformViewDelegate>
+
+//Protocol properties for delegate
+@property (weak, nonatomic) id <RecordingStateDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
@@ -23,7 +30,7 @@
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender;
 - (IBAction)playButtonTapped:(UIButton *)sender;
 - (IBAction)stopButtonTapped:(UIButton *)sender;
-- (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender;
+- (IBAction)doneButtonForRecordingTapped:(UIButton *)sender;
 
 - (void)updateWaveform;
 

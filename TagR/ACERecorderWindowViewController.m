@@ -30,9 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _saveAsTextField.enabled = YES; //FOR NOW
-    
-    //Initializing the location manager
+    //Initializing the location manager and 
     locationManager = [[CLLocationManager alloc] init];
     _gotLocation = NO;
     
@@ -59,18 +57,55 @@
 
 - (IBAction)saveRecordingButtonTapped:(UIBarButtonItem *)sender
 {
-    // Validation routine to allow saving
-    // ****** Update this to check file URL and location is there
-    // deciding whether to put cancel button or not
+    //Creating the temp audio file urlf
+    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
+                                       NSTemporaryDirectory(),
+                                       @"tempAudio.m4a",
+                                       nil];
+    NSURL *tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
+        
+        //Deleting the temp file
+        if ([fileManager fileExistsAtPath:[tempURL path]]) {
+            [fileManager removeItemAtPath:[tempURL path] error:nil];
+        }
         
         [self dismissViewControllerAnimated:YES completion:nil];
         
     } else {
         
-        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        //Copying file from temp to documents directory
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/MyAudios"];
         
-        // Creating a new TagObject entity
+        if (![fileManager fileExistsAtPath:dataPath])
+            [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+        
+        BOOL fileExists = NO;
+        NSURL *saveURL = [[NSURL alloc] init];
+        
+        do {
+            int randomID = arc4random() % 9999999;
+            NSString *saveName = [NSString stringWithFormat:@"%@%d.m4a",
+                                  [_saveAsTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""],
+                                  randomID];
+            NSArray *saveFilePathComponents = [NSArray arrayWithObjects:
+                                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
+                                               @"/MyAudios/",
+                                               saveName, nil];
+            
+            saveURL = [NSURL fileURLWithPathComponents:saveFilePathComponents];
+            fileExists = [fileManager fileExistsAtPath:[saveURL path]];
+        } while (fileExists == YES);
+        
+        [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
+        
+        //Saving the details to core data
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
         NSManagedObject *newTagObject;
         newTagObject = [NSEntityDescription
@@ -83,10 +118,8 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: _datePicker.date forKey:@"date"];
-        
-        //***** code to set file URL and webURL still needed
-        //    [newTagObject setValue: [THE FILE URL] forKey:@"fileURL"];
-        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //May be in uploader
+        [newTagObject setValue: [saveURL path] forKey:@"filePath"];
+        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //This to be added by uploader
         
         // Save the new TagObject to persistent store
         NSError *error = nil;
@@ -101,6 +134,11 @@
                                          otherButtonTitles:nil, nil];
             
             [savedMessage show];
+        }
+        
+        //Deleting the temp file if it exists
+        if ([fileManager fileExistsAtPath:[tempURL path]]) {
+            [fileManager removeItemAtPath:[tempURL path] error:nil];
         }
         
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -135,7 +173,15 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
-    [super touchesBegan:touches withEvent:event ];
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showRecorder"]) {
+        ACERecorderViewController *recorderViewController = segue.destinationViewController;
+        recorderViewController.delegate = self;
+    }
 }
 
 /*
@@ -181,6 +227,13 @@
     }
     
     [locationManager stopUpdatingLocation];
+}
+
+#pragma mark - ACERecorderViewControllerDelegate
+
+- (void)isFileSaved:(BOOL) saved
+{
+    _saveAsTextField.enabled = saved;
 }
 
 @end

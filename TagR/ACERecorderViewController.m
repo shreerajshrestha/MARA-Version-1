@@ -40,12 +40,17 @@
     [_stopButton setEnabled:NO];
     [_playButton setEnabled:NO];
     
-    // Seting up the audio file
+    // Seting up the temp file url
     NSArray *pathComponents = [NSArray arrayWithObjects:
-                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
+                               NSTemporaryDirectory(),
                                @"tempAudio.m4a",
                                nil];
     _tempFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    
+    //Deleting the temp file if it exists
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[_tempFileURL path]]) {
+        [[NSFileManager defaultManager] removeItemAtPath:[_tempFileURL path] error:nil];
+    }
     
     //Setting up the audio session
     AVAudioSession *recorderSession = [AVAudioSession sharedInstance];
@@ -136,11 +141,15 @@
     }
 }
 
-- (IBAction)doneButtonForRecordingTapped:(UIBarButtonItem *)sender
+- (IBAction)doneButtonForRecordingTapped:(UIButton *)sender
 {
-//    self.audioURL = tempFileURL;
-//    ACERecorderViewController.saveAsTextField.enabled = YES;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[_tempFileURL path]]) {
+        [_delegate isFileSaved:YES];
+    } else {
+        [_delegate isFileSaved:NO];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)updateWaveform

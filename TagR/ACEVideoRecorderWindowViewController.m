@@ -78,9 +78,8 @@
         
     } else {
         
+        //Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        
-        // Creating a new TagObject entity
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
         NSManagedObject *newTagObject;
         newTagObject = [NSEntityDescription
@@ -95,7 +94,7 @@
         [newTagObject setValue: _datePicker.date forKey:@"date"];
         
         //***** code to set file URL and webURL still needed
-        //    [newTagObject setValue: [THE FILE URL] forKey:@"fileURL"];
+        //    [newTagObject setValue: [THE FILE URL] forKey:@"filePath"];
         //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //May be in uploader
         
         // Save the new TagObject to persistent store
@@ -172,7 +171,7 @@
         
         //some code to get the TEMP file URL here
     }
-    _videoURL = info[UIImagePickerControllerMediaURL];
+//    _videoURL = info[UIImagePickerControllerMediaURL];
     _saveAsTextField.enabled = YES;
     
     [videoPicker dismissViewControllerAnimated:YES completion:NULL];

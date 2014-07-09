@@ -10,9 +10,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "AppDelegate.h"
+#import "ACERecorderViewController.h"
 
 @interface ACERecorderWindowViewController : UIViewController
-<UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate>
+<UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate, RecordingStateDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *saveAsTextField;
 @property (strong, nonatomic) IBOutlet UITextField *tagsTextField;
