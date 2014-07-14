@@ -7,6 +7,7 @@
 //
 
 #import "ACEImagesTableViewController.h"
+#import "ACEImageTableViewCell.h"
 
 @interface ACEImagesTableViewController ()
 
@@ -68,12 +69,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell" forIndexPath:indexPath];
+    ACEImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"
+                                                                  forIndexPath:indexPath];
     
     // Configure the cell...
     NSManagedObject *mediaDetail = [self.mediaDetails objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[mediaDetail valueForKey:@"name"]];
-    [cell.detailTextLabel setText:[mediaDetail valueForKey:@"tags"]];
+    [cell.name setText:[mediaDetail valueForKey:@"name"]];
+    [cell.tags setText:[mediaDetail valueForKey:@"tags"]];
     
     return cell;
 }
