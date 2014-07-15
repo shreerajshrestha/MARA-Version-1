@@ -71,15 +71,20 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ImageCell"
                                                                   forIndexPath:indexPath];
     
-    // Configure the cell...
     NSManagedObject *mediaDetail = [self.mediaDetails objectAtIndex:indexPath.row];
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *pathComponent = [NSString stringWithFormat:@"/MyImages/%@", [mediaDetail valueForKey:@"fileName"]];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:pathComponent];
-    cell.textLabel.text = [mediaDetail valueForKey:@"name"];
-    cell.detailTextLabel.text = [mediaDetail valueForKey:@"tags"];
-    cell.imageView.image = [UIImage imageWithContentsOfFile:filePath];
+    
+    // Configuring the cell
+    UIImageView *thumbView = (UIImageView *)[cell viewWithTag:100];
+    thumbView.image = [UIImage imageWithContentsOfFile:filePath];
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
+    nameLabel.text = [mediaDetail valueForKey:@"name"];
+    UILabel *tagsLabel = (UILabel *)[cell viewWithTag:102];
+    tagsLabel.text = [mediaDetail valueForKey:@"tags"];
     
     return cell;
 }

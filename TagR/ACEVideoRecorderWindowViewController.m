@@ -29,7 +29,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.saveAsTextField.enabled = YES;
     
     //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
@@ -54,6 +53,9 @@
         videoPicker.delegate = self;
         videoPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         videoPicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+        videoPicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+        videoPicker.videoQuality = UIImagePickerControllerQualityType640x480;
+        videoPicker.showsCameraControls = YES;
         videoPicker.allowsEditing = YES;
         
         [self presentViewController:videoPicker animated:YES completion:nil];
@@ -219,16 +221,12 @@
     // Saving the captured video to temp directory
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager copyItemAtURL:mediaURL toURL:tempURL error:nil];
-
+        [[NSFileManager defaultManager] copyItemAtURL:mediaURL toURL:tempURL error:nil];
     }
     
     _saveAsTextField.enabled = YES;
     
     [videoPicker dismissViewControllerAnimated:YES completion:NULL];
-    
-
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)videoPicker

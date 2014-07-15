@@ -29,7 +29,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.saveAsTextField.enabled = YES;
     
     // Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
@@ -55,7 +54,10 @@
         imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-        imagePicker.allowsEditing = NO;
+        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        imagePicker.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+        imagePicker.showsCameraControls = YES;
+        imagePicker.allowsEditing = YES;
         
         [self presentViewController:imagePicker animated:YES completion:nil];
     }
@@ -219,7 +221,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     // Saving the captured image to temp directory
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
         [UIImageJPEGRepresentation(image, 1.0) writeToFile:[tempURL path] atomically:YES];
     }
     

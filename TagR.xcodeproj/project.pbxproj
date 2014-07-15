@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0413C433197508A300B6C33D /* recThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 0413C432197508A300B6C33D /* recThumb.png */; };
+		0413C43F1975166D00B6C33D /* wmImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0413C43E1975166D00B6C33D /* wmImg.png */; };
 		041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */; };
 		041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */; };
 		042B9DFF196A5A9B003E3F66 /* ACEVideosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B9DFE196A5A9B003E3F66 /* ACEVideosTableViewController.m */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0413C432197508A300B6C33D /* recThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recThumb.png; sourceTree = "<group>"; };
+		0413C43E1975166D00B6C33D /* wmImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wmImg.png; sourceTree = "<group>"; };
 		041EBE5019551CFC00828F00 /* ACERecorderWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderWindowViewController.h; sourceTree = "<group>"; };
 		041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderWindowViewController.m; sourceTree = "<group>"; };
 		041EBE5319553E5700828F00 /* ACECameraWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACECameraWindowViewController.h; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 			children = (
 				04AA34661953FC5900600B80 /* Info.plist */,
 				04AA34671953FC5900600B80 /* main.m */,
+				0413C432197508A300B6C33D /* recThumb.png */,
+				0413C43E1975166D00B6C33D /* wmImg.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -276,6 +282,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				04AA34741953FC5900600B80 /* Main.storyboard in Resources */,
+				0413C43F1975166D00B6C33D /* wmImg.png in Resources */,
+				0413C433197508A300B6C33D /* recThumb.png in Resources */,
 				04AA34761953FC5900600B80 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

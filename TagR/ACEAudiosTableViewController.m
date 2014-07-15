@@ -73,12 +73,10 @@
     
     // Configure the cell...
     NSManagedObject *mediaDetail = [self.mediaDetails objectAtIndex:indexPath.row];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *pathComponent = [NSString stringWithFormat:@"/MyAudios/%@", [mediaDetail valueForKey:@"fileName"]];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:pathComponent];
-    cell.textLabel.text = [mediaDetail valueForKey:@"name"];
-    cell.detailTextLabel.text = [mediaDetail valueForKey:@"tags"];
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:301];
+    nameLabel.text = [mediaDetail valueForKey:@"name"];
+    UILabel *tagsLabel = (UILabel *)[cell viewWithTag:302];
+    tagsLabel.text = [mediaDetail valueForKey:@"tags"];
     //cell.imageView.image = [UIImage imageWithContentsOfFile:filePath];
     
     return cell;
