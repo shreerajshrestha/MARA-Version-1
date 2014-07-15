@@ -30,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //Initializing the location manager and 
+    // Initializing the location manager and
     locationManager = [[CLLocationManager alloc] init];
     _gotLocation = NO;
     
@@ -57,7 +57,7 @@
 
 - (IBAction)saveRecordingButtonTapped:(UIBarButtonItem *)sender
 {
-    //Creating the temp audio file urlf
+    // Creating the temp audio file url
     NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
                                        NSTemporaryDirectory(),
                                        @"tempAudio.m4a",
@@ -68,7 +68,7 @@
     
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
         
-        //Deleting the temp file
+        // Deleting the temp file
         if ([fileManager fileExistsAtPath:[tempURL path]]) {
             [fileManager removeItemAtPath:[tempURL path] error:nil];
         }
@@ -77,7 +77,7 @@
         
     } else {
         
-        //Copying file from temp to documents directory
+        // Copying file from temp to documents directory
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/MyAudios"];
@@ -86,11 +86,12 @@
             [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
         
         BOOL fileExists = NO;
+        NSString *saveName;
         NSURL *saveURL = [[NSURL alloc] init];
         
         do {
             int randomID = arc4random() % 9999999;
-            NSString *saveName = [NSString stringWithFormat:@"%@%d.m4a",
+            saveName = [NSString stringWithFormat:@"%@%d.m4a",
                                   [_saveAsTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                                   randomID];
             NSArray *saveFilePathComponents = [NSArray arrayWithObjects:
@@ -102,9 +103,10 @@
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
         } while (fileExists == YES);
         
+        // Copying files from temp to documents directory
         [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
         
-        //Saving the details to core data
+        // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
         NSManagedObject *newTagObject;
@@ -118,7 +120,7 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: _datePicker.date forKey:@"date"];
-        [newTagObject setValue: [saveURL path] forKey:@"filePath"];
+        [newTagObject setValue: saveName forKey:@"fileName"];
         //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //This to be added by uploader
         
         // Save the new TagObject to persistent store
@@ -136,12 +138,13 @@
             [savedMessage show];
         }
         
-        //Deleting the temp file if it exists
+        // Deleting the temp file if it exists
         if ([fileManager fileExistsAtPath:[tempURL path]]) {
             [fileManager removeItemAtPath:[tempURL path] error:nil];
         }
         
         [self dismissViewControllerAnimated:YES completion:nil];
+        NSLog(@"%@",saveURL);
     }
 }
 

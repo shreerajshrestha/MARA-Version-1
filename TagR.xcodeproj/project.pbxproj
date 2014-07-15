@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0413C431197437EC00B6C33D /* ACEImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413C430197437EC00B6C33D /* ACEImageTableViewCell.m */; };
 		041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */; };
 		041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */; };
 		042B9DFF196A5A9B003E3F66 /* ACEVideosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B9DFE196A5A9B003E3F66 /* ACEVideosTableViewController.m */; };
@@ -37,8 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0413C42F197437EC00B6C33D /* ACEImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEImageTableViewCell.h; sourceTree = "<group>"; };
-		0413C430197437EC00B6C33D /* ACEImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEImageTableViewCell.m; sourceTree = "<group>"; };
 		041EBE5019551CFC00828F00 /* ACERecorderWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderWindowViewController.h; sourceTree = "<group>"; };
 		041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderWindowViewController.m; sourceTree = "<group>"; };
 		041EBE5319553E5700828F00 /* ACECameraWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACECameraWindowViewController.h; sourceTree = "<group>"; };
@@ -115,8 +112,6 @@
 				042B9DFE196A5A9B003E3F66 /* ACEVideosTableViewController.m */,
 				042B9E09196A5C75003E3F66 /* ACEAudiosTableViewController.h */,
 				042B9E0A196A5C75003E3F66 /* ACEAudiosTableViewController.m */,
-				0413C42F197437EC00B6C33D /* ACEImageTableViewCell.h */,
-				0413C430197437EC00B6C33D /* ACEImageTableViewCell.m */,
 			);
 			name = "Table View Controllers";
 			sourceTree = "<group>";
@@ -308,7 +303,6 @@
 				042B9E0B196A5C75003E3F66 /* ACEAudiosTableViewController.m in Sources */,
 				042B9DFF196A5A9B003E3F66 /* ACEVideosTableViewController.m in Sources */,
 				04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */,
-				0413C431197437EC00B6C33D /* ACEImageTableViewCell.m in Sources */,
 				04AA34681953FC5900600B80 /* main.m in Sources */,
 				0453E34D1963CF3B00EB00E1 /* FDWaveformView.m in Sources */,
 			);

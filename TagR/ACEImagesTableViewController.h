@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 
 @interface ACEImagesTableViewController : UITableViewController
+<UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong) NSMutableArray *mediaDetails;
 

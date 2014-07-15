@@ -18,11 +18,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *tagsTextField;
 @property (strong, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (strong, nonatomic) IBOutlet UIButton *getLocationDataButton;
-@property (weak, nonatomic) IBOutlet UITextField *latitudeLabel;
-@property (weak, nonatomic) IBOutlet UITextField *longitudeLabel;
+@property (strong, nonatomic) IBOutlet UITextField *latitudeLabel;
+@property (strong, nonatomic) IBOutlet UITextField *longitudeLabel;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
-@property (strong, nonatomic) NSURL *tempFileURL;
 @property BOOL gotLocation;
 @property float latitude;
 @property float longitude;

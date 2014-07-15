@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface ACEAudiosTableViewController : UITableViewController
+
+@property (strong) NSMutableArray *mediaDetails;
 
 @end

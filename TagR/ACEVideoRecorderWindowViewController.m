@@ -7,7 +7,6 @@
 //
 
 #import "ACEVideoRecorderWindowViewController.h"
-//#import <AVFoundation/AVFoundation.h>
 
 @interface ACEVideoRecorderWindowViewController ()
 
@@ -30,11 +29,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    _saveAsTextField.enabled = YES; //FOR NOW
+    self.saveAsTextField.enabled = YES;
     
     //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
+    _gotLocation = NO;
     
     self.saveAsTextField.delegate = self;
     self.tagsTextField.delegate = self;
@@ -72,13 +71,56 @@
 
 - (IBAction)saveVideoButtonTapped:(UIBarButtonItem *)sender
 {
+    // Creating the temp audio file url
+    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
+                                       NSTemporaryDirectory(),
+                                       @"tempVideo.MOV",
+                                       nil];
+    NSURL *tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
+        
+        // Deleting the temp file
+        if ([fileManager fileExistsAtPath:[tempURL path]]) {
+            [fileManager removeItemAtPath:[tempURL path] error:nil];
+        }
         
         [self dismissViewControllerAnimated:YES completion:nil];
         
     } else {
         
-        //Saving the details to core data
+        // Copying file from temp to documents directory
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/MyVideos"];
+        
+        if (![fileManager fileExistsAtPath:dataPath])
+            [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+        
+        BOOL fileExists = NO;
+        NSString *saveName = @"";
+        NSURL *saveURL = [[NSURL alloc] init];
+        
+        do {
+            int randomID = arc4random() % 9999999;
+            saveName = [NSString stringWithFormat:@"%@%d.MOV",
+                        [_saveAsTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""],
+                        randomID];
+            NSArray *saveFilePathComponents = [NSArray arrayWithObjects:
+                                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
+                                               @"/MyVideos/",
+                                               saveName, nil];
+            
+            saveURL = [NSURL fileURLWithPathComponents:saveFilePathComponents];
+            fileExists = [fileManager fileExistsAtPath:[saveURL path]];
+        } while (fileExists == YES);
+        
+        // Copying files from temp to documents directory
+        [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
+        
+        // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
         NSManagedObject *newTagObject;
@@ -92,10 +134,8 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: _datePicker.date forKey:@"date"];
-        
-        //***** code to set file URL and webURL still needed
-        //    [newTagObject setValue: [THE FILE URL] forKey:@"filePath"];
-        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //May be in uploader
+        [newTagObject setValue: saveName forKey:@"fileName"];
+        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //This to be added by uploader
         
         // Save the new TagObject to persistent store
         NSError *error = nil;
@@ -112,8 +152,14 @@
             [savedMessage show];
         }
         
+        // Deleting the temp file if it exists
+        if ([fileManager fileExistsAtPath:[tempURL path]]) {
+            [fileManager removeItemAtPath:[tempURL path] error:nil];
+        }
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -161,42 +207,28 @@
 
 - (void)imagePickerController:(UIImagePickerController *)videoPicker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    // Seting up the temp file url
+    NSArray *pathComponents = [NSArray arrayWithObjects:
+                               NSTemporaryDirectory(),
+                               @"tempVideo.MOV",
+                               nil];
+    NSURL *tempURL = [NSURL fileURLWithPathComponents:pathComponents];
+    
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     
+    // Saving the captured video to temp directory
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
-        //UIImage *image = info[UIImagePickerControllerOriginalImage];
-        
-        //decided to take image view out, assign image url to this image here
-        //_imageView.image = image;
-        
-        //some code to get the TEMP file URL here
+        NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        [fileManager copyItemAtURL:mediaURL toURL:tempURL error:nil];
+
     }
-//    _videoURL = info[UIImagePickerControllerMediaURL];
+    
     _saveAsTextField.enabled = YES;
     
     [videoPicker dismissViewControllerAnimated:YES completion:NULL];
     
-    //initializing the video controller in the header file
-//    self.videoController = [[MPMoviePlayerController alloc] init];
-//    
-//    [self.videoController setContentURL:self.videoURL];
-//    [self.videoController.view setFrame:CGRectMake(0, 50, 200, 300)];
-//    [self.view addSubview:self.videoController.view]; //setting and displaying a subview
-//    
-//    [self.videoController play];
-    
-    //MEthod to generate thumbnail, some error logging method here
-    
-//    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:self.videoURL options:nil];
-//    AVAssetImageGenerator *thumbGen = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-//    NSError *error = NULL;
-//    CMTime time = CMTimeMake(1, 65);
-//    CGImageRef thumbRef = [thumbGen copyCGImageAtTime:time actualTime:NULL error:&error];
-//    NSLog(@"error==%@, Refimage==%@", error, thumbRef);
-//    UIImage *thumbImg= [[UIImage alloc] initWithCGImage:thumbRef];
-//    
-//    self.thumbImage.image = thumbImg;
-    
+
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)videoPicker

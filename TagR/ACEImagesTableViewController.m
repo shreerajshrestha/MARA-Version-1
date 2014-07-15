@@ -7,7 +7,6 @@
 //
 
 #import "ACEImagesTableViewController.h"
-#import "ACEImageTableViewCell.h"
 
 @interface ACEImagesTableViewController ()
 
@@ -69,13 +68,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ACEImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ImageCell"
                                                                   forIndexPath:indexPath];
     
     // Configure the cell...
     NSManagedObject *mediaDetail = [self.mediaDetails objectAtIndex:indexPath.row];
-    [cell.name setText:[mediaDetail valueForKey:@"name"]];
-    [cell.tags setText:[mediaDetail valueForKey:@"tags"]];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *pathComponent = [NSString stringWithFormat:@"/MyImages/%@", [mediaDetail valueForKey:@"fileName"]];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:pathComponent];
+    cell.textLabel.text = [mediaDetail valueForKey:@"name"];
+    cell.detailTextLabel.text = [mediaDetail valueForKey:@"tags"];
+    cell.imageView.image = [UIImage imageWithContentsOfFile:filePath];
     
     return cell;
 }
@@ -90,6 +94,14 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Delete file from the documents directory
+    NSManagedObject *mediaDetail = [self.mediaDetails objectAtIndex:indexPath.row];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *pathComponent = [NSString stringWithFormat:@"/MyImages/%@", [mediaDetail valueForKey:@"fileName"]];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:pathComponent];
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    
     // Delete object from database
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = [appDelegate managedObjectContext];

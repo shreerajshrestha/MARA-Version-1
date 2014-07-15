@@ -34,6 +34,18 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"AudioDB"];
+    self.mediaDetails = [[context executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -44,50 +56,67 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.mediaDetails.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"AudioCell"
+                                                            forIndexPath:indexPath];
     
     // Configure the cell...
+    NSManagedObject *mediaDetail = [self.mediaDetails objectAtIndex:indexPath.row];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *pathComponent = [NSString stringWithFormat:@"/MyAudios/%@", [mediaDetail valueForKey:@"fileName"]];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:pathComponent];
+    cell.textLabel.text = [mediaDetail valueForKey:@"name"];
+    cell.detailTextLabel.text = [mediaDetail valueForKey:@"tags"];
+    //cell.imageView.image = [UIImage imageWithContentsOfFile:filePath];
     
     return cell;
 }
-*/
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    //Delete file from the documents directory
+    NSManagedObject *mediaDetail = [self.mediaDetails objectAtIndex:indexPath.row];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *pathComponent = [NSString stringWithFormat:@"/MyAudios/%@", [mediaDetail valueForKey:@"fileName"]];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:pathComponent];
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    
+    // Delete object from database
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    [context deleteObject:[self.mediaDetails objectAtIndex:indexPath.row]];
+    
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Cannot delete %@ %@", error, [error localizedDescription]);
+        return;
+    }
+    
+    // Remove device from table view
+    [self.mediaDetails removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
-*/
 
 /*
 // Override to support rearranging the table view.

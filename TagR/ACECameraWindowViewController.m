@@ -29,9 +29,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _saveAsTextField.enabled = YES;
+    self.saveAsTextField.enabled = YES;
     
-    //Initializing the location manager
+    // Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
     _gotLocation = NO;
     
@@ -55,7 +55,7 @@
         imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-        imagePicker.allowsEditing = YES;
+        imagePicker.allowsEditing = NO;
         
         [self presentViewController:imagePicker animated:YES completion:nil];
     }
@@ -72,7 +72,7 @@
 
 - (IBAction)saveImageButtonTapped:(UIBarButtonItem *)sender
 {
-    //Creating the temp audio file urlf
+    // Creating the temp audio file url
     NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
                                        NSTemporaryDirectory(),
                                        @"tempImage.jpg",
@@ -83,7 +83,7 @@
     
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
         
-        //Deleting the temp file
+        // Deleting the temp file
         if ([fileManager fileExistsAtPath:[tempURL path]]) {
             [fileManager removeItemAtPath:[tempURL path] error:nil];
         }
@@ -92,7 +92,7 @@
         
     } else {
         
-        //Copying file from temp to documents directory
+        // Copying file from temp to documents directory
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/MyImages"];
@@ -101,11 +101,12 @@
             [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
         
         BOOL fileExists = NO;
+        NSString *saveName = @"";
         NSURL *saveURL = [[NSURL alloc] init];
         
         do {
             int randomID = arc4random() % 9999999;
-            NSString *saveName = [NSString stringWithFormat:@"%@%d.jpg",
+            saveName = [NSString stringWithFormat:@"%@%d.jpg",
                                   [_saveAsTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                                   randomID];
             NSArray *saveFilePathComponents = [NSArray arrayWithObjects:
@@ -117,9 +118,10 @@
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
         } while (fileExists == YES);
         
+        // Copying files from temp to documents directory
         [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
         
-        //Saving the details to core data
+        // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
         NSManagedObject *newTagObject;
@@ -133,7 +135,7 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: _datePicker.date forKey:@"date"];
-        [newTagObject setValue: [saveURL path] forKey:@"filePath"];
+        [newTagObject setValue: saveName forKey:@"fileName"];
         //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //This to be added by uploader
         
         // Save the new TagObject to persistent store
@@ -151,7 +153,7 @@
             [savedMessage show];
         }
         
-        //Deleting the temp file if it exists
+        // Deleting the temp file if it exists
         if ([fileManager fileExistsAtPath:[tempURL path]]) {
             [fileManager removeItemAtPath:[tempURL path] error:nil];
         }
@@ -211,14 +213,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                                NSTemporaryDirectory(),
                                @"tempImage.jpg",
                                nil];
-    _tempFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    NSURL *tempURL = [NSURL fileURLWithPathComponents:pathComponents];
     
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     
-    // Saving the image to temp directory
+    // Saving the captured image to temp directory
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        [UIImageJPEGRepresentation(image, 1.0) writeToFile:[_tempFileURL path] atomically:YES];
+        [UIImageJPEGRepresentation(image, 1.0) writeToFile:[tempURL path] atomically:YES];
     }
     
     _saveAsTextField.enabled = YES;
