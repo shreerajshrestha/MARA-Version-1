@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="14A283o" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ulm-aS-zRE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ulm-aS-zRE">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -24,17 +25,16 @@
             </objects>
             <point key="canvasLocation" x="-549" y="643.5"/>
         </scene>
-        <!--Videos Table View Controller - Videos-->
+        <!--Videos-->
         <scene sceneID="Bsl-T8-N1x">
             <objects>
                 <tableViewController id="hgy-Ab-5fz" customClass="ACEVideosTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="mOd-x8-brU">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="mOd-x8-brU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" showsScopeBar="YES" id="Oaz-UF-OoB">
-                            <rect key="frame" x="0.0" y="64" width="480" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
@@ -46,7 +46,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="VideoCell" rowHeight="60" id="ojm-z8-frj">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="VideoCell" rowHeight="60" id="ojm-z8-frj">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ojm-z8-frj" id="rtz-A0-jEC">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -107,9 +107,6 @@
                         <variation key="heightClass=regular" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
                         </variation>
-                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
-                        </variation>
                         <connections>
                             <outlet property="dataSource" destination="hgy-Ab-5fz" id="0D6-ch-d39"/>
                             <outlet property="delegate" destination="hgy-Ab-5fz" id="bxh-6v-xrO"/>
@@ -139,7 +136,7 @@
             </objects>
             <point key="canvasLocation" x="1119" y="493.5"/>
         </scene>
-        <!--Video Recorder Window View Controller - Add Video-->
+        <!--Add Video-->
         <scene sceneID="JPo-WK-y0e">
             <objects>
                 <viewController id="Vyk-bR-Aug" customClass="ACEVideoRecorderWindowViewController" sceneMemberID="viewController">
@@ -148,7 +145,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Lmh-hH-BRi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="z3J-I0-LAQ">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7St-xt-sCw">
@@ -188,7 +185,7 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="BZs-xa-ot1">
                                 <rect key="frame" x="-160" y="-81" width="320" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="425564636.11806297">
-                                    <!--<__NSTaggedDate Class=2014-06-27 12:23:56 +0000 timeInterval=425564636.118063 ISO8601=2014-06-27T08:23:56.118-0400>-->
+                                    <!--2014-06-27 12:23:56 +0000-->
                                 </date>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="365" width="320" height="216"/>
@@ -257,7 +254,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="7St-xt-sCw"/>
@@ -317,17 +313,16 @@
             </objects>
             <point key="canvasLocation" x="2647.5" y="493.5"/>
         </scene>
-        <!--Audios Table View Controller - Recordings-->
+        <!--Recordings-->
         <scene sceneID="el6-jv-WIz">
             <objects>
                 <tableViewController id="Ok7-s0-bUG" customClass="ACEAudiosTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="MdC-ks-MRm">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="MdC-ks-MRm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" showsScopeBar="YES" id="tik-V7-mxa">
-                            <rect key="frame" x="0.0" y="64" width="480" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
@@ -339,7 +334,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AudioCell" rowHeight="60" id="8nU-47-gIj">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AudioCell" rowHeight="60" id="8nU-47-gIj">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8nU-47-gIj" id="0zX-uW-80S">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -393,9 +388,6 @@
                         <variation key="heightClass=regular" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
                         </variation>
-                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
-                        </variation>
                         <connections>
                             <outlet property="dataSource" destination="Ok7-s0-bUG" id="8Ol-ai-ePk"/>
                             <outlet property="delegate" destination="Ok7-s0-bUG" id="gB5-Sr-lBn"/>
@@ -425,7 +417,7 @@
             </objects>
             <point key="canvasLocation" x="1119" y="1244.25"/>
         </scene>
-        <!--Camera Window View Controller - Add Image-->
+        <!--Add Image-->
         <scene sceneID="pQG-QR-dlE">
             <objects>
                 <viewController id="fXy-On-r26" customClass="ACECameraWindowViewController" sceneMemberID="viewController">
@@ -434,7 +426,7 @@
                         <viewControllerLayoutGuide type="bottom" id="RX7-zI-EQ0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1B5-fn-HEF">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hj-7y-3va">
@@ -466,7 +458,7 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="GRn-87-zfi">
                                 <rect key="frame" x="-160" y="-81" width="320" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="425564636.11806297">
-                                    <!--<__NSTaggedDate Class=2014-06-27 12:23:56 +0000 timeInterval=425564636.118063 ISO8601=2014-06-27T08:23:56.118-0400>-->
+                                    <!--2014-06-27 12:23:56 +0000-->
                                 </date>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="365" width="320" height="216"/>
@@ -543,7 +535,6 @@
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="6hj-7y-3va"/>
@@ -606,7 +597,7 @@
             </objects>
             <point key="canvasLocation" x="2647.5" y="-258"/>
         </scene>
-        <!--Recorder Window View Controller - Add Recording-->
+        <!--Add Recording-->
         <scene sceneID="Ehu-uV-x7D">
             <objects>
                 <viewController id="Gi1-z1-tJU" customClass="ACERecorderWindowViewController" sceneMemberID="viewController">
@@ -615,7 +606,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Zqw-6E-Noa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5s5-ZE-UDa">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wam-Hu-3n1">
@@ -655,7 +646,7 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="CYf-fA-A50">
                                 <rect key="frame" x="-160" y="-81" width="320" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="425564636.11806297">
-                                    <!--<__NSTaggedDate Class=2014-06-27 12:23:56 +0000 timeInterval=425564636.118063 ISO8601=2014-06-27T08:23:56.118-0400>-->
+                                    <!--2014-06-27 12:23:56 +0000-->
                                 </date>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="0.0" y="363" width="320" height="216"/>
@@ -724,7 +715,6 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Wam-Hu-3n1"/>
@@ -795,7 +785,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Eqv-uB-MI4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9rY-jh-4h4">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6g-sT-0Rj" customClass="FDWaveformView">
@@ -813,7 +803,6 @@
                                 <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="79" y="258" width="82" height="30"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact"/>
                                 <connections>
                                     <action selector="recordPauseButtonTapped:" destination="ISc-SO-RGF" eventType="touchUpInside" id="96f-Vv-LCs"/>
                                 </connections>
@@ -835,7 +824,6 @@
                                 <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="236" y="335" width="46" height="30"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact"/>
                                 <connections>
                                     <action selector="playButtonTapped:" destination="ISc-SO-RGF" eventType="touchUpInside" id="x6k-vP-0sI"/>
                                 </connections>
@@ -848,7 +836,6 @@
                                 <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="383" y="254" width="46" height="30"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact"/>
                                 <connections>
                                     <action selector="stopButtonTapped:" destination="ISc-SO-RGF" eventType="touchUpInside" id="X3F-3o-IkW"/>
                                 </connections>
@@ -877,7 +864,6 @@
                             </constraint>
                             <constraint firstAttribute="trailing" secondItem="cdn-wK-tIC" secondAttribute="trailing" constant="141" id="urV-Y6-k2A"/>
                         </constraints>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="z6g-sT-0Rj"/>
@@ -898,6 +884,13 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="z6g-sT-0Rj"/>
+                                <include reference="bj9-q9-Cfy"/>
+                                <include reference="cdn-wK-tIC"/>
+                                <include reference="Wyj-PU-yQY"/>
+                                <include reference="CcF-ab-g4z"/>
+                            </mask>
                             <mask key="constraints">
                                 <include reference="fT8-e1-Weq"/>
                                 <include reference="le8-LM-Cvd"/>
@@ -907,15 +900,6 @@
                                 <include reference="jgA-ec-fDT"/>
                                 <include reference="urV-Y6-k2A"/>
                                 <include reference="RIz-0p-6iX"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="z6g-sT-0Rj"/>
-                                <include reference="bj9-q9-Cfy"/>
-                                <include reference="cdn-wK-tIC"/>
-                                <include reference="Wyj-PU-yQY"/>
-                                <include reference="CcF-ab-g4z"/>
                             </mask>
                         </variation>
                     </view>
@@ -933,17 +917,16 @@
             </objects>
             <point key="canvasLocation" x="3456" y="1246.5"/>
         </scene>
-        <!--Images Table View Controller - Images-->
+        <!--Images-->
         <scene sceneID="aDn-zu-8EJ">
             <objects>
                 <tableViewController id="EG8-ix-HMR" customClass="ACEImagesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="f2j-pj-9fT">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="f2j-pj-9fT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" showsScopeBar="YES" id="mDV-vb-T5y">
-                            <rect key="frame" x="0.0" y="64" width="480" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
@@ -955,7 +938,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" ambiguous="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="60" id="KGa-Qb-TJb">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="60" id="KGa-Qb-TJb">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGa-Qb-TJb" id="wfm-wP-PQf">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1007,9 +990,6 @@
                         <sections/>
                         <variation key="heightClass=regular" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="640"/>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
                         </variation>
                         <connections>
                             <outlet property="dataSource" destination="EG8-ix-HMR" id="wcj-Qk-8Ay"/>
