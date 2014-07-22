@@ -13,5 +13,9 @@
 @interface ACEVideosTableViewController : UITableViewController
 
 @property (strong) NSMutableArray *mediaDetails;
+@property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) NSFetchRequest *searchFetchRequest;
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(int)scope;
 
 @end

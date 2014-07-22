@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "AppDelegate.h"
+#import <MediaPlayer/MediaPlayer.h> ///////////////////////
 
 @interface ACEVideoRecorderWindowViewController : UIViewController
 <UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate, CLLocationManagerDelegate>
@@ -21,6 +23,9 @@
 @property (strong, nonatomic) IBOutlet UITextField *latitudeLabel;
 @property (strong, nonatomic) IBOutlet UITextField *longitudeLabel;
 @property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+
+@property (strong, nonatomic) MPMoviePlayerController *videoController; ////////////
+@property (strong, nonatomic) NSURL *videoURL;
 
 @property BOOL gotLocation;
 @property float latitude;

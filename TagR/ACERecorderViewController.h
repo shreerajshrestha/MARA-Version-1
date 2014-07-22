@@ -17,12 +17,12 @@
 @interface ACERecorderViewController : UIViewController
 <AVAudioPlayerDelegate, AVAudioRecorderDelegate, FDWaveformViewDelegate>
 
-//Protocol properties for delegate
 @property (weak, nonatomic) id <RecordingStateDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UIButton *recordPauseButton;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) IBOutlet UIButton *stopButton;
+@property (strong, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet FDWaveformView *waveform;
 @property (strong, nonatomic) NSURL *tempFileURL;
 @property (strong, nonatomic) NSTimer *timer;

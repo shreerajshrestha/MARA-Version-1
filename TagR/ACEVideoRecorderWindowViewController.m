@@ -54,7 +54,7 @@
         videoPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         videoPicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
         videoPicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-        videoPicker.videoQuality = UIImagePickerControllerQualityType640x480;
+        videoPicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
         videoPicker.showsCameraControls = YES;
         videoPicker.allowsEditing = YES;
         
@@ -119,8 +119,35 @@
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
         } while (fileExists == YES);
         
-        // Copying files from temp to documents directory
         [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
+        
+        // Generating and saving thumbnail to cache
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:tempURL options:nil];
+        AVAssetImageGenerator *thumbGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+        thumbGenerator.appliesPreferredTrackTransform = YES;
+        CMTime time = CMTimeMake(1, 65);
+        CGImageRef referenceImage = [thumbGenerator copyCGImageAtTime:time actualTime:NULL error:nil];
+        UIImage *snapshotImage = [[UIImage alloc] initWithCGImage:referenceImage];
+    
+        CGSize thumbnailSize = CGSizeMake(256,256);
+        UIGraphicsBeginImageContext(thumbnailSize);
+        CGRect thumbnailRect = CGRectMake(0, 0, 0, 0);
+        thumbnailRect.origin = CGPointMake(0.0,0.0);
+        thumbnailRect.size.width  = thumbnailSize.width;
+        thumbnailRect.size.height = thumbnailSize.height;
+        [snapshotImage drawInRect:thumbnailRect];
+        UIImage *thumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        NSString *cacheDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)
+                                    objectAtIndex:0];
+        NSString *thumbCacheDirectory = [cacheDirectory stringByAppendingPathComponent:@"/Caches/ThumbnailCache"];
+        if (![fileManager fileExistsAtPath:thumbCacheDirectory])
+            [fileManager createDirectoryAtPath:thumbCacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+        NSString *thumbPathComponent = [NSString stringWithFormat:@"/%@thumb.jpg",saveName];
+        NSString *cachePath = [thumbCacheDirectory stringByAppendingPathComponent:thumbPathComponent];
+        
+        [UIImageJPEGRepresentation(thumbnailImage, 1.0) writeToFile:cachePath atomically:YES];
         
         // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -137,7 +164,6 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: _datePicker.date forKey:@"date"];
         [newTagObject setValue: saveName forKey:@"fileName"];
-        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //This to be added by uploader
         
         // Save the new TagObject to persistent store
         NSError *error = nil;

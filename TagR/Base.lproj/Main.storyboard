@@ -33,10 +33,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="Oaz-UF-OoB">
+                        <searchBar key="tableHeaderView" contentMode="redraw" showsScopeBar="YES" id="Oaz-UF-OoB">
                             <rect key="frame" x="0.0" y="64" width="480" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Name</string>
+                                <string>Tags</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="hgy-Ab-5fz" id="5ME-hs-BaQ"/>
                             </connections>
@@ -322,10 +326,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="tik-V7-mxa">
+                        <searchBar key="tableHeaderView" contentMode="redraw" showsScopeBar="YES" id="tik-V7-mxa">
                             <rect key="frame" x="0.0" y="64" width="480" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Name</string>
+                                <string>Tags</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="Ok7-s0-bUG" id="vcf-w3-Zap"/>
                             </connections>
@@ -346,7 +354,7 @@
                                                 <rect key="frame" x="80" y="5" width="200" height="20"/>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="302" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="O8y-14-Phi">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="302" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tags" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="O8y-14-Phi">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -356,10 +364,12 @@
                                                 <rect key="frame" x="80" y="25" width="200" height="30"/>
                                             </variation>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" tag="300" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recThumb.png" translatesAutoresizingMaskIntoConstraints="NO" id="QHD-Xj-4pp">
+                                        <imageView userInteractionEnabled="NO" tag="300" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recThumb.ico" translatesAutoresizingMaskIntoConstraints="NO" id="QHD-Xj-4pp">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="20" y="12" width="35" height="35"/>
+                                                <rect key="frame" x="20" y="7" width="45" height="40"/>
                                             </variation>
                                         </imageView>
                                     </subviews>
@@ -791,6 +801,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6g-sT-0Rj" customClass="FDWaveformView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="20" y="306" width="280" height="211"/>
+                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bj9-q9-Cfy">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -843,7 +856,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="z6g-sT-0Rj" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="242" id="11F-Bm-lVQ"/>
                             <constraint firstAttribute="trailing" secondItem="Wyj-PU-yQY" secondAttribute="trailing" constant="145" id="8sl-RP-pAd"/>
                             <constraint firstItem="bj9-q9-Cfy" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="116" id="9xn-RE-8Vn">
                                 <variation key="heightClass=regular-widthClass=compact" constant="98"/>
@@ -851,20 +863,12 @@
                             <constraint firstItem="Wyj-PU-yQY" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="181" id="Gmp-Nb-OsR">
                                 <variation key="heightClass=regular-widthClass=compact" constant="160"/>
                             </constraint>
-                            <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="z6g-sT-0Rj" secondAttribute="bottom" constant="104" id="JAy-Dy-ElW">
-                                <variation key="heightClass=regular-widthClass=compact" constant="79"/>
-                            </constraint>
-                            <constraint firstAttribute="centerY" secondItem="z6g-sT-0Rj" secondAttribute="centerY" constant="-110.5" id="QMU-R4-FwU">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-91.5"/>
-                            </constraint>
                             <constraint firstItem="Eqv-uB-MI4" firstAttribute="top" secondItem="cdn-wK-tIC" secondAttribute="bottom" constant="44" id="RIz-0p-6iX">
                                 <variation key="heightClass=regular-widthClass=compact" constant="15"/>
                             </constraint>
-                            <constraint firstAttribute="centerX" secondItem="z6g-sT-0Rj" secondAttribute="centerX" id="eKG-Fp-zhO"/>
                             <constraint firstItem="CcF-ab-g4z" firstAttribute="top" secondItem="Yhg-NX-qft" secondAttribute="bottom" constant="116" id="fT8-e1-Weq">
                                 <variation key="heightClass=regular-widthClass=compact" constant="98"/>
                             </constraint>
-                            <constraint firstItem="z6g-sT-0Rj" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="20" id="fgN-yU-3aB"/>
                             <constraint firstItem="bj9-q9-Cfy" firstAttribute="leading" secondItem="9rY-jh-4h4" secondAttribute="leading" constant="51" id="jgA-ec-fDT">
                                 <variation key="heightClass=regular-widthClass=compact" constant="62"/>
                             </constraint>
@@ -890,12 +894,7 @@
                                 <exclude reference="9xn-RE-8Vn"/>
                                 <exclude reference="jgA-ec-fDT"/>
                                 <exclude reference="urV-Y6-k2A"/>
-                                <exclude reference="JAy-Dy-ElW"/>
                                 <exclude reference="RIz-0p-6iX"/>
-                                <exclude reference="11F-Bm-lVQ"/>
-                                <exclude reference="QMU-R4-FwU"/>
-                                <exclude reference="eKG-Fp-zhO"/>
-                                <exclude reference="fgN-yU-3aB"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -907,12 +906,7 @@
                                 <include reference="9xn-RE-8Vn"/>
                                 <include reference="jgA-ec-fDT"/>
                                 <include reference="urV-Y6-k2A"/>
-                                <include reference="JAy-Dy-ElW"/>
                                 <include reference="RIz-0p-6iX"/>
-                                <include reference="11F-Bm-lVQ"/>
-                                <include reference="QMU-R4-FwU"/>
-                                <include reference="eKG-Fp-zhO"/>
-                                <include reference="fgN-yU-3aB"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -928,6 +922,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="doneButton" destination="cdn-wK-tIC" id="GXk-y8-VbI"/>
                         <outlet property="playButton" destination="Wyj-PU-yQY" id="ex8-Lk-ko5"/>
                         <outlet property="recordPauseButton" destination="bj9-q9-Cfy" id="IXr-NV-WAm"/>
                         <outlet property="stopButton" destination="CcF-ab-g4z" id="Ofu-zy-zAk"/>
@@ -947,10 +942,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="mDV-vb-T5y">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" showsScopeBar="YES" id="mDV-vb-T5y">
+                            <rect key="frame" x="0.0" y="64" width="480" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Name</string>
+                                <string>Tags</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="EG8-ix-HMR" id="du5-c8-xxz"/>
                             </connections>
@@ -1043,11 +1042,11 @@
             </objects>
             <point key="canvasLocation" x="1119" y="-259.5"/>
         </scene>
-        <!--Navigation Controller - Images-->
+        <!--Navigation Controller-->
         <scene sceneID="Vqa-G6-Mk2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vpQ-V1-WFp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Images" id="8G6-WJ-Ngg"/>
+                    <tabBarItem key="tabBarItem" title="" id="8G6-WJ-Ngg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5yL-Vp-cLK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1062,11 +1061,11 @@
             </objects>
             <point key="canvasLocation" x="394.5" y="-257.25"/>
         </scene>
-        <!--Navigation Controller - Videos-->
+        <!--Navigation Controller-->
         <scene sceneID="NKV-gm-htr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nj4-24-8R2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Videos" id="xT2-w3-jc1"/>
+                    <tabBarItem key="tabBarItem" title="" id="xT2-w3-jc1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IlO-c2-bU0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1081,11 +1080,11 @@
             </objects>
             <point key="canvasLocation" x="394" y="494"/>
         </scene>
-        <!--Navigation Controller - Recordings-->
+        <!--Navigation Controller-->
         <scene sceneID="mZw-eW-eHt">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I9F-hN-OWC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recordings" id="Q5X-7q-Bb6"/>
+                    <tabBarItem key="tabBarItem" title="" id="Q5X-7q-Bb6"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2oL-Um-dNv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1156,7 +1155,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="recThumb.png" width="256" height="256"/>
-        <image name="wmImg.png" width="22" height="22"/>
+        <image name="recThumb.ico" width="512" height="512"/>
+        <image name="wmImg.png" width="128" height="128"/>
     </resources>
 </document>

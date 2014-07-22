@@ -21,6 +21,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Configuring the tab bar
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    tabBar.barStyle = UIBarStyleBlack;
+    tabBar.barTintColor = [UIColor whiteColor];
+    tabBar.itemPositioning = UITabBarItemPositioningCentered;
+    
+    // Customizing the tab bar items
+    UITabBarItem *imgItem = [tabBar.items objectAtIndex:0];
+    UITabBarItem *vidItem = [tabBar.items objectAtIndex:1];
+    UITabBarItem *recItem = [tabBar.items objectAtIndex:2];
+    imgItem.image = [UIImage imageNamed:@"imgTab.png"];
+    vidItem.image = [UIImage imageNamed:@"vidTab.png"];
+    recItem.image = [UIImage imageNamed:@"recTab.png"];
     return YES;
 }
 

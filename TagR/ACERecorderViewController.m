@@ -32,13 +32,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //*******                               ********//
-    //******* Add Error Handling code here  ********//
-    //*******                               ********//
-    
     // Disable Stop/Play button when application launches
     [_stopButton setEnabled:NO];
     [_playButton setEnabled:NO];
+    [_doneButton setEnabled:NO];
     
     // Seting up the temp file url
     NSArray *pathComponents = [NSArray arrayWithObjects:
@@ -168,6 +165,7 @@
     
     [_stopButton setEnabled:NO];
     [_playButton setEnabled:YES];
+    [_doneButton setEnabled:YES];
 }
 
 /*

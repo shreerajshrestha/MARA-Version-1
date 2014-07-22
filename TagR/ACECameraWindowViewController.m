@@ -120,9 +120,8 @@
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
         } while (fileExists == YES);
         
-        // Copying files from temp to documents directory
         [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
-        
+                
         // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
@@ -138,7 +137,6 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: _datePicker.date forKey:@"date"];
         [newTagObject setValue: saveName forKey:@"fileName"];
-        //    [newTagObject setValue: [THE WEB URL] forKey:@"webURL"]; //This to be added by uploader
         
         // Save the new TagObject to persistent store
         NSError *error = nil;
