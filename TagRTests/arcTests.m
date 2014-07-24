@@ -1,6 +1,6 @@
 //
-//  TagRTests.m
-//  TagRTests
+//  arcTests.m
+//  arcTests
 //
 //  Created by Shree Raj Shrestha on 6/20/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface TagRTests : XCTestCase
+@interface arcTests : XCTestCase
 
 @end
 
-@implementation TagRTests
+@implementation arcTests
 
 - (void)setUp {
     [super setUp];

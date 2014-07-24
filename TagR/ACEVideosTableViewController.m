@@ -1,6 +1,6 @@
 //
 //  ACEVideosTableViewController.m
-//  TagR
+//  arc
 //
 //  Created by Shree Raj Shrestha on 7/7/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
@@ -135,8 +135,8 @@
     NSString *fileName = [mediaDetail valueForKey:@"fileName"];
     NSString *cacheDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)
                                 objectAtIndex:0];
-    NSString *pathComponent = [NSString stringWithFormat:@"/Caches/ThumbnailCache/%@thumb.jpg",fileName];
-    NSString *thumbPath = [cacheDirectory stringByAppendingPathComponent:pathComponent];
+    NSString *cachePathComponent = [NSString stringWithFormat:@"/Caches/ThumbnailCache/%@thumb.jpg",fileName];
+    NSString *thumbPath = [cacheDirectory stringByAppendingPathComponent:cachePathComponent];
     UIImage *thumbImage = [UIImage imageWithContentsOfFile:thumbPath];
     
     // Configuring the cell
@@ -167,13 +167,20 @@
         currentArray = _mediaDetails;
     }
     
-    //Delete file from the documents directory
+    // Delete file from the documents directory
     NSManagedObject *mediaDetail = [currentArray objectAtIndex:indexPath.row];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *pathComponent = [NSString stringWithFormat:@"/MyVideos/%@", [mediaDetail valueForKey:@"fileName"]];
     NSString *filePath = [documentsDirectory stringByAppendingPathComponent:pathComponent];
     [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    
+    // Delete thumbnail from the cache folder
+    NSString *fileName = [mediaDetail valueForKey:@"fileName"];
+    NSString *cacheDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)
+                                objectAtIndex:0];
+    NSString *cachePathComponent = [NSString stringWithFormat:@"/Caches/ThumbnailCache/%@thumb.jpg",fileName];
+    NSString *thumbPath = [cacheDirectory stringByAppendingPathComponent:cachePathComponent];
+    [[NSFileManager defaultManager] removeItemAtPath:thumbPath error:nil];
     
     // Delete object from database
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];

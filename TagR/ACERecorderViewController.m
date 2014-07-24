@@ -1,6 +1,6 @@
 //
 //  ACERecorderViewController.m
-//  TagR
+//  arc
 //
 //  Created by Shree Raj Shrestha on 6/27/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
@@ -44,29 +44,29 @@
                                nil];
     _tempFileURL = [NSURL fileURLWithPathComponents:pathComponents];
     
-    //Deleting the temp file if it exists
+    // Deleting the temp file if it exists
     if ([[NSFileManager defaultManager] fileExistsAtPath:[_tempFileURL path]]) {
         [[NSFileManager defaultManager] removeItemAtPath:[_tempFileURL path] error:nil];
     }
     
-    //Setting up the audio session
+    // Setting up the audio session
     AVAudioSession *recorderSession = [AVAudioSession sharedInstance];
     [recorderSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     
-    //Defining the audio recorder settings
+    // Defining the audio recorder settings
     NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
     
     [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
     [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
     [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
     
-    //Initiating and preparing the audio recorder
+    // Initiating and preparing the audio recorder
     audioRecorder = [[AVAudioRecorder alloc] initWithURL:_tempFileURL settings:recordSetting error:NULL];
     audioRecorder.delegate = self;
     audioRecorder.meteringEnabled = YES;
     [audioRecorder prepareToRecord];
     
-    //Setting graphical properties for waveform view
+    // Setting graphical properties for waveform view
     self.waveform.backgroundColor = [UIColor lightGrayColor];
     self.view.backgroundColor = [UIColor lightGrayColor];
 }
@@ -79,9 +79,10 @@
 
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender
 {
-    //Stopping the audio player before recording
+    // Stopping the audio player before recording
     if (audioPlayer.playing) {
         [audioPlayer stop];
+        self.waveform.progressSamples = 0;
     }
     
     if (!audioRecorder.recording) {
@@ -89,13 +90,13 @@
         AVAudioSession *recorderSession = [AVAudioSession sharedInstance];
         [recorderSession setActive:YES error:nil];
         
-        //Start recording
+        // Start recording
         [audioRecorder record];
         [_recordPauseButton setTitle:@"Pause" forState:UIControlStateNormal];
         
     } else {
         
-        //Pause recording
+        // Pause recording
         [audioRecorder pause];
         [self.recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
         
@@ -112,29 +113,33 @@
     AVAudioSession *recorderAudioSession = [AVAudioSession sharedInstance];
     [recorderAudioSession setActive:NO error:nil];
     
-    //code to generate the FDWaveform
-    NSURL *url = _tempFileURL;
-    self.waveform.delegate = self;
-    self.waveform.alpha = 0.0f;
-    self.waveform.audioURL = url;
-    self.waveform.progressSamples = 0;
-    self.waveform.doesAllowScrubbing = NO;
-    self.waveform.doesAllowStretchAndScroll = NO;
+    [self reset];
+    [self generateWaveform];
 }
 
 - (IBAction)playButtonTapped:(UIButton *)sender
 {
     if (!audioRecorder.recording) {
         
-        //Setting the audioPlayer
-        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioRecorder.url error:nil];
-        [audioPlayer setDelegate:self];
+        if (_initplayer) {
+            
+            // Setting the audioPlayer
+            audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:_tempFileURL error:nil];
+            [audioPlayer setDelegate:self];
+            
+            // Setting the timer to update waveform
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
+            _initplayer = NO;
+        }
         
-        //Setting the timer to update waveform
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
         
-        //Playing the audio
-        [audioPlayer play];
+        if (!audioPlayer.isPlaying) {
+            [audioPlayer play];
+            [_playButton setTitle:@"Pause" forState:UIControlStateNormal];
+        } else if (audioPlayer.isPlaying) {
+            [audioPlayer pause];
+            [_playButton setTitle:@"Play" forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -146,26 +151,46 @@
         [_delegate isFileSaved:NO];
     }
     
+    [audioPlayer stop];
+    [self reset];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)backButtonTapped:(UIBarButtonItem *)sender {
+    [audioRecorder stop];
+    [audioPlayer stop];
+    [self reset];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) generateWaveform
+{
+    // Generate Waveform
+    NSURL *url = _tempFileURL;
+    self.waveform.delegate = self;
+    self.waveform.alpha = 0.0f;
+    self.waveform.audioURL = url;
+    self.waveform.progressSamples = 0;
+    self.waveform.doesAllowScrubbing = NO;
+    self.waveform.doesAllowStretchAndScroll = NO;
 }
 
 - (void)updateWaveform
 {
-    //Animating the waveform
-    [UIView animateWithDuration:0.10 animations:^{
+    // Animating the waveform
+    [UIView animateWithDuration:0.01 animations:^{
         float currentPlayTime = audioPlayer.currentTime;
-        float progressSample = ( currentPlayTime + 0.15 ) * 44100.00;
+        float progressSample = ( currentPlayTime + 0.10 ) * 44100.00;
         self.waveform.progressSamples = progressSample;
     }];
 }
 
-- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag
+- (void)reset
 {
-    [_recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
-    
-    [_stopButton setEnabled:NO];
-    [_playButton setEnabled:YES];
-    [_doneButton setEnabled:YES];
+    [_playButton setTitle:@"Play" forState:UIControlStateNormal];
+    [_timer invalidate];
+    self.waveform.progressSamples = 0;
+    _initplayer = YES;
 }
 
 /*
@@ -179,27 +204,33 @@
 }
 */
 
+#pragma mark - AVAudioRecorderDelegate
+- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag
+{
+    [_recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
+    [_stopButton setEnabled:NO];
+    [_playButton setEnabled:YES];
+    [_doneButton setEnabled:YES];
+    [self reset];
+}
+
 
 #pragma mark - AVAudioPlayerDelegate
 
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)audioPlayer successfully:(BOOL)flag
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
-    // Music completed so stop timer
-    if (flag) {
-        [_timer invalidate];
-    }
+    [self reset];
 }
 
 #pragma mark - FDWaveformViewDelegate
 
 - (void)waveformViewWillRender:(FDWaveformView *)waveformView
 {
-    //self.startRendering = [NSDate date];
+    
 }
 
 - (void)waveformViewDidRender:(FDWaveformView *)waveformView
 {
-    //NSLog(@"FDWaveformView rendering done, took %f seconds", -[self.startRendering timeIntervalSinceNow]);
     [UIView animateWithDuration:0.25f animations:^{
         waveformView.alpha = 1.0f;
     }];

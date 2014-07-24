@@ -1,6 +1,6 @@
 //
 //  ACECameraWindowViewController.h
-//  TagR
+//  arc
 //
 //  Created by Shree Raj Shrestha on 6/21/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
@@ -20,7 +20,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *getLocationDataButton;
 @property (strong, nonatomic) IBOutlet UITextField *latitudeLabel;
 @property (strong, nonatomic) IBOutlet UITextField *longitudeLabel;
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 
 @property BOOL gotLocation;
 @property float latitude;

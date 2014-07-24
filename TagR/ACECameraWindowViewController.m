@@ -1,6 +1,6 @@
 //
 //  ACECameraWindowViewController.m
-//  TagR
+//  arc
 //
 //  Created by Shree Raj Shrestha on 6/21/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
@@ -121,6 +121,12 @@
         } while (fileExists == YES);
         
         [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
+        
+        // Formatting date
+        NSDate *now = [[NSDate alloc] init];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM/dd/yyyy HH:mm"];
+        NSString *date = [formatter stringFromDate:now];
                 
         // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -135,7 +141,7 @@
         [newTagObject setValue: _descriptionTextField.text forKey:@"descriptor"];
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
-        [newTagObject setValue: _datePicker.date forKey:@"date"];
+        [newTagObject setValue: date forKey:@"date"];
         [newTagObject setValue: saveName forKey:@"fileName"];
         
         // Save the new TagObject to persistent store

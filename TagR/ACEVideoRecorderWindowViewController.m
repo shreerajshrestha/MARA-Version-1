@@ -1,6 +1,6 @@
 //
 //  ACEVideoRecorderWindowViewController.m
-//  TagR
+//  arc
 //
 //  Created by Shree Raj Shrestha on 6/26/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
@@ -29,6 +29,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // Creating the temp audio file url
+    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
+                                       NSTemporaryDirectory(),
+                                       @"tempVideo.MOV",
+                                       nil];
+    _tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
     
     //Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
@@ -71,27 +78,29 @@
     [locationManager startUpdatingLocation];
 }
 
-- (IBAction)saveVideoButtonTapped:(UIBarButtonItem *)sender
+- (IBAction)saveVideoButtonTapped:(UIButton *)sender
 {
-    // Creating the temp audio file url
-    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
-                                       NSTemporaryDirectory(),
-                                       @"tempVideo.MOV",
-                                       nil];
-    NSURL *tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
         
-        // Deleting the temp file
-        if ([fileManager fileExistsAtPath:[tempURL path]]) {
-            [fileManager removeItemAtPath:[tempURL path] error:nil];
-        }
+        UIAlertView *alertMessage = [[UIAlertView alloc]
+                                     initWithTitle:@"Nothing Saved!"
+                                     message:@"Please add media, enter the required fields and update location."
+                                     delegate:nil
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil, nil];
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [alertMessage show];
         
     } else {
+        
+        // Start animation
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [spinner setCenter:CGPointMake(160,500)];
+        [self.view addSubview:spinner];
+        [spinner startAnimating];
         
         // Copying file from temp to documents directory
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -119,10 +128,10 @@
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
         } while (fileExists == YES);
         
-        [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
+        [fileManager copyItemAtURL:_tempURL toURL:saveURL error:nil];
         
         // Generating and saving thumbnail to cache
-        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:tempURL options:nil];
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:_tempURL options:nil];
         AVAssetImageGenerator *thumbGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         thumbGenerator.appliesPreferredTrackTransform = YES;
         CMTime time = CMTimeMake(1, 65);
@@ -139,8 +148,7 @@
         UIImage *thumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        NSString *cacheDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)
-                                    objectAtIndex:0];
+        NSString *cacheDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *thumbCacheDirectory = [cacheDirectory stringByAppendingPathComponent:@"/Caches/ThumbnailCache"];
         if (![fileManager fileExistsAtPath:thumbCacheDirectory])
             [fileManager createDirectoryAtPath:thumbCacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
@@ -148,6 +156,12 @@
         NSString *cachePath = [thumbCacheDirectory stringByAppendingPathComponent:thumbPathComponent];
         
         [UIImageJPEGRepresentation(thumbnailImage, 1.0) writeToFile:cachePath atomically:YES];
+        
+        // Formatting date
+        NSDate *now = [[NSDate alloc] init];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM/dd/yyyy HH:mm"];
+        NSString *date = [formatter stringFromDate:now];
         
         // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -162,7 +176,7 @@
         [newTagObject setValue: _descriptionTextField.text forKey:@"descriptor"];
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
-        [newTagObject setValue: _datePicker.date forKey:@"date"];
+        [newTagObject setValue: date forKey:@"date"];
         [newTagObject setValue: saveName forKey:@"fileName"];
         
         // Save the new TagObject to persistent store
@@ -181,13 +195,25 @@
         }
         
         // Deleting the temp file if it exists
-        if ([fileManager fileExistsAtPath:[tempURL path]]) {
-            [fileManager removeItemAtPath:[tempURL path] error:nil];
+        if ([fileManager fileExistsAtPath:[_tempURL path]]) {
+            [fileManager removeItemAtPath:[_tempURL path] error:nil];
         }
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 
+}
+
+- (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // Deleting the temp file
+    if ([fileManager fileExistsAtPath:[_tempURL path]]) {
+        [fileManager removeItemAtPath:[_tempURL path] error:nil];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -235,19 +261,25 @@
 
 - (void)imagePickerController:(UIImagePickerController *)videoPicker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    // Seting up the temp file url
-    NSArray *pathComponents = [NSArray arrayWithObjects:
-                               NSTemporaryDirectory(),
-                               @"tempVideo.MOV",
-                               nil];
-    NSURL *tempURL = [NSURL fileURLWithPathComponents:pathComponents];
-    
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     
-    // Saving the captured video to temp directory
+    // Saving the captured video to temp directory and loading preview
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        
         NSURL *mediaURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        [[NSFileManager defaultManager] copyItemAtURL:mediaURL toURL:tempURL error:nil];
+        NSFileManager *manager = [NSFileManager defaultManager];
+        [manager removeItemAtPath:[_tempURL path] error:nil];
+        [manager copyItemAtURL:mediaURL toURL:_tempURL error:nil];
+        
+        // Loading video on preview pane
+        _player = [[MPMoviePlayerController alloc] initWithContentURL:_tempURL];
+        _player.controlStyle = MPMovieControlStyleDefault;
+        _player.scalingMode = MPMovieScalingModeAspectFit;
+        _player.shouldAutoplay = NO;
+        [_player.view setFrame:_preview.bounds];
+        [_preview addSubview:_player.view];
+        [_player play];
+        [_player pause];
     }
     
     _saveAsTextField.enabled = YES;
@@ -278,7 +310,6 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    // NSLog(@"didUpdateLocations: %@", currentLocation);
     
     if (currentLocation != nil) {
         // Updating local latitude and longtitude

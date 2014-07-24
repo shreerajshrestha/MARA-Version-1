@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:TagR.xcodeproj">
+      location = "self:arc.xcodeproj">
    </FileRef>
 </Workspace>

@@ -1,6 +1,6 @@
 //
 //  ACERecorderWindowViewController.m
-//  TagR
+//  arc
 //
 //  Created by Shree Raj Shrestha on 6/20/14.
 //  Copyright (c) 2014 Shree Raj Shrestha. All rights reserved.
@@ -8,7 +8,9 @@
 
 #import "ACERecorderWindowViewController.h"
 
-@interface ACERecorderWindowViewController ()
+@interface ACERecorderWindowViewController () {
+    AVAudioPlayer *audioPlayer;
+}
 
 @end
 
@@ -29,6 +31,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // Creating the temp audio file url
+    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
+                                       NSTemporaryDirectory(),
+                                       @"tempAudio.m4a",
+                                       nil];
+    _tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
     
     // Initializing the location manager and
     locationManager = [[CLLocationManager alloc] init];
@@ -55,27 +64,30 @@
     [locationManager startUpdatingLocation];
 }
 
-- (IBAction)saveRecordingButtonTapped:(UIBarButtonItem *)sender
+- (IBAction)saveRecordingButtonTapped:(UIButton *)sender
 {
-    // Creating the temp audio file url
-    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
-                                       NSTemporaryDirectory(),
-                                       @"tempAudio.m4a",
-                                       nil];
-    NSURL *tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
+    // Validate required fields
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
         
-        // Deleting the temp file
-        if ([fileManager fileExistsAtPath:[tempURL path]]) {
-            [fileManager removeItemAtPath:[tempURL path] error:nil];
-        }
+        UIAlertView *alertMessage = [[UIAlertView alloc]
+                                     initWithTitle:@"Nothing Saved!"
+                                     message:@"Please add media, enter the required fields and update location."
+                                     delegate:nil
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil, nil];
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [alertMessage show];
         
     } else {
+        
+        // Start animation
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [spinner setCenter:CGPointMake(160,500)];
+        [self.view addSubview:spinner];
+        [spinner startAnimating];
         
         // Copying file from temp to documents directory
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -86,7 +98,7 @@
             [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
         
         BOOL fileExists = NO;
-        NSString *saveName;
+        NSString *saveName = @"";
         NSURL *saveURL = [[NSURL alloc] init];
         
         do {
@@ -103,7 +115,13 @@
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
         } while (fileExists == YES);
         
-        [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
+        [fileManager copyItemAtURL:_tempURL toURL:saveURL error:nil];
+        
+        // Formatting date
+        NSDate *now = [[NSDate alloc] init];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM/dd/yyyy HH:mm"];
+        NSString *date = [formatter stringFromDate:now];
         
         // Saving the details to core data
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -118,7 +136,7 @@
         [newTagObject setValue: _descriptionTextField.text forKey:@"descriptor"];
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
-        [newTagObject setValue: _datePicker.date forKey:@"date"];
+        [newTagObject setValue: date forKey:@"date"];
         [newTagObject setValue: saveName forKey:@"fileName"];
         
         // Save the new TagObject to persistent store
@@ -137,12 +155,25 @@
         }
         
         // Deleting the temp file if it exists
-        if ([fileManager fileExistsAtPath:[tempURL path]]) {
-            [fileManager removeItemAtPath:[tempURL path] error:nil];
+        if ([fileManager fileExistsAtPath:[_tempURL path]]) {
+            [fileManager removeItemAtPath:[_tempURL path] error:nil];
         }
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
+{
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // Deleting the temp file
+    if ([fileManager fileExistsAtPath:[_tempURL path]]) {
+        [fileManager removeItemAtPath:[_tempURL path] error:nil];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -174,6 +205,48 @@
 {
     [self.view endEditing:YES];
     [super touchesBegan:touches withEvent:event];
+}
+
+-(void) generateWaveform
+{
+    // Generate Waveform
+    NSURL *url = _tempURL;
+    self.waveform.delegate = self;
+    self.waveform.alpha = 0.0f;
+    self.waveform.audioURL = url;
+    self.waveform.progressSamples = 0;
+    self.waveform.doesAllowScrubbing = NO;
+    self.waveform.doesAllowStretchAndScroll = NO;
+}
+
+- (void)updateWaveform
+{
+    // Animating the waveform
+    [UIView animateWithDuration:0.01 animations:^{
+        float currentPlayTime = audioPlayer.currentTime;
+        float progressSample = ( currentPlayTime + 0.10 ) * 44100.00;
+        self.waveform.progressSamples = progressSample;
+    }];
+}
+
+- (IBAction)previewTouched:(UITapGestureRecognizer *)sender {
+    
+    if (_initplayer) {
+        
+        // Setting the audioPlayer
+        audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:_tempURL error:nil];
+        [audioPlayer setDelegate:self];
+        
+        // Setting the timer to update waveform
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
+        _initplayer = NO;
+    }
+    
+    if (!audioPlayer.isPlaying) {
+        [audioPlayer play];
+    } else if (audioPlayer.isPlaying) {
+        [audioPlayer pause];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -212,7 +285,6 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    // NSLog(@"didUpdateLocations: %@", currentLocation);
     
     if (currentLocation != nil) {
         // Updating local latitude and longtitude
@@ -234,6 +306,31 @@
 - (void)isFileSaved:(BOOL) saved
 {
     _saveAsTextField.enabled = saved;
+    _initplayer = YES;
+    
+    [self generateWaveform];
+}
+
+#pragma mark - AVAudioPlayerDelegate
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    [_timer invalidate];
+    self.waveform.progressSamples = 0;
+    _initplayer = YES;
+}
+
+#pragma mark - FDWaveformViewDelegate
+
+- (void)waveformViewWillRender:(FDWaveformView *)waveformView
+{
+}
+
+- (void)waveformViewDidRender:(FDWaveformView *)waveformView
+{
+    [UIView animateWithDuration:0.25f animations:^{
+        waveformView.alpha = 1.0f;
+    }];
 }
 
 @end
