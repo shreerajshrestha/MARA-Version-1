@@ -47,6 +47,9 @@
     self.saveAsTextField.delegate = self;
     self.tagsTextField.delegate = self;
     self.descriptionTextField.delegate = self;
+    
+    ACERecorderViewController *recorderDelegate = [[ACERecorderViewController alloc] init];
+    recorderDelegate.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -309,6 +312,7 @@
     _initplayer = YES;
     
     [self generateWaveform];
+    NSLog(@"calld");
 }
 
 #pragma mark - AVAudioPlayerDelegate

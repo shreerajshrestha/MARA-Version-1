@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA34611953FC5900600B80"
-               BuildableName = "TagR.app"
-               BlueprintName = "TagR"
-               ReferencedContainer = "container:TagR.xcodeproj">
+               BuildableName = "arc.app"
+               BlueprintName = "arc"
+               ReferencedContainer = "container:arc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA347A1953FC5900600B80"
-               BuildableName = "TagRTests.xctest"
-               BlueprintName = "TagRTests"
-               ReferencedContainer = "container:TagR.xcodeproj">
+               BuildableName = "arcTests.xctest"
+               BlueprintName = "arcTests"
+               ReferencedContainer = "container:arc.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "TagR.app"
-            BlueprintName = "TagR"
-            ReferencedContainer = "container:TagR.xcodeproj">
+            BuildableName = "arc.app"
+            BlueprintName = "arc"
+            ReferencedContainer = "container:arc.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "TagR.app"
-            BlueprintName = "TagR"
-            ReferencedContainer = "container:TagR.xcodeproj">
+            BuildableName = "arc.app"
+            BlueprintName = "arc"
+            ReferencedContainer = "container:arc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "TagR.app"
-            BlueprintName = "TagR"
-            ReferencedContainer = "container:TagR.xcodeproj">
+            BuildableName = "arc.app"
+            BlueprintName = "arc"
+            ReferencedContainer = "container:arc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

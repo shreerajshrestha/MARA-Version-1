@@ -32,7 +32,6 @@
 - (IBAction)playButtonTapped:(UIButton *)sender;
 - (IBAction)stopButtonTapped:(UIButton *)sender;
 - (IBAction)doneButtonForRecordingTapped:(UIButton *)sender;
-- (IBAction)backButtonTapped:(UIBarButtonItem *)sender;
 
 - (void)updateWaveform;
 - (void)generateWaveform;

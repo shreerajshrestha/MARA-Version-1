@@ -703,7 +703,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="L6G-Q5-L8P">
                             <connections>
-                                <segue destination="JPm-xB-G18" kind="presentation" id="c6z-9E-hgN"/>
+                                <segue destination="ISc-SO-RGF" kind="show" id="Sap-bi-8L8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -851,13 +851,7 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="YRq-nk-wVU">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="aCL-qW-OLh">
-                            <connections>
-                                <action selector="backButtonTapped:" destination="ISc-SO-RGF" id="Wz7-43-IXi"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="YRq-nk-wVU"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="doneButton" destination="cdn-wK-tIC" id="GXk-y8-VbI"/>
@@ -869,7 +863,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jOQ-UB-9Jb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4374" y="1246.5"/>
+            <point key="canvasLocation" x="3589.5" y="1246.5"/>
         </scene>
         <!--Images-->
         <scene sceneID="aDn-zu-8EJ">
@@ -1025,6 +1019,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rYA-D3-uxe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Qnl-RX-1kj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1054,6 +1049,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hRi-tj-6bo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iRw-b7-uDp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYx-qA-hZC">
@@ -1111,6 +1107,7 @@
                         <viewControllerLayoutGuide type="bottom" id="BZU-Ez-M0t"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dtR-0d-r2X">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1217,24 +1214,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fei-uu-xM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1849.5" y="493.5"/>
-        </scene>
-        <!--To Recorder-->
-        <scene sceneID="HDC-g9-BrT">
-            <objects>
-                <navigationController title="To Recorder" automaticallyAdjustsScrollViewInsets="NO" id="JPm-xB-G18" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zMc-0n-isK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ISc-SO-RGF" kind="relationship" relationship="rootViewController" id="GYq-cJ-c29"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bOT-7N-S5E" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3456" y="1246.5"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="I2w-10-zZO">

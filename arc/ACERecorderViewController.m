@@ -156,13 +156,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)backButtonTapped:(UIBarButtonItem *)sender {
-    [audioRecorder stop];
-    [audioPlayer stop];
-    [self reset];
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 -(void) generateWaveform
 {
     // Generate Waveform
