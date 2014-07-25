@@ -189,7 +189,7 @@
     // Remove device details from the corresponding search table
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         
-        [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.searchDisplayController.searchResultsTableView reloadData];
         
         // Reloading the main table data
@@ -201,7 +201,7 @@
         
     } else {
         
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadData];
     }
 }

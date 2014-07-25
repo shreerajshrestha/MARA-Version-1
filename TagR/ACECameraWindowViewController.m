@@ -30,6 +30,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // Creating the temp audio file url
+    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
+                                       NSTemporaryDirectory(),
+                                       @"tempImage.jpg",
+                                       nil];
+    _tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
+    
     // Initializing the location manager
     locationManager = [[CLLocationManager alloc] init];
     _gotLocation = NO;
@@ -72,27 +79,29 @@
     [locationManager startUpdatingLocation];
 }
 
-- (IBAction)saveImageButtonTapped:(UIBarButtonItem *)sender
+- (IBAction)saveImageButtonTapped:(UIButton *)sender
 {
-    // Creating the temp audio file url
-    NSArray *tempFilePathComponents = [NSArray arrayWithObjects:
-                                       NSTemporaryDirectory(),
-                                       @"tempImage.jpg",
-                                       nil];
-    NSURL *tempURL = [NSURL fileURLWithPathComponents:tempFilePathComponents];
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
         
-        // Deleting the temp file
-        if ([fileManager fileExistsAtPath:[tempURL path]]) {
-            [fileManager removeItemAtPath:[tempURL path] error:nil];
-        }
-
-        [self dismissViewControllerAnimated:YES completion:nil];
+        UIAlertView *alertMessage = [[UIAlertView alloc]
+                                     initWithTitle:@"Nothing Saved!"
+                                     message:@"Please add media, enter the required fields and update location."
+                                     delegate:nil
+                                     cancelButtonTitle:@"OK"
+                                     otherButtonTitles:nil, nil];
+        
+        [alertMessage show];
         
     } else {
+        
+        // Start animation
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [spinner setCenter:CGPointMake(160,500)];
+        [self.view addSubview:spinner];
+        [spinner startAnimating];
         
         // Copying file from temp to documents directory
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -120,7 +129,7 @@
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
         } while (fileExists == YES);
         
-        [fileManager copyItemAtURL:tempURL toURL:saveURL error:nil];
+        [fileManager copyItemAtURL:_tempURL toURL:saveURL error:nil];
         
         // Formatting date
         NSDate *now = [[NSDate alloc] init];
@@ -160,12 +169,24 @@
         }
         
         // Deleting the temp file if it exists
-        if ([fileManager fileExistsAtPath:[tempURL path]]) {
-            [fileManager removeItemAtPath:[tempURL path] error:nil];
+        if ([fileManager fileExistsAtPath:[_tempURL path]]) {
+            [fileManager removeItemAtPath:[_tempURL path] error:nil];
         }
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // Deleting the temp file
+    if ([fileManager fileExistsAtPath:[_tempURL path]]) {
+        [fileManager removeItemAtPath:[_tempURL path] error:nil];
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -214,19 +235,15 @@
 -(void)imagePickerController:(UIImagePickerController *)imagePicker
 didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    // Seting up the temp file url
-    NSArray *pathComponents = [NSArray arrayWithObjects:
-                               NSTemporaryDirectory(),
-                               @"tempImage.jpg",
-                               nil];
-    NSURL *tempURL = [NSURL fileURLWithPathComponents:pathComponents];
-    
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     
     // Saving the captured image to temp directory
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-        [UIImageJPEGRepresentation(image, 1.0) writeToFile:[tempURL path] atomically:YES];
+        [UIImageJPEGRepresentation(image, 1.0) writeToFile:[_tempURL path] atomically:YES];
+        
+        // Loading image on preview pane
+        self.preview.image = image;
     }
     
     _saveAsTextField.enabled = YES;
@@ -243,7 +260,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    // NSLog(@"didFailWithError: %@",error);
     UIAlertView *errorAlert= [[UIAlertView alloc]
                               initWithTitle:@"Error!"
                               message:@"Failed to get your location!"
@@ -256,7 +272,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *currentLocation = [locations lastObject];
-    // NSLog(@"didUpdateLocations: %@", currentLocation);
     
     if (currentLocation != nil) {
         // Updating local latitude and longtitude

@@ -296,7 +296,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    // NSLog(@"didFailWithError: %@",error);
     UIAlertView *errorAlert= [[UIAlertView alloc]
                               initWithTitle:@"Error!"
                               message:@"Failed to get your location!"
