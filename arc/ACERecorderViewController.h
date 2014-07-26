@@ -10,6 +10,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "FDWaveformView.h"
 
+@class ACERecorderViewController;
+
 @protocol RecordingStateDelegate <NSObject>
 - (void)isFileSaved:(BOOL) saved;
 @end
@@ -28,6 +30,7 @@
 @property (strong, nonatomic) NSTimer *timer;
 @property BOOL initplayer;
 
+- (IBAction)backButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender;
 - (IBAction)playButtonTapped:(UIButton *)sender;
 - (IBAction)stopButtonTapped:(UIButton *)sender;

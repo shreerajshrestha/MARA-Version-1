@@ -77,6 +77,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)backButtonTapped:(UIBarButtonItem *)sender {
+    
+    if (audioPlayer.playing) {
+        [audioPlayer stop];
+    }
+    
+    if (audioRecorder.recording) {
+        [audioRecorder stop];
+    }
+    
+    [self reset];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (IBAction)recordPauseButtonTapped:(UIButton *)sender
 {
     // Stopping the audio player before recording
@@ -146,9 +161,9 @@
 - (IBAction)doneButtonForRecordingTapped:(UIButton *)sender
 {
     if ([[NSFileManager defaultManager] fileExistsAtPath:[_tempFileURL path]]) {
-        [_delegate isFileSaved:YES];
+        [self.delegate isFileSaved:YES];
     } else {
-        [_delegate isFileSaved:NO];
+        [self.delegate isFileSaved:NO];
     }
     
     [audioPlayer stop];

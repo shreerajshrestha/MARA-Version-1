@@ -112,18 +112,18 @@
             [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
         
         BOOL fileExists = NO;
-        NSString *saveName = @"";
+        NSString *fileName = @"";
         NSURL *saveURL = [[NSURL alloc] init];
         
         do {
             int randomID = arc4random() % 9999999;
-            saveName = [NSString stringWithFormat:@"%@%d.jpg",
+            fileName = [NSString stringWithFormat:@"%@%d.jpg",
                                   [_saveAsTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                                   randomID];
             NSArray *saveFilePathComponents = [NSArray arrayWithObjects:
                                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
                                                @"/MyImages/",
-                                               saveName, nil];
+                                               fileName, nil];
             
             saveURL = [NSURL fileURLWithPathComponents:saveFilePathComponents];
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
@@ -151,7 +151,7 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: date forKey:@"date"];
-        [newTagObject setValue: saveName forKey:@"fileName"];
+        [newTagObject setValue: fileName forKey:@"fileName"];
         
         // Save the new TagObject to persistent store
         NSError *error = nil;

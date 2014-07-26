@@ -47,9 +47,6 @@
     self.saveAsTextField.delegate = self;
     self.tagsTextField.delegate = self;
     self.descriptionTextField.delegate = self;
-    
-    ACERecorderViewController *recorderDelegate = [[ACERecorderViewController alloc] init];
-    recorderDelegate.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,18 +98,18 @@
             [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
         
         BOOL fileExists = NO;
-        NSString *saveName = @"";
+        NSString *fileName = @"";
         NSURL *saveURL = [[NSURL alloc] init];
         
         do {
             int randomID = arc4random() % 9999999;
-            saveName = [NSString stringWithFormat:@"%@%d.m4a",
+            fileName = [NSString stringWithFormat:@"%@%d.m4a",
                                   [_saveAsTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                                   randomID];
             NSArray *saveFilePathComponents = [NSArray arrayWithObjects:
                                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
                                                @"/MyAudios/",
-                                               saveName, nil];
+                                               fileName, nil];
             
             saveURL = [NSURL fileURLWithPathComponents:saveFilePathComponents];
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
@@ -140,7 +137,7 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: date forKey:@"date"];
-        [newTagObject setValue: saveName forKey:@"fileName"];
+        [newTagObject setValue: fileName forKey:@"fileName"];
         
         // Save the new TagObject to persistent store
         NSError *error = nil;
@@ -312,7 +309,6 @@
     _initplayer = YES;
     
     [self generateWaveform];
-    NSLog(@"calld");
 }
 
 #pragma mark - AVAudioPlayerDelegate

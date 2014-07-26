@@ -200,7 +200,7 @@
                                     <rect key="frame" x="20" y="453" width="135" height="30"/>
                                 </variation>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hb9-XO-UpM" userLabel="Text Field - Save as:">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hb9-XO-UpM" userLabel="Text Field - Save as:">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -496,7 +496,7 @@
                                     <action selector="saveImageButtonTapped:" destination="fXy-On-r26" eventType="touchUpInside" id="Hdm-sr-LeS"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uEd-H7-ssA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uEd-H7-ssA">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="20" y="80" width="280" height="197"/>
@@ -662,6 +662,9 @@
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="20" y="80" width="280" height="197"/>
                                 </variation>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="d6A-8O-ypX" appends="YES" id="Zni-dj-XOG"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -703,7 +706,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="L6G-Q5-L8P">
                             <connections>
-                                <segue destination="ISc-SO-RGF" kind="show" id="Sap-bi-8L8"/>
+                                <segue destination="ISc-SO-RGF" kind="show" identifier="showRecorder" id="Sap-bi-8L8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -719,9 +722,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZKC-9f-67B" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="m4a-HQ-eay">
+                <tapGestureRecognizer cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="d6A-8O-ypX">
                     <connections>
-                        <action selector="previewTouched:" destination="Gi1-z1-tJU" id="kRo-2U-GWD"/>
+                        <action selector="previewTouched:" destination="Gi1-z1-tJU" id="G9M-8C-iqE"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -851,7 +854,13 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="YRq-nk-wVU"/>
+                    <navigationItem key="navigationItem" id="YRq-nk-wVU">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="EeF-6g-6ti">
+                            <connections>
+                                <action selector="backButtonTapped:" destination="ISc-SO-RGF" id="Vm2-JM-VMx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="doneButton" destination="cdn-wK-tIC" id="GXk-y8-VbI"/>
@@ -1064,7 +1073,7 @@
                                     <barButtonItem title="Item" id="9Yd-6z-n24"/>
                                 </items>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="524" width="320" height="45"/>
+                                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 </variation>
                             </toolbar>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g3b-MD-yLq">

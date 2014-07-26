@@ -8,6 +8,8 @@
         <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="use" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="webURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="ImageDB" syncable="YES">
@@ -18,6 +20,8 @@
         <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="use" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="webURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="VideoDB" syncable="YES">
@@ -28,11 +32,13 @@
         <attribute name="longitude" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uploaded" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="use" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="webURL" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AudioDB" positionX="-3042" positionY="-2538" width="128" height="165"/>
-        <element name="ImageDB" positionX="-3438" positionY="-2538" width="128" height="165"/>
-        <element name="VideoDB" positionX="-3249" positionY="-2539" width="128" height="165"/>
+        <element name="AudioDB" positionX="-3042" positionY="-2538" width="128" height="193"/>
+        <element name="ImageDB" positionX="-3438" positionY="-2538" width="128" height="193"/>
+        <element name="VideoDB" positionX="-3249" positionY="-2539" width="128" height="193"/>
     </elements>
 </model>

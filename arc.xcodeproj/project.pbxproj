@@ -14,8 +14,6 @@
 		042B9E0B196A5C75003E3F66 /* ACEAudiosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B9E0A196A5C75003E3F66 /* ACEAudiosTableViewController.m */; };
 		043EBDDA197F03EB0005C46C /* arc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 043EBDD8197F03EB0005C46C /* arc.xcdatamodeld */; };
 		0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441D22D195516CC00C05FA8 /* AVFoundation.framework */; };
-		044B42FF1980DCC2004ABA79 /* wmImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 044B42FE1980DCC2004ABA79 /* wmImg.png */; };
-		044B43011980DCC7004ABA79 /* wmImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044B43001980DCC7004ABA79 /* wmImg@2x.png */; };
 		044B432A1980E776004ABA79 /* imgTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 044B43241980E776004ABA79 /* imgTab.png */; };
 		044B432B1980E776004ABA79 /* imgTab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044B43251980E776004ABA79 /* imgTab@2x.png */; };
 		044B432C1980E776004ABA79 /* recTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 044B43261980E776004ABA79 /* recTab.png */; };
@@ -29,6 +27,8 @@
 		04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */; };
 		0453E34D1963CF3B00EB00E1 /* FDWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */; };
 		047BFA891961E74300E00B2E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047BFA881961E74300E00B2E /* CoreLocation.framework */; };
+		0490231F1983586300D8FBEA /* wmImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0490231D1983586300D8FBEA /* wmImg.png */; };
+		049023201983586300D8FBEA /* wmImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0490231E1983586300D8FBEA /* wmImg@2x.png */; };
 		04AA34681953FC5900600B80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA34671953FC5900600B80 /* main.m */; };
 		04AA346B1953FC5900600B80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA346A1953FC5900600B80 /* AppDelegate.m */; };
 		04AA34761953FC5900600B80 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AA34751953FC5900600B80 /* Images.xcassets */; };
@@ -59,8 +59,6 @@
 		042B9E0A196A5C75003E3F66 /* ACEAudiosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEAudiosTableViewController.m; sourceTree = "<group>"; };
 		043EBDD9197F03EB0005C46C /* arc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = arc.xcdatamodel; sourceTree = "<group>"; };
 		0441D22D195516CC00C05FA8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		044B42FE1980DCC2004ABA79 /* wmImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wmImg.png; sourceTree = "<group>"; };
-		044B43001980DCC7004ABA79 /* wmImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wmImg@2x.png"; sourceTree = "<group>"; };
 		044B43241980E776004ABA79 /* imgTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imgTab.png; sourceTree = "<group>"; };
 		044B43251980E776004ABA79 /* imgTab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imgTab@2x.png"; sourceTree = "<group>"; };
 		044B43261980E776004ABA79 /* recTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recTab.png; sourceTree = "<group>"; };
@@ -77,6 +75,8 @@
 		0453E34B1963CF3B00EB00E1 /* FDWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDWaveformView.h; sourceTree = "<group>"; };
 		0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDWaveformView.m; sourceTree = "<group>"; };
 		047BFA881961E74300E00B2E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0490231D1983586300D8FBEA /* wmImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wmImg.png; sourceTree = "<group>"; };
+		0490231E1983586300D8FBEA /* wmImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wmImg@2x.png"; sourceTree = "<group>"; };
 		04AA34621953FC5900600B80 /* arc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34661953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04AA34671953FC5900600B80 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -189,8 +189,8 @@
 				044B43271980E776004ABA79 /* recTab@2x.png */,
 				044B43281980E776004ABA79 /* vidTab.png */,
 				044B43291980E776004ABA79 /* vidTab@2x.png */,
-				044B42FE1980DCC2004ABA79 /* wmImg.png */,
-				044B43001980DCC7004ABA79 /* wmImg@2x.png */,
+				0490231D1983586300D8FBEA /* wmImg.png */,
+				0490231E1983586300D8FBEA /* wmImg@2x.png */,
 				044B433D19812AF3004ABA79 /* recThumb.png */,
 				044B433E19812AF3004ABA79 /* recThumb@2x.png */,
 			);
@@ -310,15 +310,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0490231F1983586300D8FBEA /* wmImg.png in Resources */,
 				044B432D1980E776004ABA79 /* recTab@2x.png in Resources */,
 				044B432B1980E776004ABA79 /* imgTab@2x.png in Resources */,
 				044B433F19812AF3004ABA79 /* recThumb.png in Resources */,
 				044B43371980FD85004ABA79 /* Main.storyboard in Resources */,
 				044B432F1980E776004ABA79 /* vidTab@2x.png in Resources */,
+				049023201983586300D8FBEA /* wmImg@2x.png in Resources */,
 				044B432E1980E776004ABA79 /* vidTab.png in Resources */,
 				044B432A1980E776004ABA79 /* imgTab.png in Resources */,
-				044B43011980DCC7004ABA79 /* wmImg@2x.png in Resources */,
-				044B42FF1980DCC2004ABA79 /* wmImg.png in Resources */,
 				044B432C1980E776004ABA79 /* recTab.png in Resources */,
 				044B434019812AF3004ABA79 /* recThumb@2x.png in Resources */,
 				04AA34761953FC5900600B80 /* Images.xcassets in Resources */,

@@ -111,18 +111,18 @@
             [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
         
         BOOL fileExists = NO;
-        NSString *saveName = @"";
+        NSString *fileName = @"";
         NSURL *saveURL = [[NSURL alloc] init];
         
         do {
             int randomID = arc4random() % 9999999;
-            saveName = [NSString stringWithFormat:@"%@%d.MOV",
+            fileName = [NSString stringWithFormat:@"%@%d.MOV",
                         [_saveAsTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""],
                         randomID];
             NSArray *saveFilePathComponents = [NSArray arrayWithObjects:
                                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
                                                @"/MyVideos/",
-                                               saveName, nil];
+                                               fileName, nil];
             
             saveURL = [NSURL fileURLWithPathComponents:saveFilePathComponents];
             fileExists = [fileManager fileExistsAtPath:[saveURL path]];
@@ -134,10 +134,11 @@
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:_tempURL options:nil];
         AVAssetImageGenerator *thumbGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         thumbGenerator.appliesPreferredTrackTransform = YES;
-        CMTime time = CMTimeMake(1, 65);
+        int totalSeconds = CMTimeGetSeconds([asset duration]);
+        CMTime time = CMTimeMake(totalSeconds, 10);
         CGImageRef referenceImage = [thumbGenerator copyCGImageAtTime:time actualTime:NULL error:nil];
         UIImage *snapshotImage = [[UIImage alloc] initWithCGImage:referenceImage];
-    
+        
         CGSize thumbnailSize = CGSizeMake(256,256);
         UIGraphicsBeginImageContext(thumbnailSize);
         CGRect thumbnailRect = CGRectMake(0, 0, 0, 0);
@@ -152,7 +153,7 @@
         NSString *thumbCacheDirectory = [cacheDirectory stringByAppendingPathComponent:@"/Caches/ThumbnailCache"];
         if (![fileManager fileExistsAtPath:thumbCacheDirectory])
             [fileManager createDirectoryAtPath:thumbCacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
-        NSString *thumbPathComponent = [NSString stringWithFormat:@"/%@thumb.jpg",saveName];
+        NSString *thumbPathComponent = [NSString stringWithFormat:@"/%@thumb.jpg",fileName];
         NSString *cachePath = [thumbCacheDirectory stringByAppendingPathComponent:thumbPathComponent];
         
         [UIImageJPEGRepresentation(thumbnailImage, 1.0) writeToFile:cachePath atomically:YES];
@@ -177,7 +178,7 @@
         [newTagObject setValue:[NSNumber numberWithFloat:_latitude] forKey:@"latitude"];
         [newTagObject setValue:[NSNumber numberWithFloat:_longitude] forKey:@"longitude"];
         [newTagObject setValue: date forKey:@"date"];
-        [newTagObject setValue: saveName forKey:@"fileName"];
+        [newTagObject setValue: fileName forKey:@"fileName"];
         
         // Save the new TagObject to persistent store
         NSError *error = nil;
