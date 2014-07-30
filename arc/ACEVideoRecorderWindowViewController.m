@@ -8,7 +8,11 @@
 
 #import "ACEVideoRecorderWindowViewController.h"
 
-@interface ACEVideoRecorderWindowViewController ()
+@interface ACEVideoRecorderWindowViewController () {
+    MPMoviePlayerController *videoPlayer;
+}
+
+@property CGPoint originalCenter;
 
 @end
 
@@ -24,6 +28,76 @@
     }
     return self;
 }
+
+
+- (void)registerForKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)deregisterFromKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self registerForKeyboardNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [self deregisterFromKeyboardNotifications];
+    
+    [super viewWillDisappear:animated];
+}
+
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    
+    NSDictionary* info = [notification userInfo];
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGFloat heightOffset = keyboardSize.height;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
+    [UIView setAnimationCurve:[notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    self.view.center = CGPointMake(self.originalCenter.x, self.originalCenter.y - heightOffset);
+    
+    [UIView commitAnimations];
+    
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
+    [UIView setAnimationCurve:[notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    self.view.center = CGPointMake(self.originalCenter.x, self.originalCenter.y);
+    
+    [UIView commitAnimations];
+}
+
 
 - (void)viewDidLoad
 {
@@ -44,6 +118,9 @@
     self.saveAsTextField.delegate = self;
     self.tagsTextField.delegate = self;
     self.descriptionTextField.delegate = self;
+    
+    // Setting the default view center
+    self.originalCenter = self.view.center;
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,6 +144,10 @@
         
         [self presentViewController:videoPicker animated:YES completion:nil];
     }
+    
+    [self.saveAsTextField resignFirstResponder];
+    [self.tagsTextField resignFirstResponder];
+    [self.descriptionTextField resignFirstResponder];
 }
 
 - (IBAction)getLocationDataButtonTapped:(UIButton *)sender
@@ -80,6 +161,11 @@
 
 - (IBAction)saveVideoButtonTapped:(UIButton *)sender
 {
+    // Stop the video player if audio is playing
+    if (videoPlayer.playbackState==MPMoviePlaybackStatePlaying) {
+        [videoPlayer stop];
+    }
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if ([_saveAsTextField.text  isEqual: @""] || _gotLocation == NO ) {
@@ -95,10 +181,10 @@
         
     } else {
         
-        // Start animation
+        // Start spinner animation
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
                                             initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [spinner setCenter:CGPointMake(160,500)];
+        [spinner setCenter:CGPointMake(160,520)];
         [self.view addSubview:spinner];
         [spinner startAnimating];
         
@@ -207,6 +293,11 @@
 
 - (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
 {
+    // Stop the video player if audio is playing
+    if (videoPlayer.playbackState==MPMoviePlaybackStatePlaying) {
+        [videoPlayer stop];
+    }
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     // Deleting the temp file
@@ -217,19 +308,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    // Enable tags and description fields if Save As field is not empty
+    // Enable tags and description fields
     if (textField == _saveAsTextField) {
-        if ( [textField.text length] == 0 ) {
-            _tagsTextField.enabled = NO;
-            _descriptionTextField.enabled = NO;
-            _getLocationDataButton.enabled = NO;
-        } else {
-            _tagsTextField.enabled = YES;
-            _descriptionTextField.enabled = YES;
-            _getLocationDataButton.enabled = YES;
-        }
+        _tagsTextField.enabled = YES;
+        _descriptionTextField.enabled = YES;
+        _getLocationDataButton.enabled = YES;
     }
 }
 
@@ -273,14 +358,14 @@
         [manager copyItemAtURL:mediaURL toURL:_tempURL error:nil];
         
         // Loading video on preview pane
-        _player = [[MPMoviePlayerController alloc] initWithContentURL:_tempURL];
-        _player.controlStyle = MPMovieControlStyleDefault;
-        _player.scalingMode = MPMovieScalingModeAspectFit;
-        _player.shouldAutoplay = NO;
-        [_player.view setFrame:_preview.bounds];
-        [_preview addSubview:_player.view];
-        [_player play];
-        [_player pause];
+        videoPlayer = [[MPMoviePlayerController alloc] initWithContentURL:_tempURL];
+        videoPlayer.controlStyle = MPMovieControlStyleDefault;
+        videoPlayer.scalingMode = MPMovieScalingModeAspectFit;
+        videoPlayer.shouldAutoplay = NO;
+        [videoPlayer.view setFrame:_preview.bounds];
+        [_preview addSubview:videoPlayer.view];
+        [videoPlayer play];
+        [videoPlayer pause];
     }
     
     _saveAsTextField.enabled = YES;

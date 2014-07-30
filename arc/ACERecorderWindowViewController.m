@@ -12,6 +12,8 @@
     AVAudioPlayer *audioPlayer;
 }
 
+@property CGPoint originalCenter;
+
 @end
 
 @implementation ACERecorderWindowViewController {
@@ -25,6 +27,73 @@
         // Custom initialization
     }
     return self;
+}
+
+
+- (void)registerForKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)deregisterFromKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self registerForKeyboardNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+}
+
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    
+    NSDictionary* info = [notification userInfo];
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGFloat heightOffset = keyboardSize.height;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
+    [UIView setAnimationCurve:[notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    self.view.center = CGPointMake(self.originalCenter.x, self.originalCenter.y - heightOffset);
+    
+    [UIView commitAnimations];
+    
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
+    [UIView setAnimationCurve:[notification.userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue]];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    self.view.center = CGPointMake(self.originalCenter.x, self.originalCenter.y);
+    
+    [UIView commitAnimations];
 }
 
 - (void)viewDidLoad
@@ -47,6 +116,9 @@
     self.saveAsTextField.delegate = self;
     self.tagsTextField.delegate = self;
     self.descriptionTextField.delegate = self;
+    
+    // Setting the default view center
+    self.originalCenter = self.view.center;
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +138,11 @@
 
 - (IBAction)saveRecordingButtonTapped:(UIButton *)sender
 {
+    // Stop the audio player if audio is playing
+    if (audioPlayer.playing) {
+        [audioPlayer stop];
+    }
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     // Validate required fields
@@ -82,10 +159,10 @@
         
     } else {
         
-        // Start animation
+        // Start spinner animation
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
                                             initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [spinner setCenter:CGPointMake(160,500)];
+        [spinner setCenter:CGPointMake(160,520)];
         [self.view addSubview:spinner];
         [spinner startAnimating];
         
@@ -165,6 +242,10 @@
 
 - (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender
 {
+    // Stop the audio player if audio is playing
+    if (audioPlayer.playing) {
+        [audioPlayer stop];
+    }
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -176,19 +257,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    // Enable tags and description fields if Save As field is not empty
+    // Enable tags and description fields
     if (textField == _saveAsTextField) {
-        if ( [textField.text length] == 0 ) {
-            _tagsTextField.enabled = NO;
-            _descriptionTextField.enabled = NO;
-            _getLocationDataButton.enabled = NO;
-        } else {
-            _tagsTextField.enabled = YES;
-            _descriptionTextField.enabled = YES;
-            _getLocationDataButton.enabled = YES;
-        }
+        _tagsTextField.enabled = YES;
+        _descriptionTextField.enabled = YES;
+        _getLocationDataButton.enabled = YES;
     }
 }
 
@@ -255,6 +330,10 @@
         ACERecorderViewController *recorderViewController = segue.destinationViewController;
         recorderViewController.delegate = self;
     }
+    
+    [self.saveAsTextField resignFirstResponder];
+    [self.tagsTextField resignFirstResponder];
+    [self.descriptionTextField resignFirstResponder];
 }
 
 /*

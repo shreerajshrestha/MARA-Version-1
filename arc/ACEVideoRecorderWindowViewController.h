@@ -24,7 +24,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *latitudeLabel;
 @property (strong, nonatomic) IBOutlet UITextField *longitudeLabel;
 
-@property (strong, nonatomic) MPMoviePlayerController *player;
 @property (strong, nonatomic) NSURL *tempURL;
 
 @property BOOL gotLocation;

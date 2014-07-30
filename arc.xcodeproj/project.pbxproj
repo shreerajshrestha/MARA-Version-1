@@ -12,6 +12,8 @@
 		042B9DFF196A5A9B003E3F66 /* ACEVideosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B9DFE196A5A9B003E3F66 /* ACEVideosTableViewController.m */; };
 		042B9E08196A5C05003E3F66 /* ACEImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B9E07196A5C05003E3F66 /* ACEImagesTableViewController.m */; };
 		042B9E0B196A5C75003E3F66 /* ACEAudiosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B9E0A196A5C75003E3F66 /* ACEAudiosTableViewController.m */; };
+		042F434E19888C980075C9D3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042F434D19888C980075C9D3 /* MapKit.framework */; };
+		042F43511988B9560075C9D3 /* ACEMediaDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042F43501988B9550075C9D3 /* ACEMediaDetailTableViewController.m */; };
 		043EBDDA197F03EB0005C46C /* arc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 043EBDD8197F03EB0005C46C /* arc.xcdatamodeld */; };
 		0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0441D22D195516CC00C05FA8 /* AVFoundation.framework */; };
 		044B432A1980E776004ABA79 /* imgTab.png in Resources */ = {isa = PBXBuildFile; fileRef = 044B43241980E776004ABA79 /* imgTab.png */; };
@@ -57,6 +59,9 @@
 		042B9E07196A5C05003E3F66 /* ACEImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEImagesTableViewController.m; sourceTree = "<group>"; };
 		042B9E09196A5C75003E3F66 /* ACEAudiosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEAudiosTableViewController.h; sourceTree = "<group>"; };
 		042B9E0A196A5C75003E3F66 /* ACEAudiosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEAudiosTableViewController.m; sourceTree = "<group>"; };
+		042F434D19888C980075C9D3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		042F434F1988B9550075C9D3 /* ACEMediaDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEMediaDetailTableViewController.h; sourceTree = "<group>"; };
+		042F43501988B9550075C9D3 /* ACEMediaDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEMediaDetailTableViewController.m; sourceTree = "<group>"; };
 		043EBDD9197F03EB0005C46C /* arc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = arc.xcdatamodel; sourceTree = "<group>"; };
 		0441D22D195516CC00C05FA8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		044B43241980E776004ABA79 /* imgTab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imgTab.png; sourceTree = "<group>"; };
@@ -96,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042F434E19888C980075C9D3 /* MapKit.framework in Frameworks */,
 				047BFA891961E74300E00B2E /* CoreLocation.framework in Frameworks */,
 				0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */,
 			);
@@ -137,6 +143,8 @@
 				042B9DFE196A5A9B003E3F66 /* ACEVideosTableViewController.m */,
 				042B9E09196A5C75003E3F66 /* ACEAudiosTableViewController.h */,
 				042B9E0A196A5C75003E3F66 /* ACEAudiosTableViewController.m */,
+				042F434F1988B9550075C9D3 /* ACEMediaDetailTableViewController.h */,
+				042F43501988B9550075C9D3 /* ACEMediaDetailTableViewController.m */,
 			);
 			name = "Table View Controllers";
 			sourceTree = "<group>";
@@ -217,6 +225,7 @@
 		144A43D17E6444A99AC7896D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				042F434D19888C980075C9D3 /* MapKit.framework */,
 				047BFA881961E74300E00B2E /* CoreLocation.framework */,
 				ADC7765B7D664A059CB790E8 /* libPods.a */,
 			);
@@ -348,6 +357,7 @@
 				042B9E0B196A5C75003E3F66 /* ACEAudiosTableViewController.m in Sources */,
 				042B9DFF196A5A9B003E3F66 /* ACEVideosTableViewController.m in Sources */,
 				04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */,
+				042F43511988B9560075C9D3 /* ACEMediaDetailTableViewController.m in Sources */,
 				044B433C198105DB004ABA79 /* ACEMediaTabViewController.m in Sources */,
 				04AA34681953FC5900600B80 /* main.m in Sources */,
 				0453E34D1963CF3B00EB00E1 /* FDWaveformView.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "ACEImagesTableViewController.h"
+#import "ACEMediaDetailTableViewController.h"
 
 @interface ACEImagesTableViewController ()
 <UISearchBarDelegate, UISearchDisplayDelegate>
@@ -130,6 +131,7 @@
         mediaDetail = [_mediaDetails objectAtIndex:indexPath.row];
     }
     
+    // Setting preview image
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *pathComponent = [NSString stringWithFormat:@"/MyImages/%@", [mediaDetail valueForKey:@"fileName"]];
@@ -158,13 +160,15 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSMutableArray *currentArray = [[NSMutableArray alloc] init];
+    
+    // Selecting the current array according to table type
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         currentArray = _searchResults;
     } else {
         currentArray = _mediaDetails;
     }
     
-    //Delete file from the documents directory
+    // Delete file from the documents directory
     NSManagedObject *mediaDetail = [currentArray objectAtIndex:indexPath.row];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -222,7 +226,6 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -230,8 +233,26 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    // Checking if the segue is the one to detail view
+    if ([segue.identifier isEqualToString:@"showImageDetail"]) {
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        ACEMediaDetailTableViewController *destViewController = [[segue destinationViewController] topViewController];
+        
+        // Sending the appropriate media detail for the corresponding sender table
+        if([sender isKindOfClass:[UITableViewCell class]]) {
+            UITableViewCell *currentCell = (UITableViewCell *)sender;
+            if (currentCell.superview.superview == self.searchDisplayController.searchResultsTableView) {
+                destViewController.mediaDetail = [_searchResults objectAtIndex:indexPath.row];
+            } else {
+                destViewController.mediaDetail = [_mediaDetails objectAtIndex:indexPath.row];
+            }
+        }
+        
+        destViewController.mediaType = 1;
+    }
 }
-*/
 
 #pragma mark - UISearchDisplayDelegate
 

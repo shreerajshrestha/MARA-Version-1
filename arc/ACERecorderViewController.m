@@ -66,9 +66,9 @@
     audioRecorder.meteringEnabled = YES;
     [audioRecorder prepareToRecord];
     
-    // Setting graphical properties for waveform view
-    self.waveform.backgroundColor = [UIColor lightGrayColor];
-    self.view.backgroundColor = [UIColor lightGrayColor];
+//    // Setting graphical properties for waveform view
+//    self.waveform.backgroundColor = [UIColor lightGrayColor];
+//    self.view.backgroundColor = [UIColor lightGrayColor];
 }
 
 - (void)didReceiveMemoryWarning
