@@ -95,6 +95,10 @@
     _mapView.centerCoordinate = mediaLocation.coordinate;
     [_mapView setRegion:region];
     [_mapView addAnnotation:pin];
+    
+    // Minor hack for text view
+    self.tagsTextView.selectable = NO;
+    self.descriptionTextView.selectable = NO;
 }
 
 - (void)didReceiveMemoryWarning

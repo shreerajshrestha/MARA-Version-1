@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ulm-aS-zRE">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
@@ -28,7 +29,7 @@
         <scene sceneID="Bsl-T8-N1x">
             <objects>
                 <tableViewController id="hgy-Ab-5fz" customClass="ACEVideosTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="mOd-x8-brU">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="mOd-x8-brU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -66,7 +67,7 @@
                                                 <rect key="frame" x="80" y="5" width="200" height="20"/>
                                             </variation>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wmImg.png" translatesAutoresizingMaskIntoConstraints="NO" id="kHR-bK-exq">
+                                        <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wmImg.png" translatesAutoresizingMaskIntoConstraints="NO" id="kHR-bK-exq">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                             <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
                                                 <rect key="frame" x="30" y="22" width="15" height="15"/>
@@ -322,7 +323,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
                                                     </variation>
                                                     <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="onq-nd-HBf" appends="YES" id="Tg5-cg-xvM"/>
+                                                        <outletCollection property="gestureRecognizers" destination="onq-nd-HBf" appends="YES" id="qjU-cc-6Ps"/>
                                                     </connections>
                                                 </view>
                                             </subviews>
@@ -508,7 +509,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmh-Fb-for" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer enabled="NO" cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="onq-nd-HBf">
+                <tapGestureRecognizer enabled="NO" delaysTouchesEnded="NO" id="onq-nd-HBf">
                     <connections>
                         <action selector="previewTouched:" destination="Ad3-Zz-Q0N" id="Bhb-7l-Yk5"/>
                     </connections>
@@ -520,7 +521,7 @@
         <scene sceneID="el6-jv-WIz">
             <objects>
                 <tableViewController id="Ok7-s0-bUG" customClass="ACEAudiosTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="MdC-ks-MRm">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="MdC-ks-MRm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -945,7 +946,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZKC-9f-67B" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="d6A-8O-ypX">
+                <tapGestureRecognizer delaysTouchesEnded="NO" id="d6A-8O-ypX">
                     <connections>
                         <action selector="previewTouched:" destination="Gi1-z1-tJU" id="G9M-8C-iqE"/>
                     </connections>
@@ -1100,7 +1101,7 @@
         <scene sceneID="aDn-zu-8EJ">
             <objects>
                 <tableViewController id="EG8-ix-HMR" customClass="ACEImagesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="f2j-pj-9fT">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="f2j-pj-9fT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
