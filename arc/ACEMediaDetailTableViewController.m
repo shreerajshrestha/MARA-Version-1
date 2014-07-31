@@ -22,10 +22,53 @@
 {
     [super viewWillAppear:animated];
     
+    // Setting the file url
+    [self setFileURL];
+    
     // Enable tap recognizer if the media type is audio
     if (_mediaType == 3) {
         _tapRecognizer.enabled = YES;
         _initplayer = YES;
+    }
+    
+    // Setting up the audio session to use speakers
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [audioSession setActive:YES error:nil];
+    
+    
+    // Setting the preview item
+    switch (_mediaType) {
+            
+        case 1: {
+            
+            // Setting the preview image
+            _imagePreview.image = [UIImage imageWithContentsOfFile:[mediaFileURL path]];
+            break;
+        }
+            
+        case 2: {
+            
+            // Loading video on preview panel
+            videoPlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaFileURL];
+            videoPlayer.controlStyle = MPMovieControlStyleDefault;
+            videoPlayer.scalingMode = MPMovieScalingModeAspectFit;
+            videoPlayer.shouldAutoplay = NO;
+            [videoPlayer.view setFrame:_preview.bounds];
+            [_preview addSubview:videoPlayer.view];
+            [videoPlayer play];
+            [videoPlayer pause];
+            break;
+        }
+            
+        case 3: {
+            
+            [self generateWaveform];
+            break;
+        }
+            
+        default:
+            break;
     }
 }
 
@@ -39,38 +82,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    // Setting the file url
-    [self setFileURL];
     
-    // Setting the preview
-    switch (_mediaType) {
-            
-        case 1:
-            break;
-            
-        case 2:
-            
-            // Loading video on preview panel
-            videoPlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaFileURL];
-            videoPlayer.controlStyle = MPMovieControlStyleDefault;
-            videoPlayer.scalingMode = MPMovieScalingModeAspectFit;
-            videoPlayer.shouldAutoplay = NO;
-            [videoPlayer.view setFrame:_preview.bounds];
-            [_preview addSubview:videoPlayer.view];
-            [videoPlayer play];
-            [videoPlayer pause];
-            break;
-            
-        case 3:
-            
-            [self generateWaveform];
-            break;
-            
-        default:
-            break;
-    }
-    
-    // Setting other details
+    // Setting details for the detail view pane
     NSString *name = [_mediaDetail valueForKey:@"name"];
     NSString *tags = [_mediaDetail valueForKey:@"tags"];
     _nameLabel.text = name;
@@ -143,15 +156,14 @@
     }
 }
 
-
--(void) generateWaveform
+-(void)generateWaveform
 {
     // Generate Waveform
     NSURL *url = mediaFileURL;
     self.preview.delegate = self;
     self.preview.alpha = 0.0f;
     self.preview.audioURL = url;
-    self.preview.progressSamples = 0;
+    self.preview.progressSamples = 0.0f;
     self.preview.doesAllowScrubbing = NO;
     self.preview.doesAllowStretchAndScroll = NO;
 }
@@ -159,20 +171,12 @@
 - (void)updateWaveform
 {
     // Animating the waveform
-    [UIView animateWithDuration:0.01 animations:^{
+    [UIView animateWithDuration:0.01f animations:^{
         float currentPlayTime = audioPlayer.currentTime;
-        float progressSample = ( currentPlayTime + 0.10 ) * 44100.00;
+        float progressSample = (currentPlayTime + 0.065f) * 44100.00f;
         self.preview.progressSamples = progressSample;
     }];
 }
-
-//- (void)reset
-//{
-//    [_playButton setTitle:@"Play" forState:UIControlStateNormal];
-//    [_timer invalidate];
-//    self.waveform.progressSamples = 0;
-//    _initplayer = YES;
-//}
 
 - (IBAction)previewTouched:(UITapGestureRecognizer *)sender
 {
@@ -184,7 +188,7 @@
         [audioPlayer setDelegate:self];
         
         // Setting the timer to update waveform
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
         _initplayer = NO;
     }
     
@@ -293,7 +297,7 @@
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
     [_timer invalidate];
-    self.preview.progressSamples = 0;
+    self.preview.progressSamples = 0.0f;
     _initplayer = YES;
 }
 
@@ -305,7 +309,7 @@
 
 - (void)waveformViewDidRender:(FDWaveformView *)waveformView
 {
-    [UIView animateWithDuration:0.25f animations:^{
+    [UIView animateWithDuration:0.01f animations:^{
         waveformView.alpha = 1.0f;
     }];
 }

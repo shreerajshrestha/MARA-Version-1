@@ -44,20 +44,22 @@
                                nil];
     _tempFileURL = [NSURL fileURLWithPathComponents:pathComponents];
     
+    // Setting up the audio session to use speakers
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [audioSession setActive:YES error:nil];
+    
     // Deleting the temp file if it exists
     if ([[NSFileManager defaultManager] fileExistsAtPath:[_tempFileURL path]]) {
         [[NSFileManager defaultManager] removeItemAtPath:[_tempFileURL path] error:nil];
     }
     
-    // Setting up the audio session
-    AVAudioSession *recorderSession = [AVAudioSession sharedInstance];
-    [recorderSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    
     // Defining the audio recorder settings
     NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
     
     [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
-    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+    [recordSetting setValue:[NSNumber numberWithFloat:44100.0f] forKey:AVSampleRateKey];
     [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
     
     // Initiating and preparing the audio recorder
@@ -97,7 +99,7 @@
     // Stopping the audio player before recording
     if (audioPlayer.playing) {
         [audioPlayer stop];
-        self.waveform.progressSamples = 0;
+        self.waveform.progressSamples = 0.0f;
     }
     
     if (!audioRecorder.recording) {
@@ -138,12 +140,17 @@
         
         if (_initplayer) {
             
+            // Setting up the audio session to use speakers
+            AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+            [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+            [audioSession setActive:YES error:nil];
+            
             // Setting the audioPlayer
             audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:_tempFileURL error:nil];
             [audioPlayer setDelegate:self];
             
             // Setting the timer to update waveform
-            _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(updateWaveform) userInfo:nil repeats:YES];
             _initplayer = NO;
         }
         
@@ -178,7 +185,7 @@
     self.waveform.delegate = self;
     self.waveform.alpha = 0.0f;
     self.waveform.audioURL = url;
-    self.waveform.progressSamples = 0;
+    self.waveform.progressSamples = 0.0f;
     self.waveform.doesAllowScrubbing = NO;
     self.waveform.doesAllowStretchAndScroll = NO;
 }
@@ -186,9 +193,9 @@
 - (void)updateWaveform
 {
     // Animating the waveform
-    [UIView animateWithDuration:0.01 animations:^{
+    [UIView animateWithDuration:0.01f animations:^{
         float currentPlayTime = audioPlayer.currentTime;
-        float progressSample = ( currentPlayTime + 0.10 ) * 44100.00;
+        float progressSample = (currentPlayTime + 0.065f) * 44100.00f;
         self.waveform.progressSamples = progressSample;
     }];
 }
@@ -197,7 +204,7 @@
 {
     [_playButton setTitle:@"Play" forState:UIControlStateNormal];
     [_timer invalidate];
-    self.waveform.progressSamples = 0;
+    self.waveform.progressSamples = 0.0f;
     _initplayer = YES;
 }
 
@@ -239,7 +246,7 @@
 
 - (void)waveformViewDidRender:(FDWaveformView *)waveformView
 {
-    [UIView animateWithDuration:0.25f animations:^{
+    [UIView animateWithDuration:0.01f animations:^{
         waveformView.alpha = 1.0f;
     }];
 }

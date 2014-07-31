@@ -121,6 +121,11 @@
     
     // Setting the default view center
     self.originalCenter = self.view.center;
+    
+    // Setting up the audio session to use speakers
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [audioSession setActive:YES error:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -356,6 +361,11 @@
         NSFileManager *manager = [NSFileManager defaultManager];
         [manager removeItemAtPath:[_tempURL path] error:nil];
         [manager copyItemAtURL:mediaURL toURL:_tempURL error:nil];
+        
+        // Setting up the audio session to use speakers
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+        [audioSession setActive:YES error:nil];
         
         // Loading video on preview pane
         videoPlayer = [[MPMoviePlayerController alloc] initWithContentURL:_tempURL];

@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import "FDWaveformView.h"
 #import "AppDelegate.h"
 
@@ -17,6 +18,7 @@
 <AVAudioPlayerDelegate, FDWaveformViewDelegate>
 
 @property (strong, nonatomic) IBOutlet FDWaveformView *preview;
+@property (strong, nonatomic) IBOutlet UIImageView *imagePreview;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UITextView *tagsTextView;
@@ -33,6 +35,5 @@
 - (IBAction)editButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)uploadButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)previewTouched:(UITapGestureRecognizer *)sender;
-- (void)setFileURL;
 
 @end
