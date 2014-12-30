@@ -7,16 +7,109 @@
 //
 
 #import "ACEMediaDetailTableViewController.h"
+#import "ACEWebViewController.h"
+#import "Reachability.h"
+#include <CFNetwork/CFNetwork.h>
 
-@interface ACEMediaDetailTableViewController () {
+enum {
+    kSendBufferSize = 32768
+};
+
+@interface ACEMediaDetailTableViewController () <NSStreamDelegate, NSURLConnectionDataDelegate> {
     MPMoviePlayerController *videoPlayer;
     AVAudioPlayer *audioPlayer;
     NSURL *mediaFileURL;
+    NSString *webURL;
+    NSString *event;
 }
+
+@property (nonatomic, strong) NSOutputStream *networkStream;
+@property (nonatomic, strong) NSInputStream *fileStream;
+@property (nonatomic, assign, readonly ) uint8_t *buffer;
+@property (nonatomic, assign, readwrite) size_t bufferOffset;
+@property (nonatomic, assign, readwrite) size_t bufferLimit;
 
 @end
 
 @implementation ACEMediaDetailTableViewController
+{
+    uint8_t _buffer[kSendBufferSize];
+}
+
+- (uint8_t *)buffer
+{
+    return self->_buffer;
+}
+
+- (NSURL *)smartURLForString:(NSString *)str
+{
+    NSURL *     result;
+    NSString *  trimmedStr;
+    NSRange     schemeMarkerRange;
+    NSString *  scheme;
+    
+    assert(str != nil);
+    
+    result = nil;
+    
+    trimmedStr = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ( (trimmedStr != nil) && ([trimmedStr length] != 0) ) {
+        schemeMarkerRange = [trimmedStr rangeOfString:@"://"];
+        
+        if (schemeMarkerRange.location == NSNotFound) {
+            result = [NSURL URLWithString:[NSString stringWithFormat:@"ftp://%@", trimmedStr]];
+        } else {
+            scheme = [trimmedStr substringWithRange:NSMakeRange(0, schemeMarkerRange.location)];
+            assert(scheme != nil);
+            
+            if ( ([scheme compare:@"ftp"  options:NSCaseInsensitiveSearch] == NSOrderedSame) ) {
+                result = [NSURL URLWithString:trimmedStr];
+            } else {
+                // It looks like this is some unsupported URL scheme.
+            }
+        }
+    }
+    
+    return result;
+}
+
+- (void)updateStatus:(NSString *)statusString withTitle:(NSString *)statusTitle
+{
+    assert(statusString != nil);
+    UIAlertView *alertMessage = [[UIAlertView alloc]
+                                 initWithTitle:statusTitle
+                                 message:statusString
+                                 delegate:nil
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil, nil];
+    [alertMessage show];
+}
+
+- (void)stopUploadWithStatus:(NSString *)statusString withTitle:(NSString *)statusTitle
+{
+    // Close network stream
+    [_networkStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    _networkStream.delegate = nil;
+    [_networkStream close];
+    _networkStream = nil;
+    
+    // Close file stream
+    [_fileStream close];
+    _fileStream = nil;
+    
+    // Update UI
+    if (_uploadSuccess) {
+        _uploadButton.enabled = NO;
+        _publishButton.enabled = YES;
+        _uploadButton.title = @"Online";
+    } else {
+        _uploadButton.enabled = YES;
+        _uploadButton.title = @"Upload";
+    }
+    _backButton.enabled = YES;
+    
+    [self updateStatus:statusString withTitle:statusTitle];
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -35,7 +128,10 @@
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [audioSession setActive:YES error:nil];
-    
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
     
     // Setting the preview item
     switch (_mediaType) {
@@ -51,7 +147,7 @@
             
             // Loading video on preview panel
             videoPlayer = [[MPMoviePlayerController alloc] initWithContentURL:mediaFileURL];
-            videoPlayer.controlStyle = MPMovieControlStyleDefault;
+            videoPlayer.controlStyle = MPMovieControlStyleEmbedded;
             videoPlayer.scalingMode = MPMovieScalingModeAspectFit;
             videoPlayer.shouldAutoplay = NO;
             [videoPlayer.view setFrame:_preview.bounds];
@@ -95,7 +191,7 @@
     float latitude = [[_mediaDetail valueForKey:@"latitude"] floatValue];
     float longitude = [[_mediaDetail valueForKey:@"longitude"] floatValue];
     CLLocation *mediaLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-    MKCoordinateSpan span = {.latitudeDelta =  1, .longitudeDelta =  1};
+    MKCoordinateSpan span = {.latitudeDelta =  0.25, .longitudeDelta =  0.25};
     MKCoordinateRegion region = {mediaLocation.coordinate, span};
     
     // Initializing a pin for the map
@@ -112,6 +208,32 @@
     // Minor hack for text view
     self.tagsTextView.selectable = NO;
     self.descriptionTextView.selectable = NO;
+    
+    // Default UI
+    _uploadButton.enabled = YES;
+    _uploadButton.title = @"Upload";
+    _publishButton.enabled = NO;
+    
+    // Check for internet connection
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    
+    if (internetStatus != NotReachable) {
+        
+        // Check if file exists at webURL
+        NSURL *url = [NSURL URLWithString:[_mediaDetail valueForKey:@"webURL"]];
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+        
+        if(urlConnection != nil)
+            urlConnection = nil;
+        
+    } else {
+        _uploadButton.enabled = NO;
+        _publishButton.enabled = NO;
+        _uploadButton.title = @"";
+        _publishButton.title = @"";
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -216,10 +338,93 @@
 
 - (IBAction)editButtonTapped:(UIBarButtonItem *)sender
 {
+    if ([_editButton.title  isEqual: @"Done"]) {
+        
+        [_mediaDetail setValue: _tagsTextView.text forKey:@"tags"];
+        [_mediaDetail setValue: _descriptionTextView.text forKey:@"descriptor"];
+        
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *context = [appDelegate managedObjectContext];
+        [context save:nil];
+        
+        _editButton.title = @"Edit";
+        _tagsTextView.editable = NO;
+        _descriptionTextView.editable = NO;
+        _backButton.enabled = YES;
+        _backButton.title = @"Back";
+        _publishButton.enabled = YES;
+        _uploadButton.enabled = YES;
+        
+    } else {
+        
+        _editButton.title = @"Done";
+        _tagsTextView.editable = YES;
+        _descriptionTextView.editable = YES;
+        _backButton.enabled = NO;
+        _backButton.title = @"PRESS DONE TO END EDITING";
+        _publishButton.enabled = NO;
+        _uploadButton.enabled = NO;
+        [_descriptionTextView becomeFirstResponder];
+        [_tagsTextView becomeFirstResponder];
+        
+    }
+    
+    
 }
 
 - (IBAction)uploadButtonTapped:(UIBarButtonItem *)sender
 {
+    _uploadSuccess = NO;
+    _uploadButton.enabled = NO;
+    _backButton.enabled = NO;
+    
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    NSString *ftpHost = [settings stringForKey:@"SettingsFTPHost"];
+    NSString *ftpDir = [settings stringForKey:@"SettingsFTPDirectory"];
+    NSString *ftpDirMask = [settings stringForKey:@"SettingsFTPDirectoryMask"];
+    NSString *ftpURLString = [NSString stringWithFormat:@"%@%@",ftpHost,ftpDir];
+    NSString *username = [settings stringForKey:@"SettingsFTPUsername"];
+    NSString *password = [settings stringForKey:@"SettingsFTPPassword"];
+    NSString *filePath = [mediaFileURL path];
+    BOOL success;
+    
+    assert(self.networkStream == nil);
+    assert(self.fileStream == nil);
+    
+    _fileStream = [NSInputStream inputStreamWithFileAtPath:filePath];
+    [_fileStream open];
+    
+    // Modify url is filetype is video, hack to get around converting .mov to .mp4
+    if (_mediaType == 2 ) {
+        filePath = [filePath stringByReplacingOccurrencesOfString:@".MOV" withString:@".mp4"];
+    }
+    
+    NSURL *ftpURL = [self smartURLForString:ftpURLString];
+    ftpURL = CFBridgingRelease(
+                               CFURLCreateCopyAppendingPathComponent(NULL, (__bridge CFURLRef) ftpURL, (__bridge CFStringRef) [filePath lastPathComponent], false)
+                               );
+    _networkStream = CFBridgingRelease(
+                                       CFWriteStreamCreateWithFTPURL(NULL, (__bridge CFURLRef) ftpURL)
+                                       );
+    success = [_networkStream setProperty:username forKey:(id)kCFStreamPropertyFTPUserName];
+    assert(success);
+    success = [_networkStream setProperty:password forKey:(id)kCFStreamPropertyFTPPassword];
+    assert(success);
+    
+    if ([ftpDirMask length]==0) {
+        webURL = [[ftpURL absoluteString] stringByReplacingOccurrencesOfString:@"ftp://" withString:@"http://"];
+    } else {
+        webURL = [NSString stringWithFormat:@"http://%@%@%@",ftpHost,ftpDirMask,[filePath lastPathComponent]];
+    }
+    
+    NSLog(@"%@",webURL);
+    
+    _networkStream.delegate = self;
+    [_networkStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [_networkStream open];
+}
+
+- (IBAction)publishButtonTapped:(UIBarButtonItem *)sender {
 }
 
 
@@ -281,15 +486,23 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    // Checking if the segue is the one to detail view
+    if ([segue.identifier isEqualToString:@"showWebView"]) {
+        
+        ACEWebViewController *destViewController = (ACEWebViewController *)[[segue destinationViewController] topViewController];
+        destViewController.mediaDetail = _mediaDetail;
+        destViewController.mediaType = _mediaType;
+    }
+    
 }
-*/
+
 
 
 #pragma mark - AVAudioPlayerDelegate
@@ -312,6 +525,98 @@
     [UIView animateWithDuration:0.01f animations:^{
         waveformView.alpha = 1.0f;
     }];
+}
+
+#pragma mark - NSURLConnectionDelegate
+
+-(void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+    int code = (int)[httpResponse statusCode];
+    
+    // If file exists, update UI accordingly
+    if (code == 200) {
+        _uploadButton.enabled = NO;
+        _uploadButton.title = @"Online";
+        _publishButton.enabled = YES;
+    }
+}
+
+#pragma mark - NSStreamDelegate
+
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
+{
+#pragma unused(aStream)
+    assert(aStream == _networkStream);
+    
+    switch (eventCode) {
+            
+        case NSStreamEventOpenCompleted: {
+            _uploadButton.title = @"Uploading";
+        } break;
+            
+        case NSStreamEventHasBytesAvailable: {
+            assert(NO);
+        } break;
+            
+        case NSStreamEventHasSpaceAvailable: {
+            
+            // If we don't have any data buffered, go read the next chunk of data.
+            
+            if (_bufferOffset == _bufferLimit) {
+                NSInteger   bytesRead;
+                
+                bytesRead = [_fileStream read:_buffer maxLength:kSendBufferSize];
+                
+                if (bytesRead == -1) {
+                    [self stopUploadWithStatus:@"There was a problem reading the local file."
+                                     withTitle:@"File Read Error!"];
+                } else if (bytesRead == 0) {
+                    
+                    _uploadSuccess = YES;
+                    [self stopUploadWithStatus:@"You may now proceed to publish the media."
+                                     withTitle:@"Successfully Uploaded!"];
+                    
+                    [_mediaDetail setValue:webURL forKey:@"webURL"];
+                    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+                    [context save:nil];
+                    
+                } else {
+                    _bufferOffset = 0;
+                    _bufferLimit  = bytesRead;
+                }
+            }
+            
+            // If we're not out of data completely, send the next chunk.
+            
+            if (_bufferOffset != _bufferLimit) {
+                NSInteger   bytesWritten;
+                bytesWritten = [_networkStream write:&_buffer[_bufferOffset] maxLength:_bufferLimit - _bufferOffset];
+                assert(bytesWritten != 0);
+                if (bytesWritten == -1) {
+                    [self stopUploadWithStatus:@"There was a problem writing to the network."
+                                     withTitle:@"Network Write Error!"];
+                } else {
+                    _bufferOffset += bytesWritten;
+                }
+            }
+        } break;
+            
+        case NSStreamEventErrorOccurred: {
+            [self stopUploadWithStatus:@"Please make sure there is a working internet connection and the FTP details are entered correctly."
+                             withTitle:@"Stream Open Error!"];
+        } break;
+            
+        case NSStreamEventEndEncountered: {
+            // ignore
+        } break;
+            
+        default: {
+            assert(NO);
+        } break;
+            
+    }
 }
 
 @end

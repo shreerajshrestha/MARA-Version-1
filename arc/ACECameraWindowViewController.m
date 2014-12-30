@@ -131,6 +131,7 @@
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        [self presentViewController:imagePicker animated:YES completion:nil];
         imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
@@ -138,8 +139,6 @@
         imagePicker.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
         imagePicker.showsCameraControls = YES;
         imagePicker.allowsEditing = NO;
-        
-        [self presentViewController:imagePicker animated:YES completion:nil];
     }
     
     [self.saveAsTextField resignFirstResponder];
@@ -152,6 +151,8 @@
     locationManager.delegate = self;
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    [locationManager requestWhenInUseAuthorization];
 
     [locationManager startUpdatingLocation];
 }

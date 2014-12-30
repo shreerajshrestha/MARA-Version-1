@@ -28,6 +28,9 @@
 		044B434019812AF3004ABA79 /* recThumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044B433E19812AF3004ABA79 /* recThumb@2x.png */; };
 		04532BBE195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */; };
 		0453E34D1963CF3B00EB00E1 /* FDWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */; };
+		04666D0419EC61E30011A357 /* ACEWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04666D0319EC61E30011A357 /* ACEWebViewController.m */; };
+		0467082D19EB837600389F44 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0467082C19EB837600389F44 /* Settings.bundle */; };
+		0467082F19EBA8F300389F44 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0467082E19EBA8F300389F44 /* SystemConfiguration.framework */; };
 		047BFA891961E74300E00B2E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047BFA881961E74300E00B2E /* CoreLocation.framework */; };
 		0490231F1983586300D8FBEA /* wmImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0490231D1983586300D8FBEA /* wmImg.png */; };
 		049023201983586300D8FBEA /* wmImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0490231E1983586300D8FBEA /* wmImg@2x.png */; };
@@ -36,6 +39,7 @@
 		04AA34761953FC5900600B80 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04AA34751953FC5900600B80 /* Images.xcassets */; };
 		04AA34821953FC5900600B80 /* arcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AA34811953FC5900600B80 /* arcTests.m */; };
 		04AB60C2195D9ACE000050E2 /* ACERecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AB60C1195D9ACE000050E2 /* ACERecorderViewController.m */; };
+		04D69D7819FD74AB001EFA47 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D69D7719FD74AB001EFA47 /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +83,9 @@
 		04532BBD195BD7E90039E975 /* ACEVideoRecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEVideoRecorderWindowViewController.m; sourceTree = "<group>"; };
 		0453E34B1963CF3B00EB00E1 /* FDWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDWaveformView.h; sourceTree = "<group>"; };
 		0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDWaveformView.m; sourceTree = "<group>"; };
+		04666D0319EC61E30011A357 /* ACEWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEWebViewController.m; sourceTree = "<group>"; };
+		0467082C19EB837600389F44 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		0467082E19EBA8F300389F44 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		047BFA881961E74300E00B2E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0490231D1983586300D8FBEA /* wmImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wmImg.png; sourceTree = "<group>"; };
 		0490231E1983586300D8FBEA /* wmImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wmImg@2x.png"; sourceTree = "<group>"; };
@@ -93,6 +100,9 @@
 		04AA34811953FC5900600B80 /* arcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = arcTests.m; sourceTree = "<group>"; };
 		04AB60C0195D9ACE000050E2 /* ACERecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderViewController.h; sourceTree = "<group>"; };
 		04AB60C1195D9ACE000050E2 /* ACERecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderViewController.m; sourceTree = "<group>"; };
+		04D69D7619FD7496001EFA47 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		04D69D7719FD74AB001EFA47 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		04E1E7391A50C474004720D4 /* ACEWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEWebViewController.h; sourceTree = "<group>"; };
 		ADC7765B7D664A059CB790E8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -101,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0467082F19EBA8F300389F44 /* SystemConfiguration.framework in Frameworks */,
 				042F434E19888C980075C9D3 /* MapKit.framework in Frameworks */,
 				047BFA891961E74300E00B2E /* CoreLocation.framework in Frameworks */,
 				0441D22E195516CC00C05FA8 /* AVFoundation.framework in Frameworks */,
@@ -130,6 +141,8 @@
 				041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */,
 				04AB60C0195D9ACE000050E2 /* ACERecorderViewController.h */,
 				04AB60C1195D9ACE000050E2 /* ACERecorderViewController.m */,
+				04E1E7391A50C474004720D4 /* ACEWebViewController.h */,
+				04666D0319EC61E30011A357 /* ACEWebViewController.m */,
 			);
 			name = "Media View Controllers";
 			sourceTree = "<group>";
@@ -175,6 +188,8 @@
 				04AA34691953FC5900600B80 /* AppDelegate.h */,
 				04AA346A1953FC5900600B80 /* AppDelegate.m */,
 				044B43361980FD85004ABA79 /* Main.storyboard */,
+				04D69D7619FD7496001EFA47 /* Reachability.h */,
+				04D69D7719FD74AB001EFA47 /* Reachability.m */,
 				0453E34B1963CF3B00EB00E1 /* FDWaveformView.h */,
 				0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */,
 				04AA34751953FC5900600B80 /* Images.xcassets */,
@@ -182,6 +197,7 @@
 				042B9DF6196A567E003E3F66 /* Table View Controllers */,
 				04AA34651953FC5900600B80 /* Supporting Files */,
 				043EBDD8197F03EB0005C46C /* arc.xcdatamodeld */,
+				0467082C19EB837600389F44 /* Settings.bundle */,
 			);
 			path = arc;
 			sourceTree = "<group>";
@@ -225,6 +241,7 @@
 		144A43D17E6444A99AC7896D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0467082E19EBA8F300389F44 /* SystemConfiguration.framework */,
 				042F434D19888C980075C9D3 /* MapKit.framework */,
 				047BFA881961E74300E00B2E /* CoreLocation.framework */,
 				ADC7765B7D664A059CB790E8 /* libPods.a */,
@@ -321,6 +338,7 @@
 			files = (
 				0490231F1983586300D8FBEA /* wmImg.png in Resources */,
 				044B432D1980E776004ABA79 /* recTab@2x.png in Resources */,
+				0467082D19EB837600389F44 /* Settings.bundle in Resources */,
 				044B432B1980E776004ABA79 /* imgTab@2x.png in Resources */,
 				044B433F19812AF3004ABA79 /* recThumb.png in Resources */,
 				044B43371980FD85004ABA79 /* Main.storyboard in Resources */,
@@ -352,6 +370,7 @@
 				041EBE5219551CFC00828F00 /* ACERecorderWindowViewController.m in Sources */,
 				043EBDDA197F03EB0005C46C /* arc.xcdatamodeld in Sources */,
 				04AB60C2195D9ACE000050E2 /* ACERecorderViewController.m in Sources */,
+				04D69D7819FD74AB001EFA47 /* Reachability.m in Sources */,
 				041EBE5519553E5700828F00 /* ACECameraWindowViewController.m in Sources */,
 				042B9E08196A5C05003E3F66 /* ACEImagesTableViewController.m in Sources */,
 				042B9E0B196A5C75003E3F66 /* ACEAudiosTableViewController.m in Sources */,
@@ -360,6 +379,7 @@
 				042F43511988B9560075C9D3 /* ACEMediaDetailTableViewController.m in Sources */,
 				044B433C198105DB004ABA79 /* ACEMediaTabViewController.m in Sources */,
 				04AA34681953FC5900600B80 /* main.m in Sources */,
+				04666D0419EC61E30011A357 /* ACEWebViewController.m in Sources */,
 				0453E34D1963CF3B00EB00E1 /* FDWaveformView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,10 +438,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				METAL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos7.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -454,9 +474,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				METAL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos7.1;
+				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -470,7 +490,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/arc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -488,7 +508,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/arc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

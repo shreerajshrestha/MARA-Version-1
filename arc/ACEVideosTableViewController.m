@@ -247,7 +247,7 @@
     if ([segue.identifier isEqualToString:@"showVideoDetail"]) {
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        ACEMediaDetailTableViewController *destViewController = [[segue destinationViewController] topViewController];
+        ACEMediaDetailTableViewController *destViewController = (ACEMediaDetailTableViewController *)[[segue destinationViewController] topViewController];
         
         // Sending the appropriate media detail for the corresponding sender table
         if([sender isKindOfClass:[UITableViewCell class]]) {

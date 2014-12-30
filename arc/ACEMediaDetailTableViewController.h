@@ -25,15 +25,21 @@
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapRecognizer;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *uploadButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *publishButton;
 
 @property (strong, nonatomic) NSManagedObject *mediaDetail;
 @property (strong, nonatomic) NSTimer *timer;
 @property int mediaType;
 @property BOOL initplayer;
+@property BOOL uploadSuccess;
 
+- (IBAction)previewTouched:(UITapGestureRecognizer *)sender;
 - (IBAction)backButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)editButtonTapped:(UIBarButtonItem *)sender;
 - (IBAction)uploadButtonTapped:(UIBarButtonItem *)sender;
-- (IBAction)previewTouched:(UITapGestureRecognizer *)sender;
+- (IBAction)publishButtonTapped:(UIBarButtonItem *)sender;
 
 @end
