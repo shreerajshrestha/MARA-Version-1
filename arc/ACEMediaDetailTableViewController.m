@@ -353,7 +353,6 @@ enum {
         _backButton.enabled = YES;
         _backButton.title = @"Back";
         _publishButton.enabled = YES;
-        _uploadButton.enabled = YES;
         
     } else {
         
@@ -361,9 +360,9 @@ enum {
         _tagsTextView.editable = YES;
         _descriptionTextView.editable = YES;
         _backButton.enabled = NO;
+        _backButton.title = @"";
         _backButton.title = @"PRESS DONE TO END EDITING";
         _publishButton.enabled = NO;
-        _uploadButton.enabled = NO;
         [_descriptionTextView becomeFirstResponder];
         [_tagsTextView becomeFirstResponder];
         
