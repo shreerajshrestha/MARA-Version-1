@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA34611953FC5900600B80"
-               BuildableName = "MAHR.app"
+               BuildableName = "MAHRC.app"
                BlueprintName = "MAHRC"
                ReferencedContainer = "container:MAHRC.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA347A1953FC5900600B80"
-               BuildableName = "MAHRTests.xctest"
+               BuildableName = "MAHRCTests.xctest"
                BlueprintName = "MAHRCTests"
                ReferencedContainer = "container:MAHRC.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "MAHR.app"
+            BuildableName = "MAHRC.app"
             BlueprintName = "MAHRC"
             ReferencedContainer = "container:MAHRC.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "MAHR.app"
+            BuildableName = "MAHRC.app"
             BlueprintName = "MAHRC"
             ReferencedContainer = "container:MAHRC.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "MAHR.app"
+            BuildableName = "MAHRC.app"
             BlueprintName = "MAHRC"
             ReferencedContainer = "container:MAHRC.xcodeproj">
          </BuildableReference>
@@ -91,6 +91,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "mahrc"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
