@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA34611953FC5900600B80"
                BuildableName = "MAHRC.app"
-               BlueprintName = "MAHRC"
-               ReferencedContainer = "container:MAHRC.xcodeproj">
+               BlueprintName = "MARS"
+               ReferencedContainer = "container:MARS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA347A1953FC5900600B80"
                BuildableName = "MAHRCTests.xctest"
-               BlueprintName = "MAHRCTests"
-               ReferencedContainer = "container:MAHRC.xcodeproj">
+               BlueprintName = "MARSTests"
+               ReferencedContainer = "container:MARS.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
             BuildableName = "MAHRC.app"
-            BlueprintName = "MAHRC"
-            ReferencedContainer = "container:MAHRC.xcodeproj">
+            BlueprintName = "MARS"
+            ReferencedContainer = "container:MARS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
             BuildableName = "MAHRC.app"
-            BlueprintName = "MAHRC"
-            ReferencedContainer = "container:MAHRC.xcodeproj">
+            BlueprintName = "MARS"
+            ReferencedContainer = "container:MARS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
             BuildableName = "MAHRC.app"
-            BlueprintName = "MAHRC"
-            ReferencedContainer = "container:MAHRC.xcodeproj">
+            BlueprintName = "MARS"
+            ReferencedContainer = "container:MARS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
