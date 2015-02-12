@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA34611953FC5900600B80"
-               BuildableName = "MAHRC.app"
-               BlueprintName = "MARS"
-               ReferencedContainer = "container:MARS.xcodeproj">
+               BuildableName = "MARA.app"
+               BlueprintName = "MARA"
+               ReferencedContainer = "container:MARA.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04AA347A1953FC5900600B80"
-               BuildableName = "MAHRCTests.xctest"
-               BlueprintName = "MARSTests"
-               ReferencedContainer = "container:MARS.xcodeproj">
+               BuildableName = "MARATests.xctest"
+               BlueprintName = "MARATests"
+               ReferencedContainer = "container:MARA.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "MAHRC.app"
-            BlueprintName = "MARS"
-            ReferencedContainer = "container:MARS.xcodeproj">
+            BuildableName = "MARA.app"
+            BlueprintName = "MARA"
+            ReferencedContainer = "container:MARA.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "MAHRC.app"
-            BlueprintName = "MARS"
-            ReferencedContainer = "container:MARS.xcodeproj">
+            BuildableName = "MARA.app"
+            BlueprintName = "MARA"
+            ReferencedContainer = "container:MARA.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04AA34611953FC5900600B80"
-            BuildableName = "MAHRC.app"
-            BlueprintName = "MARS"
-            ReferencedContainer = "container:MARS.xcodeproj">
+            BuildableName = "MARA.app"
+            BlueprintName = "MARA"
+            ReferencedContainer = "container:MARA.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -91,7 +91,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "mahrc"
+      customArchiveName = "mara"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

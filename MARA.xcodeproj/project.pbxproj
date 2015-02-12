@@ -89,13 +89,13 @@
 		047BFA881961E74300E00B2E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0490231D1983586300D8FBEA /* wmImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wmImg.png; sourceTree = "<group>"; };
 		0490231E1983586300D8FBEA /* wmImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wmImg@2x.png"; sourceTree = "<group>"; };
-		04AA34621953FC5900600B80 /* MARS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MARS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		04AA34621953FC5900600B80 /* MARA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MARA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34661953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04AA34671953FC5900600B80 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04AA34691953FC5900600B80 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04AA346A1953FC5900600B80 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		04AA34751953FC5900600B80 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		04AA347B1953FC5900600B80 /* MARSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MARSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		04AA347B1953FC5900600B80 /* MARATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MARATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04AA34801953FC5900600B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04AA34811953FC5900600B80 /* arcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = arcTests.m; sourceTree = "<group>"; };
 		04AB60C0195D9ACE000050E2 /* ACERecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderViewController.h; sourceTree = "<group>"; };
@@ -176,8 +176,8 @@
 		04AA34631953FC5900600B80 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04AA34621953FC5900600B80 /* MARS.app */,
-				04AA347B1953FC5900600B80 /* MARSTests.xctest */,
+				04AA34621953FC5900600B80 /* MARA.app */,
+				04AA347B1953FC5900600B80 /* MARATests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -252,9 +252,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		04AA34611953FC5900600B80 /* MARS */ = {
+		04AA34611953FC5900600B80 /* MARA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04AA34851953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARS" */;
+			buildConfigurationList = 04AA34851953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARA" */;
 			buildPhases = (
 				04AA345E1953FC5900600B80 /* Sources */,
 				04AA345F1953FC5900600B80 /* Frameworks */,
@@ -264,14 +264,14 @@
 			);
 			dependencies = (
 			);
-			name = MARS;
+			name = MARA;
 			productName = TagR;
-			productReference = 04AA34621953FC5900600B80 /* MARS.app */;
+			productReference = 04AA34621953FC5900600B80 /* MARA.app */;
 			productType = "com.apple.product-type.application";
 		};
-		04AA347A1953FC5900600B80 /* MARSTests */ = {
+		04AA347A1953FC5900600B80 /* MARATests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 04AA34881953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARSTests" */;
+			buildConfigurationList = 04AA34881953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARATests" */;
 			buildPhases = (
 				04AA34771953FC5900600B80 /* Sources */,
 				04AA34781953FC5900600B80 /* Frameworks */,
@@ -282,9 +282,9 @@
 			dependencies = (
 				04AA347D1953FC5900600B80 /* PBXTargetDependency */,
 			);
-			name = MARSTests;
+			name = MARATests;
 			productName = TagRTests;
-			productReference = 04AA347B1953FC5900600B80 /* MARSTests.xctest */;
+			productReference = 04AA347B1953FC5900600B80 /* MARATests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -299,7 +299,7 @@
 				TargetAttributes = {
 					04AA34611953FC5900600B80 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = F4D836GN25;
+						DevelopmentTeam = 6TTTQT9YB4;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -312,7 +312,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 04AA345D1953FC5900600B80 /* Build configuration list for PBXProject "MARS" */;
+			buildConfigurationList = 04AA345D1953FC5900600B80 /* Build configuration list for PBXProject "MARA" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -325,8 +325,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				04AA34611953FC5900600B80 /* MARS */,
-				04AA347A1953FC5900600B80 /* MARSTests */,
+				04AA34611953FC5900600B80 /* MARA */,
+				04AA347A1953FC5900600B80 /* MARATests */,
 			);
 		};
 /* End PBXProject section */
@@ -397,7 +397,7 @@
 /* Begin PBXTargetDependency section */
 		04AA347D1953FC5900600B80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 04AA34611953FC5900600B80 /* MARS */;
+			target = 04AA34611953FC5900600B80 /* MARA */;
 			targetProxy = 04AA347C1953FC5900600B80 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -492,7 +492,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/arc/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = MARS;
+				PRODUCT_NAME = MARA;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -510,7 +510,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/arc/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = MARS;
+				PRODUCT_NAME = MARA;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -531,7 +531,7 @@
 				INFOPLIST_FILE = TagRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = MARSTests;
+				PRODUCT_NAME = MARATests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
@@ -547,7 +547,7 @@
 				INFOPLIST_FILE = TagRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = MARSTests;
+				PRODUCT_NAME = MARATests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;
@@ -555,7 +555,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		04AA345D1953FC5900600B80 /* Build configuration list for PBXProject "MARS" */ = {
+		04AA345D1953FC5900600B80 /* Build configuration list for PBXProject "MARA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04AA34831953FC5900600B80 /* Debug */,
@@ -564,7 +564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04AA34851953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARS" */ = {
+		04AA34851953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04AA34861953FC5900600B80 /* Debug */,
@@ -573,7 +573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		04AA34881953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARSTests" */ = {
+		04AA34881953FC5900600B80 /* Build configuration list for PBXNativeTarget "MARATests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				04AA34891953FC5900600B80 /* Debug */,
