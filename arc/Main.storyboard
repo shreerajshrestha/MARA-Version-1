@@ -1039,6 +1039,14 @@
                                     <action selector="saveRecordingButtonTapped:" destination="Gi1-z1-tJU" eventType="touchUpInside" id="mfp-01-oEZ"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3LD-u9-Xre" userLabel="Text Field - Save as:">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" enablesReturnKeyAutomatically="YES"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="94" y="327" width="206" height="30"/>
+                                </variation>
+                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vt1-dR-Szx" customClass="FDWaveformView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <gestureRecognizers/>
@@ -1049,14 +1057,6 @@
                                     <outletCollection property="gestureRecognizers" destination="d6A-8O-ypX" appends="YES" id="Zni-dj-XOG"/>
                                 </connections>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3LD-u9-Xre" userLabel="Text Field - Save as:">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" enablesReturnKeyAutomatically="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="94" y="327" width="206" height="30"/>
-                                </variation>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -1069,8 +1069,8 @@
                                 <exclude reference="90x-MR-yPX"/>
                                 <exclude reference="oi8-Tu-t4s"/>
                                 <exclude reference="2pX-dN-nqf"/>
-                                <exclude reference="vt1-dR-Szx"/>
                                 <exclude reference="3LD-u9-Xre"/>
+                                <exclude reference="vt1-dR-Szx"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1083,8 +1083,8 @@
                                 <include reference="90x-MR-yPX"/>
                                 <include reference="oi8-Tu-t4s"/>
                                 <include reference="2pX-dN-nqf"/>
-                                <include reference="vt1-dR-Szx"/>
                                 <include reference="3LD-u9-Xre"/>
+                                <include reference="vt1-dR-Szx"/>
                             </mask>
                         </variation>
                     </view>
@@ -1541,6 +1541,6 @@
         <image name="wmImg.png" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="swN-L0-Fij"/>
+        <segue reference="Dkx-wF-GW6"/>
     </inferredMetricsTieBreakers>
 </document>

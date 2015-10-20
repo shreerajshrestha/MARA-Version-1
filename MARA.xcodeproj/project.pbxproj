@@ -57,6 +57,7 @@
 		041EBE5119551CFC00828F00 /* ACERecorderWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderWindowViewController.m; sourceTree = "<group>"; };
 		041EBE5319553E5700828F00 /* ACECameraWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACECameraWindowViewController.h; sourceTree = "<group>"; };
 		041EBE5419553E5700828F00 /* ACECameraWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACECameraWindowViewController.m; sourceTree = "<group>"; };
+		04239B041B746EA500BB5294 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		042B9DFD196A5A9B003E3F66 /* ACEVideosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEVideosTableViewController.h; sourceTree = "<group>"; };
 		042B9DFE196A5A9B003E3F66 /* ACEVideosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACEVideosTableViewController.m; sourceTree = "<group>"; };
 		042B9E06196A5C05003E3F66 /* ACEImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEImagesTableViewController.h; sourceTree = "<group>"; };
@@ -100,7 +101,6 @@
 		04AA34811953FC5900600B80 /* arcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = arcTests.m; sourceTree = "<group>"; };
 		04AB60C0195D9ACE000050E2 /* ACERecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACERecorderViewController.h; sourceTree = "<group>"; };
 		04AB60C1195D9ACE000050E2 /* ACERecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACERecorderViewController.m; sourceTree = "<group>"; };
-		04D69D7619FD7496001EFA47 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		04D69D7719FD74AB001EFA47 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		04E1E7391A50C474004720D4 /* ACEWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACEWebViewController.h; sourceTree = "<group>"; };
 		ADC7765B7D664A059CB790E8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,7 +188,7 @@
 				04AA34691953FC5900600B80 /* AppDelegate.h */,
 				04AA346A1953FC5900600B80 /* AppDelegate.m */,
 				044B43361980FD85004ABA79 /* Main.storyboard */,
-				04D69D7619FD7496001EFA47 /* Reachability.h */,
+				04239B041B746EA500BB5294 /* Reachability.h */,
 				04D69D7719FD74AB001EFA47 /* Reachability.m */,
 				0453E34B1963CF3B00EB00E1 /* FDWaveformView.h */,
 				0453E34C1963CF3B00EB00E1 /* FDWaveformView.m */,

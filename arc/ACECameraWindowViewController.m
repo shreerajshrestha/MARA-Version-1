@@ -185,7 +185,6 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/MyImages"];
-        
         if (![fileManager fileExistsAtPath:dataPath])
             [fileManager createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
         
